@@ -146,7 +146,7 @@ namespace WGU.AppointmentSystem.Model
                 try
                 {
                     int appointmentId = int.Parse(database.SqlDataReader[0].ToString().Trim());
-                    int customerId = (int)database.SqlDataReader[1];
+                    int customerId = int.Parse(database.SqlDataReader[1].ToString().Trim());
                     int userId = int.Parse(database.SqlDataReader[2].ToString().Trim());
                     string type = database.SqlDataReader[7].ToString().Trim();
                     DateTime startDate = DateTime.Parse(database.SqlDataReader[9].ToString().Trim()).ToLocalTime();
