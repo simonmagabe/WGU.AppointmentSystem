@@ -35,6 +35,8 @@ namespace WGU.AppointmentSystem
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.splitContainerUserRecords = new System.Windows.Forms.SplitContainer();
+            this.comboBoxCountry = new System.Windows.Forms.ComboBox();
+            this.comboBoxCity = new System.Windows.Forms.ComboBox();
             this.lblUserInfoTitle = new System.Windows.Forms.Label();
             this.lblCustomerId = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
@@ -45,11 +47,9 @@ namespace WGU.AppointmentSystem
             this.lblStreet2 = new System.Windows.Forms.Label();
             this.txtCustomerId = new System.Windows.Forms.TextBox();
             this.lblPhone = new System.Windows.Forms.Label();
-            this.txtCountry = new System.Windows.Forms.TextBox();
-            this.txtZip = new System.Windows.Forms.TextBox();
-            this.txtCity = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtZipCode = new System.Windows.Forms.TextBox();
             this.txtStreet = new System.Windows.Forms.TextBox();
+            this.txtStreet2 = new System.Windows.Forms.TextBox();
             this.btnDeleteUser = new System.Windows.Forms.Button();
             this.btnUpdateUser = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -121,6 +121,7 @@ namespace WGU.AppointmentSystem
             this.btnSave.TabIndex = 4;
             this.btnSave.Text = "SAVE";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // splitContainerUserRecords
             // 
@@ -131,6 +132,8 @@ namespace WGU.AppointmentSystem
             // splitContainerUserRecords.Panel1
             // 
             this.splitContainerUserRecords.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.splitContainerUserRecords.Panel1.Controls.Add(this.comboBoxCountry);
+            this.splitContainerUserRecords.Panel1.Controls.Add(this.comboBoxCity);
             this.splitContainerUserRecords.Panel1.Controls.Add(this.lblUserInfoTitle);
             this.splitContainerUserRecords.Panel1.Controls.Add(this.lblCustomerId);
             this.splitContainerUserRecords.Panel1.Controls.Add(this.btnClear);
@@ -144,11 +147,9 @@ namespace WGU.AppointmentSystem
             this.splitContainerUserRecords.Panel1.Controls.Add(this.txtCustomerId);
             this.splitContainerUserRecords.Panel1.Controls.Add(this.lblPhone);
             this.splitContainerUserRecords.Panel1.Controls.Add(this.txtCustomerName);
-            this.splitContainerUserRecords.Panel1.Controls.Add(this.txtCountry);
-            this.splitContainerUserRecords.Panel1.Controls.Add(this.txtZip);
-            this.splitContainerUserRecords.Panel1.Controls.Add(this.txtCity);
-            this.splitContainerUserRecords.Panel1.Controls.Add(this.textBox1);
+            this.splitContainerUserRecords.Panel1.Controls.Add(this.txtZipCode);
             this.splitContainerUserRecords.Panel1.Controls.Add(this.txtStreet);
+            this.splitContainerUserRecords.Panel1.Controls.Add(this.txtStreet2);
             this.splitContainerUserRecords.Panel1.Controls.Add(this.txtPhone);
             // 
             // splitContainerUserRecords.Panel2
@@ -160,6 +161,22 @@ namespace WGU.AppointmentSystem
             this.splitContainerUserRecords.SplitterDistance = 583;
             this.splitContainerUserRecords.TabIndex = 6;
             // 
+            // comboBoxCountry
+            // 
+            this.comboBoxCountry.FormattingEnabled = true;
+            this.comboBoxCountry.Location = new System.Drawing.Point(197, 359);
+            this.comboBoxCountry.Name = "comboBoxCountry";
+            this.comboBoxCountry.Size = new System.Drawing.Size(338, 31);
+            this.comboBoxCountry.TabIndex = 7;
+            // 
+            // comboBoxCity
+            // 
+            this.comboBoxCity.FormattingEnabled = true;
+            this.comboBoxCity.Location = new System.Drawing.Point(197, 276);
+            this.comboBoxCity.Name = "comboBoxCity";
+            this.comboBoxCity.Size = new System.Drawing.Size(338, 31);
+            this.comboBoxCity.TabIndex = 6;
+            // 
             // lblUserInfoTitle
             // 
             this.lblUserInfoTitle.AutoSize = true;
@@ -167,9 +184,9 @@ namespace WGU.AppointmentSystem
             this.lblUserInfoTitle.ForeColor = System.Drawing.Color.GhostWhite;
             this.lblUserInfoTitle.Location = new System.Drawing.Point(209, 9);
             this.lblUserInfoTitle.Name = "lblUserInfoTitle";
-            this.lblUserInfoTitle.Size = new System.Drawing.Size(221, 28);
+            this.lblUserInfoTitle.Size = new System.Drawing.Size(195, 28);
             this.lblUserInfoTitle.TabIndex = 5;
-            this.lblUserInfoTitle.Text = "Customer Information";
+            this.lblUserInfoTitle.Text = "Add New Customer";
             // 
             // lblCustomerId
             // 
@@ -268,60 +285,38 @@ namespace WGU.AppointmentSystem
             this.lblPhone.TabIndex = 1;
             this.lblPhone.Text = "Phone";
             // 
-            // txtCountry
+            // txtZipCode
             // 
-            this.txtCountry.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
-            this.txtCountry.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCountry.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCountry.Location = new System.Drawing.Point(197, 362);
-            this.txtCountry.Multiline = true;
-            this.txtCountry.Name = "txtCountry";
-            this.txtCountry.Size = new System.Drawing.Size(338, 38);
-            this.txtCountry.TabIndex = 2;
-            // 
-            // txtZip
-            // 
-            this.txtZip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
-            this.txtZip.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtZip.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtZip.Location = new System.Drawing.Point(197, 319);
-            this.txtZip.Multiline = true;
-            this.txtZip.Name = "txtZip";
-            this.txtZip.Size = new System.Drawing.Size(338, 38);
-            this.txtZip.TabIndex = 2;
-            // 
-            // txtCity
-            // 
-            this.txtCity.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
-            this.txtCity.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCity.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCity.Location = new System.Drawing.Point(197, 275);
-            this.txtCity.Multiline = true;
-            this.txtCity.Name = "txtCity";
-            this.txtCity.Size = new System.Drawing.Size(338, 38);
-            this.txtCity.TabIndex = 2;
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(197, 188);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(338, 38);
-            this.textBox1.TabIndex = 2;
+            this.txtZipCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
+            this.txtZipCode.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtZipCode.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtZipCode.Location = new System.Drawing.Point(197, 313);
+            this.txtZipCode.Multiline = true;
+            this.txtZipCode.Name = "txtZipCode";
+            this.txtZipCode.Size = new System.Drawing.Size(338, 38);
+            this.txtZipCode.TabIndex = 2;
             // 
             // txtStreet
             // 
             this.txtStreet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtStreet.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtStreet.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStreet.Location = new System.Drawing.Point(197, 232);
+            this.txtStreet.Location = new System.Drawing.Point(197, 188);
             this.txtStreet.Multiline = true;
             this.txtStreet.Name = "txtStreet";
             this.txtStreet.Size = new System.Drawing.Size(338, 38);
             this.txtStreet.TabIndex = 2;
+            // 
+            // txtStreet2
+            // 
+            this.txtStreet2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
+            this.txtStreet2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtStreet2.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStreet2.Location = new System.Drawing.Point(197, 232);
+            this.txtStreet2.Multiline = true;
+            this.txtStreet2.Name = "txtStreet2";
+            this.txtStreet2.Size = new System.Drawing.Size(338, 38);
+            this.txtStreet2.TabIndex = 2;
             // 
             // btnDeleteUser
             // 
@@ -337,6 +332,7 @@ namespace WGU.AppointmentSystem
             this.btnDeleteUser.TabIndex = 4;
             this.btnDeleteUser.Text = "DELETE USER";
             this.btnDeleteUser.UseVisualStyleBackColor = false;
+            this.btnDeleteUser.Click += new System.EventHandler(this.BtnDeleteUser_Click);
             // 
             // btnUpdateUser
             // 
@@ -352,6 +348,7 @@ namespace WGU.AppointmentSystem
             this.btnUpdateUser.TabIndex = 4;
             this.btnUpdateUser.Text = "UPDATE USER";
             this.btnUpdateUser.UseVisualStyleBackColor = false;
+            this.btnUpdateUser.Click += new System.EventHandler(this.BtnUpdateUser_Click);
             // 
             // panel1
             // 
@@ -365,13 +362,21 @@ namespace WGU.AppointmentSystem
             // 
             // dataGridViewCustomers
             // 
+            this.dataGridViewCustomers.AllowUserToAddRows = false;
+            this.dataGridViewCustomers.AllowUserToDeleteRows = false;
+            this.dataGridViewCustomers.AllowUserToResizeColumns = false;
+            this.dataGridViewCustomers.AllowUserToResizeRows = false;
             this.dataGridViewCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCustomers.Location = new System.Drawing.Point(47, 31);
+            this.dataGridViewCustomers.MultiSelect = false;
             this.dataGridViewCustomers.Name = "dataGridViewCustomers";
-            this.dataGridViewCustomers.RowHeadersWidth = 51;
+            this.dataGridViewCustomers.ReadOnly = true;
+            this.dataGridViewCustomers.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewCustomers.RowTemplate.Height = 24;
+            this.dataGridViewCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewCustomers.Size = new System.Drawing.Size(715, 198);
             this.dataGridViewCustomers.TabIndex = 0;
+            this.dataGridViewCustomers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewCustomers_CellClick);
             // 
             // btnExit
             // 
@@ -405,7 +410,7 @@ namespace WGU.AppointmentSystem
             this.btnBackToHome.UseVisualStyleBackColor = false;
             this.btnBackToHome.Click += new System.EventHandler(this.BtnBackToHome_Click);
             // 
-            // FormRegistration
+            // FormCustomerRecords
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -420,7 +425,7 @@ namespace WGU.AppointmentSystem
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(165)))), ((int)(((byte)(169)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FormRegistration";
+            this.Name = "FormCustomerRecords";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmRegistration";
             this.Load += new System.EventHandler(this.FormCustomerRecords_Load);
@@ -449,10 +454,8 @@ namespace WGU.AppointmentSystem
         private System.Windows.Forms.Label lblCity;
         private System.Windows.Forms.Label lblStreet2;
         private System.Windows.Forms.Label lblPhone;
-        private System.Windows.Forms.TextBox txtCountry;
-        private System.Windows.Forms.TextBox txtZip;
-        private System.Windows.Forms.TextBox txtCity;
-        private System.Windows.Forms.TextBox txtStreet;
+        private System.Windows.Forms.TextBox txtZipCode;
+        private System.Windows.Forms.TextBox txtStreet2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Label lblUserInfoTitle;
@@ -464,7 +467,9 @@ namespace WGU.AppointmentSystem
         private System.Windows.Forms.Label lblCustomerId;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtCustomerId;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtStreet;
+        private System.Windows.Forms.ComboBox comboBoxCountry;
+        private System.Windows.Forms.ComboBox comboBoxCity;
     }
 }
 
