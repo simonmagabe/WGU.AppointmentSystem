@@ -29,7 +29,7 @@ namespace WGU.AppointmentSystem.Model
         {
             List<User> users = new List<User>();
 
-            QueryDatabase(allUsersQuery);
+            QueryDataFromDatabase(allUsersQuery);
 
             while (database.SqlDataReader.Read())
             {
@@ -51,7 +51,7 @@ namespace WGU.AppointmentSystem.Model
 
         public static BindingList<Customer> GetCustomers()
         {
-            QueryDatabase(allCustomersQuery);
+            QueryDataFromDatabase(allCustomersQuery);
 
             while (database.SqlDataReader.Read())
             {
@@ -71,9 +71,17 @@ namespace WGU.AppointmentSystem.Model
             return customers;
         }
 
+        public static void DeleteCustomer(Customer customer)
+        {
+            database.SqlConnection.Open();
+            string queryString = $"DELETE FROM customer WHERE customerId = {customer.CUSTOMERID}";
+            ExecuteQueryOnDatabase(queryString);
+            Utility.customers.Remove(customer);
+        }
+
         public static Dictionary<int, Address> GetAddresses()
         {
-            QueryDatabase(allAddressesQuery);
+            QueryDataFromDatabase(allAddressesQuery);
 
             while (database.SqlDataReader.Read())
             {
@@ -95,9 +103,16 @@ namespace WGU.AppointmentSystem.Model
             return addresses;
         }
 
+        public static void DeleteAddress(int addressId)
+        {
+            string queryString = $"DELETE FROM  address WHERE addressId = {addressId}";
+            ExecuteQueryOnDatabase(queryString);
+            Utility.addresses.Remove(addressId);
+        }
+
         public static Dictionary<int, City> GetCities()
         {
-            QueryDatabase(allCitiesQuery);
+            QueryDataFromDatabase(allCitiesQuery);
 
             while (database.SqlDataReader.Read())
             {
@@ -118,7 +133,7 @@ namespace WGU.AppointmentSystem.Model
 
         public static Dictionary<int, Country> GetCountries()
         {
-            QueryDatabase(allCountriesQuery);
+            QueryDataFromDatabase(allCountriesQuery);
 
             while (database.SqlDataReader.Read())
             {
@@ -139,7 +154,7 @@ namespace WGU.AppointmentSystem.Model
         public static BindingList<Appointment> GetAppointments()
         {
             string allAppointmentsQuery = $"SELECT * FROM appointment WHERE userId={FormHomePage.LOGGGED_IN_USER.USERID}";
-            QueryDatabase(allAppointmentsQuery);
+            QueryDataFromDatabase(allAppointmentsQuery);
 
             while (database.SqlDataReader.Read())
             {
@@ -175,11 +190,19 @@ namespace WGU.AppointmentSystem.Model
 
 
         // Helper methods
-        private static void QueryDatabase(string queryString)
+        private static void QueryDataFromDatabase(string queryString)
         {
             database.SqlConnection.Open();
             MySqlCommand mySqlCommand = new MySqlCommand(queryString, database.SqlConnection);
             database.SqlDataReader = mySqlCommand.ExecuteReader();
+        }
+
+        private static void ExecuteQueryOnDatabase(string queryString)
+        {
+            database.SqlConnection.Open();
+            MySqlCommand mySqlCommand = new MySqlCommand(queryString, database.SqlConnection);
+            mySqlCommand.ExecuteNonQuery();
+            database.SqlConnection.Close();
         }
     }
 }
