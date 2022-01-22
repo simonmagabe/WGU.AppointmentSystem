@@ -40,6 +40,7 @@ namespace WGU.AppointmentSystem
             this.lblUserInfoTitle = new System.Windows.Forms.Label();
             this.lblCustomerId = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.lblCountry = new System.Windows.Forms.Label();
             this.lblZip = new System.Windows.Forms.Label();
             this.lblCity = new System.Windows.Forms.Label();
@@ -50,13 +51,14 @@ namespace WGU.AppointmentSystem
             this.txtZipCode = new System.Windows.Forms.TextBox();
             this.txtStreet = new System.Windows.Forms.TextBox();
             this.txtStreet2 = new System.Windows.Forms.TextBox();
-            this.btnDeleteUser = new System.Windows.Forms.Button();
-            this.btnUpdateUser = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.BtnDeleteCustomer = new System.Windows.Forms.Button();
+            this.BtnAddNewCustomer = new System.Windows.Forms.Button();
+            this.BtnUpdateCustomer = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridViewCustomers = new System.Windows.Forms.DataGridView();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnBackToHome = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerUserRecords)).BeginInit();
             this.splitContainerUserRecords.Panel1.SuspendLayout();
             this.splitContainerUserRecords.Panel2.SuspendLayout();
@@ -96,7 +98,7 @@ namespace WGU.AppointmentSystem
             this.txtCustomerName.Name = "txtCustomerName";
             this.txtCustomerName.Size = new System.Drawing.Size(338, 36);
             this.txtCustomerName.TabIndex = 2;
-            this.txtCustomerName.TextChanged += new System.EventHandler(this.txtCustomerName_TextChanged);
+            this.txtCustomerName.TextChanged += new System.EventHandler(this.TxtCustomerName_TextChanged);
             // 
             // txtPhone
             // 
@@ -108,7 +110,7 @@ namespace WGU.AppointmentSystem
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(338, 38);
             this.txtPhone.TabIndex = 2;
-            this.txtPhone.TextChanged += new System.EventHandler(this.txtPhone_TextChanged);
+            this.txtPhone.TextChanged += new System.EventHandler(this.TxtPhone_TextChanged);
             // 
             // btnSave
             // 
@@ -159,8 +161,10 @@ namespace WGU.AppointmentSystem
             // splitContainerUserRecords.Panel2
             // 
             this.splitContainerUserRecords.Panel2.BackColor = System.Drawing.Color.Lavender;
-            this.splitContainerUserRecords.Panel2.Controls.Add(this.btnDeleteUser);
-            this.splitContainerUserRecords.Panel2.Controls.Add(this.btnUpdateUser);
+            this.splitContainerUserRecords.Panel2.Controls.Add(this.comboBox1);
+            this.splitContainerUserRecords.Panel2.Controls.Add(this.BtnDeleteCustomer);
+            this.splitContainerUserRecords.Panel2.Controls.Add(this.BtnAddNewCustomer);
+            this.splitContainerUserRecords.Panel2.Controls.Add(this.BtnUpdateCustomer);
             this.splitContainerUserRecords.Size = new System.Drawing.Size(827, 496);
             this.splitContainerUserRecords.SplitterDistance = 583;
             this.splitContainerUserRecords.TabIndex = 6;
@@ -173,7 +177,7 @@ namespace WGU.AppointmentSystem
             this.comboBoxCountry.Name = "comboBoxCountry";
             this.comboBoxCountry.Size = new System.Drawing.Size(338, 31);
             this.comboBoxCountry.TabIndex = 7;
-            this.comboBoxCountry.SelectedIndexChanged += new System.EventHandler(this.comboBoxCountry_SelectedIndexChanged);
+            this.comboBoxCountry.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCountry_SelectedIndexChanged);
             // 
             // comboBoxCity
             // 
@@ -183,7 +187,7 @@ namespace WGU.AppointmentSystem
             this.comboBoxCity.Name = "comboBoxCity";
             this.comboBoxCity.Size = new System.Drawing.Size(338, 31);
             this.comboBoxCity.TabIndex = 6;
-            this.comboBoxCity.SelectedIndexChanged += new System.EventHandler(this.comboBoxCity_SelectedIndexChanged);
+            this.comboBoxCity.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCity_SelectedIndexChanged);
             // 
             // lblUserInfoTitle
             // 
@@ -221,6 +225,22 @@ namespace WGU.AppointmentSystem
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.BtnClear_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.White;
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
+            this.btnCancel.FlatAppearance.BorderSize = 2;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
+            this.btnCancel.Location = new System.Drawing.Point(144, 430);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(118, 44);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "CANCEL";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // lblCountry
             // 
@@ -276,13 +296,15 @@ namespace WGU.AppointmentSystem
             // 
             this.txtCustomerId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtCustomerId.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCustomerId.Enabled = false;
             this.txtCustomerId.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCustomerId.Location = new System.Drawing.Point(197, 60);
             this.txtCustomerId.Multiline = true;
             this.txtCustomerId.Name = "txtCustomerId";
+            this.txtCustomerId.ReadOnly = true;
             this.txtCustomerId.Size = new System.Drawing.Size(338, 36);
             this.txtCustomerId.TabIndex = 2;
-            this.txtCustomerId.TextChanged += new System.EventHandler(this.txtCustomerId_TextChanged);
+            this.txtCustomerId.TextChanged += new System.EventHandler(this.TxtCustomerId_TextChanged);
             // 
             // lblPhone
             // 
@@ -304,7 +326,7 @@ namespace WGU.AppointmentSystem
             this.txtZipCode.Name = "txtZipCode";
             this.txtZipCode.Size = new System.Drawing.Size(338, 38);
             this.txtZipCode.TabIndex = 2;
-            this.txtZipCode.TextChanged += new System.EventHandler(this.txtZipCode_TextChanged);
+            this.txtZipCode.TextChanged += new System.EventHandler(this.TxtZipCode_TextChanged);
             // 
             // txtStreet
             // 
@@ -316,7 +338,7 @@ namespace WGU.AppointmentSystem
             this.txtStreet.Name = "txtStreet";
             this.txtStreet.Size = new System.Drawing.Size(338, 38);
             this.txtStreet.TabIndex = 2;
-            this.txtStreet.TextChanged += new System.EventHandler(this.txtStreet_TextChanged);
+            this.txtStreet.TextChanged += new System.EventHandler(this.TxtStreet_TextChanged);
             // 
             // txtStreet2
             // 
@@ -329,37 +351,63 @@ namespace WGU.AppointmentSystem
             this.txtStreet2.Size = new System.Drawing.Size(338, 38);
             this.txtStreet2.TabIndex = 2;
             // 
-            // btnDeleteUser
+            // comboBox1
             // 
-            this.btnDeleteUser.BackColor = System.Drawing.Color.Transparent;
-            this.btnDeleteUser.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDeleteUser.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnDeleteUser.FlatAppearance.BorderSize = 2;
-            this.btnDeleteUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnDeleteUser.Location = new System.Drawing.Point(24, 232);
-            this.btnDeleteUser.Name = "btnDeleteUser";
-            this.btnDeleteUser.Size = new System.Drawing.Size(176, 44);
-            this.btnDeleteUser.TabIndex = 4;
-            this.btnDeleteUser.Text = "DELETE USER";
-            this.btnDeleteUser.UseVisualStyleBackColor = false;
-            this.btnDeleteUser.Click += new System.EventHandler(this.BtnDeleteUser_Click);
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(-390, 324);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(338, 31);
+            this.comboBox1.TabIndex = 7;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCountry_SelectedIndexChanged);
             // 
-            // btnUpdateUser
+            // BtnDeleteCustomer
             // 
-            this.btnUpdateUser.BackColor = System.Drawing.Color.White;
-            this.btnUpdateUser.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUpdateUser.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnUpdateUser.FlatAppearance.BorderSize = 2;
-            this.btnUpdateUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdateUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnUpdateUser.Location = new System.Drawing.Point(24, 149);
-            this.btnUpdateUser.Name = "btnUpdateUser";
-            this.btnUpdateUser.Size = new System.Drawing.Size(176, 44);
-            this.btnUpdateUser.TabIndex = 4;
-            this.btnUpdateUser.Text = "UPDATE USER";
-            this.btnUpdateUser.UseVisualStyleBackColor = false;
-            this.btnUpdateUser.Click += new System.EventHandler(this.BtnUpdateUser_Click);
+            this.BtnDeleteCustomer.BackColor = System.Drawing.Color.Transparent;
+            this.BtnDeleteCustomer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnDeleteCustomer.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
+            this.BtnDeleteCustomer.FlatAppearance.BorderSize = 2;
+            this.BtnDeleteCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDeleteCustomer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.BtnDeleteCustomer.Location = new System.Drawing.Point(24, 232);
+            this.BtnDeleteCustomer.Name = "BtnDeleteCustomer";
+            this.BtnDeleteCustomer.Size = new System.Drawing.Size(195, 44);
+            this.BtnDeleteCustomer.TabIndex = 4;
+            this.BtnDeleteCustomer.Text = "DELETE CUSTOMER";
+            this.BtnDeleteCustomer.UseVisualStyleBackColor = false;
+            this.BtnDeleteCustomer.Click += new System.EventHandler(this.BtnDeleteCustomer_Click);
+            // 
+            // BtnAddNewCustomer
+            // 
+            this.BtnAddNewCustomer.BackColor = System.Drawing.Color.White;
+            this.BtnAddNewCustomer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnAddNewCustomer.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
+            this.BtnAddNewCustomer.FlatAppearance.BorderSize = 2;
+            this.BtnAddNewCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAddNewCustomer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
+            this.BtnAddNewCustomer.Location = new System.Drawing.Point(24, 65);
+            this.BtnAddNewCustomer.Name = "BtnAddNewCustomer";
+            this.BtnAddNewCustomer.Size = new System.Drawing.Size(195, 44);
+            this.BtnAddNewCustomer.TabIndex = 4;
+            this.BtnAddNewCustomer.Text = "ADD NEW CUSTOMER";
+            this.BtnAddNewCustomer.UseVisualStyleBackColor = false;
+            this.BtnAddNewCustomer.Click += new System.EventHandler(this.BtnAddNewCustomer_Click);
+            // 
+            // BtnUpdateCustomer
+            // 
+            this.BtnUpdateCustomer.BackColor = System.Drawing.Color.White;
+            this.BtnUpdateCustomer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnUpdateCustomer.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
+            this.BtnUpdateCustomer.FlatAppearance.BorderSize = 2;
+            this.BtnUpdateCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnUpdateCustomer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
+            this.BtnUpdateCustomer.Location = new System.Drawing.Point(24, 149);
+            this.BtnUpdateCustomer.Name = "BtnUpdateCustomer";
+            this.BtnUpdateCustomer.Size = new System.Drawing.Size(195, 44);
+            this.BtnUpdateCustomer.TabIndex = 4;
+            this.BtnUpdateCustomer.Text = "UPDATE CUSTOMER";
+            this.BtnUpdateCustomer.UseVisualStyleBackColor = false;
+            this.BtnUpdateCustomer.Click += new System.EventHandler(this.BtnUpdateCustomer_Click);
             // 
             // panel1
             // 
@@ -378,14 +426,14 @@ namespace WGU.AppointmentSystem
             this.dataGridViewCustomers.AllowUserToResizeColumns = false;
             this.dataGridViewCustomers.AllowUserToResizeRows = false;
             this.dataGridViewCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCustomers.Location = new System.Drawing.Point(47, 31);
+            this.dataGridViewCustomers.Location = new System.Drawing.Point(22, 25);
             this.dataGridViewCustomers.MultiSelect = false;
             this.dataGridViewCustomers.Name = "dataGridViewCustomers";
             this.dataGridViewCustomers.ReadOnly = true;
             this.dataGridViewCustomers.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewCustomers.RowTemplate.Height = 24;
             this.dataGridViewCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCustomers.Size = new System.Drawing.Size(715, 198);
+            this.dataGridViewCustomers.Size = new System.Drawing.Size(783, 204);
             this.dataGridViewCustomers.TabIndex = 0;
             this.dataGridViewCustomers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewCustomers_CellClick);
             // 
@@ -420,22 +468,6 @@ namespace WGU.AppointmentSystem
             this.btnBackToHome.Text = "< BACK TO HOME";
             this.btnBackToHome.UseVisualStyleBackColor = false;
             this.btnBackToHome.Click += new System.EventHandler(this.BtnBackToHome_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.BackColor = System.Drawing.Color.White;
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnCancel.FlatAppearance.BorderSize = 2;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnCancel.Location = new System.Drawing.Point(144, 430);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(118, 44);
-            this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "CANCEL";
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // FormCustomerRecords
             // 
@@ -486,8 +518,8 @@ namespace WGU.AppointmentSystem
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Label lblUserInfoTitle;
-        private System.Windows.Forms.Button btnDeleteUser;
-        private System.Windows.Forms.Button btnUpdateUser;
+        private System.Windows.Forms.Button BtnDeleteCustomer;
+        private System.Windows.Forms.Button BtnUpdateCustomer;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnBackToHome;
         private System.Windows.Forms.DataGridView dataGridViewCustomers;
@@ -498,6 +530,8 @@ namespace WGU.AppointmentSystem
         private System.Windows.Forms.ComboBox comboBoxCountry;
         private System.Windows.Forms.ComboBox comboBoxCity;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button BtnAddNewCustomer;
     }
 }
 

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Data;
-using System.Windows.Forms;
-using WGU.AppointmentSystem.ViewModel;
-using WGU.AppointmentSystem.Model;
-using System.Linq;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Windows.Forms;
+using WGU.AppointmentSystem.Model;
+using WGU.AppointmentSystem.ViewModel;
 
 namespace WGU.AppointmentSystem
 {
@@ -14,21 +14,17 @@ namespace WGU.AppointmentSystem
         {
             InitializeComponent();
             dataGridViewCustomers.DataSource = Utility.customers;
-            ToggleSaveBtnStatus();
+            ToggleSaveAndClearBtnStatus(false);
         }
 
-        // Helper Methods
-        private void ToggleSaveBtnStatus()
-        {
-            _ = CustomerInfoComplete() ? btnSave.Enabled = true : btnSave.Enabled = false;
-        }
-
+        #region OnLoad Method
         private void FormCustomerRecords_Load(object sender, EventArgs e)
         {
             ActiveControl = txtCustomerName;
             dataGridViewCustomers.ClearSelection();
+            ToggleCustomerInputsAbility(false);
             btnSave.Visible = true;
-            btnDeleteUser.Visible = true;
+            BtnDeleteCustomer.Visible = true;
             btnCancel.Visible = false;
 
             Dictionary<int, string> cityNamesKeyValues = Utility.cities.ToDictionary(city => city.Key, city => city.Value.CITYNAME);
@@ -42,6 +38,26 @@ namespace WGU.AppointmentSystem
             comboBoxCountry.DisplayMember = "Value";
             comboBoxCountry.ValueMember = "Key";
             comboBoxCountry.SelectedItem = null;
+        }
+        #endregion
+
+
+        #region Helper Methods
+        private void ToggleSaveAndClearBtnStatus(bool status)
+        {
+            btnSave.Enabled = status;
+            btnClear.Enabled = status;
+        }
+
+        private void ToggleCustomerInputsAbility(bool isEnabled)
+        {
+            txtCustomerName.Enabled = isEnabled;
+            txtPhone.Enabled = isEnabled;
+            txtStreet.Enabled = isEnabled;
+            txtStreet2.Enabled = isEnabled;
+            comboBoxCity.Enabled = isEnabled;
+            txtZipCode.Enabled = isEnabled;
+            comboBoxCountry.Enabled = isEnabled;
         }
 
         private bool CustomerInfoComplete()
@@ -92,29 +108,74 @@ namespace WGU.AppointmentSystem
             }
         }
 
-        // Event Handler Methods
+        private void ValidateRequiredTextBoxtField(TextBox textBox, string fieldName)
+        {
+            try
+            {
+                string errorMessage = $"A customer's {fieldName} is required!";
+
+                foreach (Control item in splitContainerUserRecords.Panel1.Controls)
+                {
+                    
+                    if (item is TextBox box && textBox.Name  == box.Name && box.Text == "")
+                    {
+                        MessageBox.Show(errorMessage, "MySQL Connector", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.Message);
+            }
+        }
+
+        private void ValidateRequiredComboBoxField(ComboBox comboBox, string comboBoxFieldName)
+        {
+            try
+            {
+                string errorMessage = $"A customer's {comboBoxFieldName} is required!";
+
+                foreach (Control item in splitContainerUserRecords.Panel1.Controls)
+                {
+                    if (item is ComboBox box && comboBox.Name == box.Name && box.SelectedItem == null)
+                    {
+                        MessageBox.Show(errorMessage, "MySQL Connector", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.Message);
+                MessageBox.Show(exc.Message, "MySQL Connector", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
+
+
+        #region Event Click Handler Methods
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            dataGridViewCustomers.ClearSelection();
-            ClearFields();
+            try
+            {
+                ValidateRequiredTextBoxtField(txtCustomerName, "name");
+                ValidateRequiredTextBoxtField(txtStreet, "street address");
+                ValidateRequiredTextBoxtField(txtPhone, "phone");
+                ValidateRequiredComboBoxField(comboBoxCity, "city");
+                ValidateRequiredTextBoxtField(txtZipCode, "postal code");
+                ValidateRequiredComboBoxField(comboBoxCountry, "country");
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
         private void BtnClear_Click(object sender, EventArgs e)
         {
             ClearFields();
-            btnSave.Visible = true;
-            btnCancel.Visible = false;
             dataGridViewCustomers.ClearSelection();
-        }
-
-        private void BtnUpdateUser_Click(object sender, EventArgs e)
-        {
-            NoRowSelectectedWarning("edit");
-        }
-
-        private void BtnDeleteUser_Click(object sender, EventArgs e)
-        {
-            NoRowSelectectedWarning("delete");
         }
 
         private void BtnExit_Click(object sender, EventArgs e)
@@ -158,9 +219,18 @@ namespace WGU.AppointmentSystem
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
+            ToggleCustomerInputsAbility(false);
+            ToggleSaveAndClearBtnStatus(false);
+            ClearFields();
             btnSave.Visible = true;
+            btnCancel.Visible = false;
+            BtnUpdateCustomer.Visible = true;
+            BtnDeleteCustomer.Visible = true;
+            BtnAddNewCustomer.Visible = true;
+            dataGridViewCustomers.ClearSelection();
+            dataGridViewCustomers.Enabled = true;
         }
 
         private void DataGridViewCustomers_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -169,6 +239,10 @@ namespace WGU.AppointmentSystem
             {
                 btnSave.Visible = false;
                 btnCancel.Visible = true;
+                BtnAddNewCustomer.Visible = false;
+                ToggleCustomerInputsAbility(true);
+                ActiveControl = txtCustomerName;
+                ToggleSaveAndClearBtnStatus(true);
 
                 var selectedRow = dataGridViewCustomers.SelectedRows[0];
                 int selectedCustomerId = int.Parse(selectedRow.Cells[0].Value.ToString().Trim());
@@ -192,39 +266,64 @@ namespace WGU.AppointmentSystem
             }
         }
 
-        private void txtCustomerId_TextChanged(object sender, EventArgs e)
+        private void BtnAddNewCustomer_Click(object sender, EventArgs e)
         {
-            ToggleSaveBtnStatus();
+            ToggleCustomerInputsAbility(true);
+            ToggleSaveAndClearBtnStatus(true);
+            ActiveControl = txtCustomerName;
+            dataGridViewCustomers.Enabled = false;
+            BtnUpdateCustomer.Visible = false;
+            BtnDeleteCustomer.Visible = false;
+            btnCancel.Visible = true;
         }
 
-        private void txtCustomerName_TextChanged(object sender, EventArgs e)
+        private void BtnUpdateCustomer_Click(object sender, EventArgs e)
         {
-            ToggleSaveBtnStatus();
+            NoRowSelectectedWarning("update");
         }
 
-        private void txtPhone_TextChanged(object sender, EventArgs e)
+        private void BtnDeleteCustomer_Click(object sender, EventArgs e)
         {
-            ToggleSaveBtnStatus();
+            NoRowSelectectedWarning("delete");
+        }
+        #endregion
+
+
+        #region Text Change Event Handler Methods
+        private void TxtCustomerId_TextChanged(object sender, EventArgs e)
+        {
+            //ToggleSaveAndClearBtnStatus();
         }
 
-        private void txtStreet_TextChanged(object sender, EventArgs e)
+        private void TxtCustomerName_TextChanged(object sender, EventArgs e)
         {
-            ToggleSaveBtnStatus();
+            //ToggleSaveAndClearBtnStatus();
         }
 
-        private void comboBoxCity_SelectedIndexChanged(object sender, EventArgs e)
+        private void TxtPhone_TextChanged(object sender, EventArgs e)
         {
-            ToggleSaveBtnStatus();
+            //ToggleSaveAndClearBtnStatus();
         }
 
-        private void txtZipCode_TextChanged(object sender, EventArgs e)
+        private void TxtStreet_TextChanged(object sender, EventArgs e)
         {
-            ToggleSaveBtnStatus();
+            //ToggleSaveAndClearBtnStatus();
         }
 
-        private void comboBoxCountry_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxCity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ToggleSaveBtnStatus();
+            //ToggleSaveAndClearBtnStatus();
         }
+
+        private void TxtZipCode_TextChanged(object sender, EventArgs e)
+        {
+            //ToggleSaveAndClearBtnStatus();
+        }
+
+        private void ComboBoxCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //ToggleSaveAndClearBtnStatus();
+        }
+        #endregion
     }
 }
