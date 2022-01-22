@@ -284,7 +284,44 @@ namespace WGU.AppointmentSystem
 
         private void BtnDeleteCustomer_Click(object sender, EventArgs e)
         {
-            NoRowSelectectedWarning("delete");
+            try
+            {
+                NoRowSelectectedWarning("delete");
+
+                bool cutomerHasScheduledAppointments = false;
+                DataGridViewRow selectedDataGridRow = dataGridViewCustomers.SelectedRows[0];
+                int selectedCustomerId = int.Parse(selectedDataGridRow.Cells[0].Value.ToString().Trim());
+                string dialogErrorMessage = "Are you sure you want to delete selected record?";
+                string dialogTitle = "Confirm Deletion";
+                DialogResult dialogResult = MessageBox.Show(dialogErrorMessage, dialogTitle, MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    foreach (var item in Utility.appointments)
+                    {
+                        _ = item.CUSTOMERID == selectedCustomerId ? cutomerHasScheduledAppointments = true : cutomerHasScheduledAppointments = false;
+                    }
+
+                    if (cutomerHasScheduledAppointments)
+                    {
+                        string errorMessage = "A customer with scheduled appointment(s) cannot be deleted!";
+                        string title = "Confirm Deletion";
+                        _ = MessageBox.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                    Customer selectedCustomer = Utility.customers.Where(customer => customer.CUSTOMERID == selectedCustomerId).Single();
+                    Utility.DeleteCustomer(selectedCustomer);
+                    ClearFields();
+                } else
+                {
+                    dataGridViewCustomers.ClearSelection();
+                    ClearFields();
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
         #endregion
 
