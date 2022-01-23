@@ -29,9 +29,9 @@ namespace WGU.AppointmentSystem
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewAppointments = new System.Windows.Forms.DataGridView();
             this.BtnEditAppointment = new System.Windows.Forms.Button();
             this.BtnNewAppointment = new System.Windows.Forms.Button();
@@ -41,7 +41,7 @@ namespace WGU.AppointmentSystem
             this.btnBackToHome = new System.Windows.Forms.Button();
             this.btnExitApp = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxApptType = new System.Windows.Forms.ComboBox();
             this.BtnSearchAppointment = new System.Windows.Forms.Button();
             this.DateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.DateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
@@ -52,6 +52,7 @@ namespace WGU.AppointmentSystem
             this.RadioBtnAppointmentType = new System.Windows.Forms.RadioButton();
             this.RadioBtnCustomerId = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblAppointmentTableTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAppointments)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -60,43 +61,45 @@ namespace WGU.AppointmentSystem
             // 
             this.dataGridViewAppointments.BackgroundColor = System.Drawing.Color.LightSteelBlue;
             this.dataGridViewAppointments.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAppointments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAppointments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewAppointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewAppointments.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dataGridViewAppointments.Location = new System.Drawing.Point(53, 395);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewAppointments.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewAppointments.Location = new System.Drawing.Point(53, 460);
+            this.dataGridViewAppointments.MultiSelect = false;
             this.dataGridViewAppointments.Name = "dataGridViewAppointments";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAppointments.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAppointments.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewAppointments.RowHeadersWidth = 51;
             this.dataGridViewAppointments.RowTemplate.Height = 24;
-            this.dataGridViewAppointments.Size = new System.Drawing.Size(937, 250);
+            this.dataGridViewAppointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewAppointments.Size = new System.Drawing.Size(937, 226);
             this.dataGridViewAppointments.TabIndex = 0;
             // 
             // BtnEditAppointment
             // 
             this.BtnEditAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnEditAppointment.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEditAppointment.Location = new System.Drawing.Point(474, 661);
+            this.BtnEditAppointment.Location = new System.Drawing.Point(448, 707);
             this.BtnEditAppointment.Name = "BtnEditAppointment";
             this.BtnEditAppointment.Size = new System.Drawing.Size(97, 45);
             this.BtnEditAppointment.TabIndex = 2;
@@ -107,7 +110,7 @@ namespace WGU.AppointmentSystem
             // 
             this.BtnNewAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnNewAppointment.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnNewAppointment.Location = new System.Drawing.Point(328, 661);
+            this.BtnNewAppointment.Location = new System.Drawing.Point(302, 707);
             this.BtnNewAppointment.Name = "BtnNewAppointment";
             this.BtnNewAppointment.Size = new System.Drawing.Size(121, 45);
             this.BtnNewAppointment.TabIndex = 1;
@@ -118,7 +121,7 @@ namespace WGU.AppointmentSystem
             // 
             this.BtnDeleteAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnDeleteAppointment.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteAppointment.Location = new System.Drawing.Point(591, 661);
+            this.BtnDeleteAppointment.Location = new System.Drawing.Point(565, 707);
             this.BtnDeleteAppointment.Name = "BtnDeleteAppointment";
             this.BtnDeleteAppointment.Size = new System.Drawing.Size(109, 45);
             this.BtnDeleteAppointment.TabIndex = 3;
@@ -139,17 +142,17 @@ namespace WGU.AppointmentSystem
             // 
             this.lblLoggedUser.AutoSize = true;
             this.lblLoggedUser.Font = new System.Drawing.Font("MS UI Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLoggedUser.Location = new System.Drawing.Point(873, 28);
+            this.lblLoggedUser.Location = new System.Drawing.Point(766, 28);
             this.lblLoggedUser.Name = "lblLoggedUser";
-            this.lblLoggedUser.Size = new System.Drawing.Size(121, 19);
+            this.lblLoggedUser.Size = new System.Drawing.Size(126, 19);
             this.lblLoggedUser.TabIndex = 2;
-            this.lblLoggedUser.Text = "Logged User";
+            this.lblLoggedUser.Text = "Logged User:";
             // 
             // btnBackToHome
             // 
             this.btnBackToHome.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBackToHome.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.btnBackToHome.Location = new System.Drawing.Point(770, 742);
+            this.btnBackToHome.Location = new System.Drawing.Point(770, 785);
             this.btnBackToHome.Name = "btnBackToHome";
             this.btnBackToHome.Size = new System.Drawing.Size(220, 51);
             this.btnBackToHome.TabIndex = 2;
@@ -161,7 +164,7 @@ namespace WGU.AppointmentSystem
             // 
             this.btnExitApp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExitApp.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.btnExitApp.Location = new System.Drawing.Point(53, 742);
+            this.btnExitApp.Location = new System.Drawing.Point(53, 785);
             this.btnExitApp.Name = "btnExitApp";
             this.btnExitApp.Size = new System.Drawing.Size(147, 51);
             this.btnExitApp.TabIndex = 1;
@@ -173,7 +176,7 @@ namespace WGU.AppointmentSystem
             // 
             this.panel1.BackColor = System.Drawing.Color.Lavender;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.comboBoxApptType);
             this.panel1.Controls.Add(this.BtnSearchAppointment);
             this.panel1.Controls.Add(this.DateTimePickerStartDate);
             this.panel1.Controls.Add(this.DateTimePickerEndDate);
@@ -190,19 +193,21 @@ namespace WGU.AppointmentSystem
             this.panel1.Size = new System.Drawing.Size(937, 299);
             this.panel1.TabIndex = 5;
             // 
-            // comboBox1
+            // comboBoxApptType
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Scrum",
-            "Presentation",
+            this.comboBoxApptType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxApptType.FormattingEnabled = true;
+            this.comboBoxApptType.Items.AddRange(new object[] {
+            "Consultation",
             "Lunch",
             "Interview",
-            "Consultation"});
-            this.comboBox1.Location = new System.Drawing.Point(206, 125);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(189, 26);
-            this.comboBox1.TabIndex = 1;
+            "Presentation",
+            "Scrum",
+            ""});
+            this.comboBoxApptType.Location = new System.Drawing.Point(206, 125);
+            this.comboBoxApptType.Name = "comboBoxApptType";
+            this.comboBoxApptType.Size = new System.Drawing.Size(189, 26);
+            this.comboBoxApptType.TabIndex = 1;
             // 
             // BtnSearchAppointment
             // 
@@ -216,6 +221,7 @@ namespace WGU.AppointmentSystem
             this.BtnSearchAppointment.TabIndex = 3;
             this.BtnSearchAppointment.Text = "SEARCH";
             this.BtnSearchAppointment.UseVisualStyleBackColor = false;
+            this.BtnSearchAppointment.Click += new System.EventHandler(this.BtnSearchAppointment_Click);
             // 
             // DateTimePickerStartDate
             // 
@@ -223,6 +229,7 @@ namespace WGU.AppointmentSystem
             this.DateTimePickerStartDate.Name = "DateTimePickerStartDate";
             this.DateTimePickerStartDate.Size = new System.Drawing.Size(342, 26);
             this.DateTimePickerStartDate.TabIndex = 1;
+            this.DateTimePickerStartDate.ValueChanged += new System.EventHandler(this.DateTimePickerStartDate_ValueChanged);
             // 
             // DateTimePickerEndDate
             // 
@@ -231,13 +238,14 @@ namespace WGU.AppointmentSystem
             this.DateTimePickerEndDate.Size = new System.Drawing.Size(342, 26);
             this.DateTimePickerEndDate.TabIndex = 2;
             this.DateTimePickerEndDate.Value = new System.DateTime(2021, 12, 24, 0, 0, 0, 0);
+            this.DateTimePickerEndDate.ValueChanged += new System.EventHandler(this.DateTimePickerEndDate_ValueChanged);
             // 
             // lblStartDate
             // 
             this.lblStartDate.AutoSize = true;
             this.lblStartDate.Location = new System.Drawing.Point(436, 125);
             this.lblStartDate.Name = "lblStartDate";
-            this.lblStartDate.Size = new System.Drawing.Size(123, 24);
+            this.lblStartDate.Size = new System.Drawing.Size(98, 19);
             this.lblStartDate.TabIndex = 0;
             this.lblStartDate.Text = "Start Date:";
             // 
@@ -246,7 +254,7 @@ namespace WGU.AppointmentSystem
             this.lblEndDate.AutoSize = true;
             this.lblEndDate.Location = new System.Drawing.Point(434, 167);
             this.lblEndDate.Name = "lblEndDate";
-            this.lblEndDate.Size = new System.Drawing.Size(109, 24);
+            this.lblEndDate.Size = new System.Drawing.Size(87, 19);
             this.lblEndDate.TabIndex = 0;
             this.lblEndDate.Text = "End Date:";
             // 
@@ -254,7 +262,7 @@ namespace WGU.AppointmentSystem
             // 
             this.txtboxCustomerId.Location = new System.Drawing.Point(32, 125);
             this.txtboxCustomerId.Name = "txtboxCustomerId";
-            this.txtboxCustomerId.Size = new System.Drawing.Size(163, 33);
+            this.txtboxCustomerId.Size = new System.Drawing.Size(163, 26);
             this.txtboxCustomerId.TabIndex = 1;
             // 
             // RadioBtnDates
@@ -265,9 +273,9 @@ namespace WGU.AppointmentSystem
             this.RadioBtnDates.Name = "RadioBtnDates";
             this.RadioBtnDates.Size = new System.Drawing.Size(77, 23);
             this.RadioBtnDates.TabIndex = 3;
-            this.RadioBtnDates.TabStop = true;
             this.RadioBtnDates.Text = "Dates";
             this.RadioBtnDates.UseVisualStyleBackColor = true;
+            this.RadioBtnDates.CheckedChanged += new System.EventHandler(this.RadioBtnDates_CheckedChanged);
             // 
             // RadioBtnAppointmentType
             // 
@@ -277,9 +285,9 @@ namespace WGU.AppointmentSystem
             this.RadioBtnAppointmentType.Name = "RadioBtnAppointmentType";
             this.RadioBtnAppointmentType.Size = new System.Drawing.Size(177, 23);
             this.RadioBtnAppointmentType.TabIndex = 2;
-            this.RadioBtnAppointmentType.TabStop = true;
             this.RadioBtnAppointmentType.Text = "Appointment Type";
             this.RadioBtnAppointmentType.UseVisualStyleBackColor = true;
+            this.RadioBtnAppointmentType.CheckedChanged += new System.EventHandler(this.RadioBtnAppointmentType_CheckedChanged);
             // 
             // RadioBtnCustomerId
             // 
@@ -289,9 +297,9 @@ namespace WGU.AppointmentSystem
             this.RadioBtnCustomerId.Name = "RadioBtnCustomerId";
             this.RadioBtnCustomerId.Size = new System.Drawing.Size(133, 23);
             this.RadioBtnCustomerId.TabIndex = 1;
-            this.RadioBtnCustomerId.TabStop = true;
             this.RadioBtnCustomerId.Text = "Customer ID";
             this.RadioBtnCustomerId.UseVisualStyleBackColor = true;
+            this.RadioBtnCustomerId.CheckedChanged += new System.EventHandler(this.RadioBtnCustomerId_CheckedChanged);
             // 
             // label1
             // 
@@ -303,12 +311,23 @@ namespace WGU.AppointmentSystem
             this.label1.TabIndex = 0;
             this.label1.Text = "Search for an Appointment";
             // 
+            // lblAppointmentTableTitle
+            // 
+            this.lblAppointmentTableTitle.AutoSize = true;
+            this.lblAppointmentTableTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.lblAppointmentTableTitle.Location = new System.Drawing.Point(49, 413);
+            this.lblAppointmentTableTitle.Name = "lblAppointmentTableTitle";
+            this.lblAppointmentTableTitle.Size = new System.Drawing.Size(427, 24);
+            this.lblAppointmentTableTitle.TabIndex = 6;
+            this.lblAppointmentTableTitle.Text = "This will display the Title of the Appointment Table";
+            // 
             // FormAppointmentDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
-            this.ClientSize = new System.Drawing.Size(1034, 813);
+            this.ClientSize = new System.Drawing.Size(1034, 851);
+            this.Controls.Add(this.lblAppointmentTableTitle);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnExitApp);
             this.Controls.Add(this.btnBackToHome);
@@ -319,7 +338,9 @@ namespace WGU.AppointmentSystem
             this.Controls.Add(this.BtnEditAppointment);
             this.Controls.Add(this.dataGridViewAppointments);
             this.Name = "FormAppointmentDashboard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormAppointmentDashboard";
+            this.Load += new System.EventHandler(this.FormAppointmentDashboard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAppointments)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -339,7 +360,7 @@ namespace WGU.AppointmentSystem
         private System.Windows.Forms.Button btnBackToHome;
         private System.Windows.Forms.Button btnExitApp;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxApptType;
         private System.Windows.Forms.Button BtnSearchAppointment;
         private System.Windows.Forms.DateTimePicker DateTimePickerStartDate;
         private System.Windows.Forms.DateTimePicker DateTimePickerEndDate;
@@ -350,5 +371,6 @@ namespace WGU.AppointmentSystem
         private System.Windows.Forms.RadioButton RadioBtnAppointmentType;
         private System.Windows.Forms.RadioButton RadioBtnCustomerId;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblAppointmentTableTitle;
     }
 }
