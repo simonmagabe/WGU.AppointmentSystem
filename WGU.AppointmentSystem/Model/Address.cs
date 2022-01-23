@@ -14,10 +14,15 @@ namespace WGU.AppointmentSystem.Model
         public string CREATEDBY { get; set; }
         public DateTime LASTUPDATED { get; set; }
         public string LASTUPDATEDBY { get; set; }
+        private static int count = 0;
 
         public Address(int addressId, string street1, string street2, int cityId, string zipCode, string phone, DateTime createdDate, string createdBy, DateTime lastUpdated, string lastUpdatedBy)
         {
             ADDRESSID = addressId;
+            if (addressId > count)
+            {
+                count = addressId;
+            }
             STREET1 = street1;
             STREET2 = street2;
             CITYID = cityId;
@@ -31,6 +36,8 @@ namespace WGU.AppointmentSystem.Model
 
         public Address(string street1, string street2, int cityId, string zipCode, string phone, DateTime createdDate, string createdBy, DateTime lastUpdated, string lastUpdatedBy)
         {
+            count++;
+            ADDRESSID = count;
             STREET1 = street1;
             STREET2 = street2;
             CITYID = cityId;

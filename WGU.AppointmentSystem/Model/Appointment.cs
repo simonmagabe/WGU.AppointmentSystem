@@ -14,10 +14,15 @@ namespace WGU.AppointmentSystem.Model
         public string CREATEDBY { get; set; }
         public DateTime LASTUPDATED { get; set; }
         public string LASTUPDATEDBY { get; set; }
+        private static int count = 0;
 
         public Appointment(int appointmentId, int customerId, int userId, string type, DateTime start, DateTime end, DateTime createddate, string createdby, DateTime lastUpdated, string lastUpdatedBy)
         {
             APPOINTMENTID = appointmentId;
+            if (appointmentId > count)
+            {
+                count = appointmentId;
+            }
             CUSTOMERID = customerId;
             USERID = userId;
             TYPE = type;

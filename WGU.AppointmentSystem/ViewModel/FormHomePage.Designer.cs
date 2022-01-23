@@ -212,6 +212,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormHomePage";
             this.Load += new System.EventHandler(this.FormHomePage_Load);
+            this.Shown += new System.EventHandler(this.FormHomePage_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panelFeatures.ResumeLayout(false);
