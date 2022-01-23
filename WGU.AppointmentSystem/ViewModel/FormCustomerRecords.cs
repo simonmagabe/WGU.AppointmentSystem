@@ -23,7 +23,8 @@ namespace WGU.AppointmentSystem
             ActiveControl = txtCustomerName;
             dataGridViewCustomers.ClearSelection();
             ToggleCustomerInputsAbility(false);
-            btnSave.Visible = true;
+            btnSave.Visible = false;
+            btnClear.Visible = false;
             BtnDeleteCustomer.Visible = true;
             btnCancel.Visible = false;
 
@@ -60,19 +61,6 @@ namespace WGU.AppointmentSystem
             comboBoxCountry.Enabled = isEnabled;
         }
 
-        private bool CustomerInfoComplete()
-        {
-            bool infoComplete =  txtCustomerName.Text != "" && 
-            txtCustomerId.Text != "" &&
-            txtPhone.Text != "" &&
-            txtStreet.Text != "" &&
-            txtZipCode.Text != "" &&
-            comboBoxCity.Text != "" &&
-            comboBoxCountry.Text != "";
-
-            return infoComplete;
-        }
-
         public void ClearFields()
         {
             try
@@ -101,32 +89,19 @@ namespace WGU.AppointmentSystem
         private void NoRowSelectectedWarning(string action)
         {
             int rowCount = dataGridViewCustomers.SelectedRows.Count;
+            string warningMessage = $"Please, select a record below to {action}!";
 
             if (rowCount < 1)
             {
-                MessageBox.Show($"Please, select a record below to {action}!", "MySql Connector", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                throw new ApplicationException(warningMessage);
             }
         }
 
         private void ValidateRequiredTextBoxtField(TextBox textBox, string fieldName)
         {
-            try
+            if (textBox.Text == "")
             {
-                string errorMessage = $"A customer's {fieldName} is required!";
-
-                foreach (Control item in splitContainerUserRecords.Panel1.Controls)
-                {
-                    
-                    if (item is TextBox box && textBox.Name  == box.Name && box.Text == "")
-                    {
-                        MessageBox.Show(errorMessage, "MySQL Connector", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                    }
-                }
-            }
-            catch (Exception exc)
-            {
-                Console.WriteLine(exc.Message);
+                throw new ApplicationException($"A customer's {fieldName} is required!");
             }
         }
 
@@ -165,6 +140,51 @@ namespace WGU.AppointmentSystem
                 ValidateRequiredComboBoxField(comboBoxCity, "city");
                 ValidateRequiredTextBoxtField(txtZipCode, "postal code");
                 ValidateRequiredComboBoxField(comboBoxCountry, "country");
+
+                
+                string name = txtCustomerName.Text;
+                string streetAddress1 = txtStreet.Text;
+                string streetAddress2 = txtStreet2.Text;
+                string phone = txtPhone.Text;
+                string zipCode = txtZipCode.Text;
+                int cityId = int.Parse(comboBoxCity.SelectedValue.ToString());
+                int customerId;
+                string signedInUser = FormHomePage.LOGGGED_IN_USER.USERNAME;
+
+                if (txtCustomerId.Text == "")
+                {
+                    int addressId = Utility.AddAddress(streetAddress1, streetAddress2, cityId, zipCode, phone, signedInUser);
+                    customerId = Utility.AddCustomer(name, addressId, signedInUser);
+                    txtCustomerId.Text = customerId.ToString().Trim();
+                }
+                else
+                {
+                    customerId = int.Parse(txtCustomerId.Text);
+                    Customer customerToUpdate = Utility.customers.Where(customer => customer.CUSTOMERID == customerId).Single();
+                    Address customerAddress = Utility.addresses[customerToUpdate.ADDRESSID];
+                    
+                    Utility.UpdateCustomer(customerToUpdate, name, signedInUser);
+                    
+                    Utility.UpdateAddress(customerAddress, streetAddress1, streetAddress2, cityId, zipCode, phone, signedInUser);
+                }
+
+                ToggleCustomerInputsAbility(false);
+                btnCancel.Text = "DONE";
+                btnCancel.Visible = btnCancel.Enabled = true;
+                btnSave.Visible = true;
+                btnClear.Visible = true;
+                btnSave.Enabled = false;
+                btnClear.Enabled = false;
+                BtnAddNewCustomer.Visible = BtnAddNewCustomer.Enabled = false;
+                BtnUpdateCustomer.Text = "CONTINUE UPDATING";
+                BtnUpdateCustomer.Visible = BtnUpdateCustomer.Enabled = true;
+                BtnDeleteCustomer.Visible = BtnDeleteCustomer.Enabled = false;
+
+                dataGridViewCustomers.Rows.Cast<DataGridViewRow>().Where(dataRow => int.Parse(dataRow.Cells[0].Value.ToString().Trim()) == customerId).Single().Selected = true;
+            }
+            catch (ApplicationException appExc)
+            {
+                MessageBox.Show(appExc.Message, "Customer Record Page", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception exc)
             {
@@ -226,9 +246,10 @@ namespace WGU.AppointmentSystem
             ClearFields();
             btnSave.Visible = true;
             btnCancel.Visible = false;
-            BtnUpdateCustomer.Visible = true;
-            BtnDeleteCustomer.Visible = true;
-            BtnAddNewCustomer.Visible = true;
+            BtnAddNewCustomer.Visible = BtnAddNewCustomer.Enabled = true;
+            BtnUpdateCustomer.Text = "UPDATE CUSTOMER";
+            BtnUpdateCustomer.Visible = BtnUpdateCustomer.Enabled = true;
+            BtnDeleteCustomer.Visible = BtnDeleteCustomer.Enabled = true;
             dataGridViewCustomers.ClearSelection();
             dataGridViewCustomers.Enabled = true;
         }
@@ -237,12 +258,11 @@ namespace WGU.AppointmentSystem
         {
             try
             {
-                btnSave.Visible = false;
-                btnCancel.Visible = true;
                 BtnAddNewCustomer.Visible = false;
-                ToggleCustomerInputsAbility(true);
+                btnSave.Visible = false;
+                btnClear.Visible = false;
+                ToggleCustomerInputsAbility(false);
                 ActiveControl = txtCustomerName;
-                ToggleSaveAndClearBtnStatus(true);
 
                 var selectedRow = dataGridViewCustomers.SelectedRows[0];
                 int selectedCustomerId = int.Parse(selectedRow.Cells[0].Value.ToString().Trim());
@@ -279,7 +299,31 @@ namespace WGU.AppointmentSystem
 
         private void BtnUpdateCustomer_Click(object sender, EventArgs e)
         {
-            NoRowSelectectedWarning("update");
+            try
+            {
+                NoRowSelectectedWarning("update");
+
+                ToggleCustomerInputsAbility(true);
+                ToggleSaveAndClearBtnStatus(true);
+                btnSave.Visible = true;
+                btnCancel.Text = "CANCEL";
+                btnClear.Visible = true;
+                btnCancel.Visible = true;
+                BtnDeleteCustomer.Visible = false;
+                BtnUpdateCustomer.Visible = false;
+                dataGridViewCustomers.Enabled = false;
+
+                int countrySelectedKey = int.Parse(comboBoxCountry.SelectedValue.ToString().Trim());
+                var updatedCityName = Utility.cities.Where(city => city.Value.COUNTRYID == countrySelectedKey).
+                    ToDictionary(city => city.Key, city => city.Value.CITYNAME);
+                comboBoxCity.DataSource = new BindingSource(updatedCityName, null);
+                comboBoxCity.DisplayMember = "Value";
+                comboBoxCity.ValueMember = "Key";
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
         private void BtnDeleteCustomer_Click(object sender, EventArgs e)
@@ -288,15 +332,16 @@ namespace WGU.AppointmentSystem
             {
                 NoRowSelectectedWarning("delete");
 
-                bool cutomerHasScheduledAppointments = false;
-                DataGridViewRow selectedDataGridRow = dataGridViewCustomers.SelectedRows[0];
-                int selectedCustomerId = int.Parse(selectedDataGridRow.Cells[0].Value.ToString().Trim());
                 string dialogErrorMessage = "Are you sure you want to delete selected record?";
                 string dialogTitle = "Confirm Deletion";
                 DialogResult dialogResult = MessageBox.Show(dialogErrorMessage, dialogTitle, MessageBoxButtons.YesNo);
 
                 if (dialogResult == DialogResult.Yes)
                 {
+                    bool cutomerHasScheduledAppointments = false;
+                    DataGridViewRow selectedDataGridRow = dataGridViewCustomers.SelectedRows[0];
+                    int selectedCustomerId = int.Parse(selectedDataGridRow.Cells[0].Value.ToString().Trim());
+
                     foreach (var item in Utility.appointments)
                     {
                         _ = item.CUSTOMERID == selectedCustomerId ? cutomerHasScheduledAppointments = true : cutomerHasScheduledAppointments = false;
@@ -318,48 +363,14 @@ namespace WGU.AppointmentSystem
                     ClearFields();
                 }
             }
+            catch (ApplicationException exc)
+            {
+                MessageBox.Show(exc.Message, "Customer Record Page", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }
-        }
-        #endregion
-
-
-        #region Text Change Event Handler Methods
-        private void TxtCustomerId_TextChanged(object sender, EventArgs e)
-        {
-            //ToggleSaveAndClearBtnStatus();
-        }
-
-        private void TxtCustomerName_TextChanged(object sender, EventArgs e)
-        {
-            //ToggleSaveAndClearBtnStatus();
-        }
-
-        private void TxtPhone_TextChanged(object sender, EventArgs e)
-        {
-            //ToggleSaveAndClearBtnStatus();
-        }
-
-        private void TxtStreet_TextChanged(object sender, EventArgs e)
-        {
-            //ToggleSaveAndClearBtnStatus();
-        }
-
-        private void ComboBoxCity_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //ToggleSaveAndClearBtnStatus();
-        }
-
-        private void TxtZipCode_TextChanged(object sender, EventArgs e)
-        {
-            //ToggleSaveAndClearBtnStatus();
-        }
-
-        private void ComboBoxCountry_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //ToggleSaveAndClearBtnStatus();
         }
         #endregion
     }

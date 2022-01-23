@@ -12,10 +12,12 @@ namespace WGU.AppointmentSystem.Model
         public string CREATEDBY { get; set; }
         public DateTime LASTUPDATED { get; set; }
         public string LASTUPDATEDBY { get; set; }
+        private static int count = 0;
 
         public Customer(int customerId, string customerName, int addressId, int active, DateTime createDate, string createdBy, DateTime lastUpdated, string lastUpdateBy)
         {
             CUSTOMERID = customerId;
+            count = customerId;
             CUSTOMERNAME = customerName;
             ADDRESSID = addressId;
             ACTIVE = (byte)active;
@@ -27,6 +29,8 @@ namespace WGU.AppointmentSystem.Model
 
         public Customer(string customerName, int addressId, int active, DateTime createdDate, string createdBy, DateTime lastUpdated, string lastUpdatedBy)
         {
+            count++;
+            CUSTOMERID = count;
             CUSTOMERNAME = customerName;
             ADDRESSID = addressId;
             ACTIVE = (byte)active;

@@ -51,7 +51,6 @@ namespace WGU.AppointmentSystem
             this.txtZipCode = new System.Windows.Forms.TextBox();
             this.txtStreet = new System.Windows.Forms.TextBox();
             this.txtStreet2 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.BtnDeleteCustomer = new System.Windows.Forms.Button();
             this.BtnAddNewCustomer = new System.Windows.Forms.Button();
             this.BtnUpdateCustomer = new System.Windows.Forms.Button();
@@ -98,7 +97,6 @@ namespace WGU.AppointmentSystem
             this.txtCustomerName.Name = "txtCustomerName";
             this.txtCustomerName.Size = new System.Drawing.Size(338, 36);
             this.txtCustomerName.TabIndex = 2;
-            this.txtCustomerName.TextChanged += new System.EventHandler(this.TxtCustomerName_TextChanged);
             // 
             // txtPhone
             // 
@@ -110,7 +108,6 @@ namespace WGU.AppointmentSystem
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(338, 38);
             this.txtPhone.TabIndex = 2;
-            this.txtPhone.TextChanged += new System.EventHandler(this.TxtPhone_TextChanged);
             // 
             // btnSave
             // 
@@ -161,7 +158,6 @@ namespace WGU.AppointmentSystem
             // splitContainerUserRecords.Panel2
             // 
             this.splitContainerUserRecords.Panel2.BackColor = System.Drawing.Color.Lavender;
-            this.splitContainerUserRecords.Panel2.Controls.Add(this.comboBox1);
             this.splitContainerUserRecords.Panel2.Controls.Add(this.BtnDeleteCustomer);
             this.splitContainerUserRecords.Panel2.Controls.Add(this.BtnAddNewCustomer);
             this.splitContainerUserRecords.Panel2.Controls.Add(this.BtnUpdateCustomer);
@@ -177,7 +173,6 @@ namespace WGU.AppointmentSystem
             this.comboBoxCountry.Name = "comboBoxCountry";
             this.comboBoxCountry.Size = new System.Drawing.Size(338, 31);
             this.comboBoxCountry.TabIndex = 7;
-            this.comboBoxCountry.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCountry_SelectedIndexChanged);
             // 
             // comboBoxCity
             // 
@@ -187,7 +182,6 @@ namespace WGU.AppointmentSystem
             this.comboBoxCity.Name = "comboBoxCity";
             this.comboBoxCity.Size = new System.Drawing.Size(338, 31);
             this.comboBoxCity.TabIndex = 6;
-            this.comboBoxCity.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCity_SelectedIndexChanged);
             // 
             // lblUserInfoTitle
             // 
@@ -196,9 +190,9 @@ namespace WGU.AppointmentSystem
             this.lblUserInfoTitle.ForeColor = System.Drawing.Color.GhostWhite;
             this.lblUserInfoTitle.Location = new System.Drawing.Point(209, 9);
             this.lblUserInfoTitle.Name = "lblUserInfoTitle";
-            this.lblUserInfoTitle.Size = new System.Drawing.Size(195, 28);
+            this.lblUserInfoTitle.Size = new System.Drawing.Size(195, 35);
             this.lblUserInfoTitle.TabIndex = 5;
-            this.lblUserInfoTitle.Text = "Add New Customer";
+            this.lblUserInfoTitle.Text = "Customer Form";
             // 
             // lblCustomerId
             // 
@@ -304,7 +298,6 @@ namespace WGU.AppointmentSystem
             this.txtCustomerId.ReadOnly = true;
             this.txtCustomerId.Size = new System.Drawing.Size(338, 36);
             this.txtCustomerId.TabIndex = 2;
-            this.txtCustomerId.TextChanged += new System.EventHandler(this.TxtCustomerId_TextChanged);
             // 
             // lblPhone
             // 
@@ -326,7 +319,6 @@ namespace WGU.AppointmentSystem
             this.txtZipCode.Name = "txtZipCode";
             this.txtZipCode.Size = new System.Drawing.Size(338, 38);
             this.txtZipCode.TabIndex = 2;
-            this.txtZipCode.TextChanged += new System.EventHandler(this.TxtZipCode_TextChanged);
             // 
             // txtStreet
             // 
@@ -338,7 +330,6 @@ namespace WGU.AppointmentSystem
             this.txtStreet.Name = "txtStreet";
             this.txtStreet.Size = new System.Drawing.Size(338, 38);
             this.txtStreet.TabIndex = 2;
-            this.txtStreet.TextChanged += new System.EventHandler(this.TxtStreet_TextChanged);
             // 
             // txtStreet2
             // 
@@ -350,16 +341,6 @@ namespace WGU.AppointmentSystem
             this.txtStreet2.Name = "txtStreet2";
             this.txtStreet2.Size = new System.Drawing.Size(338, 38);
             this.txtStreet2.TabIndex = 2;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(-390, 324);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(338, 31);
-            this.comboBox1.TabIndex = 7;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCountry_SelectedIndexChanged);
             // 
             // BtnDeleteCustomer
             // 

@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace WGU.AppointmentSystem.Model
         public static Dictionary<int, City> cities = new Dictionary<int, City>();
         public static Dictionary<int, Country> countries = new Dictionary<int, Country>();
         public static BindingList<Appointment> appointments = new BindingList<Appointment>();
+
+        public static DateTime currentDateTime = DateTime.Now;
 
         public static string allUsersQuery = "SELECT * FROM user";
         public static string allCustomersQuery = "SELECT * FROM customer";
@@ -71,9 +74,46 @@ namespace WGU.AppointmentSystem.Model
             return customers;
         }
 
+        public static int AddCustomer(string name, int addressId, string user)
+        {
+            int active = 1;
+            Customer newCustomer = new Customer(name, addressId, active, currentDateTime, user, currentDateTime, user);
+
+            string queryString = $"INSERT INTO customer " +
+                                        $"VALUES('{newCustomer.CUSTOMERID}', " +
+                                                $"'{newCustomer.CUSTOMERNAME}', " +
+                                                $"'{newCustomer.ADDRESSID}', " +
+                                                $"'{newCustomer.ACTIVE}', " +
+                                                $"'{newCustomer.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:MM:ss", DateTimeFormatInfo.InvariantInfo)}', " +
+                                                $"'{newCustomer.CREATEDBY}', " +
+                                                $"'{newCustomer.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo)}', " +
+                                                $"'{newCustomer.LASTUPDATEDBY}')";
+
+            ExecuteQueryOnDatabase(queryString);
+            Utility.customers.Add(newCustomer);
+            return newCustomer.CUSTOMERID;
+        }
+
+        public static void UpdateCustomer(Customer customerToUpdate, string customerName, string user)
+        {
+            string currentDate = currentDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
+            string queryString = $"UPDATE customer " +
+                                 $"SET " +
+                                        $"customerName = '{customerName}', " +
+                                        $"lastUpdate = '{currentDate}', " +
+                                        $"lastUpdateBy = '{user}' " +
+                                 $"WHERE customerId = {customerToUpdate.CUSTOMERID};";
+
+            ExecuteQueryOnDatabase(queryString);
+            Customer modifiedCustomer = new Customer(customerToUpdate.CUSTOMERID, customerName, customerToUpdate.ADDRESSID, customerToUpdate.ACTIVE, 
+                customerToUpdate.CREATEDDATE, customerToUpdate.CREATEDBY, currentDateTime, user);
+            int modifiedCustomerIndex = Utility.customers.IndexOf(customerToUpdate);
+            Utility.customers.RemoveAt(modifiedCustomerIndex);
+            Utility.customers.Insert(modifiedCustomerIndex, modifiedCustomer);
+        }
+
         public static void DeleteCustomer(Customer customer)
         {
-            database.SqlConnection.Open();
             string queryString = $"DELETE FROM customer WHERE customerId = {customer.CUSTOMERID}";
             ExecuteQueryOnDatabase(queryString);
             Utility.customers.Remove(customer);
@@ -101,6 +141,45 @@ namespace WGU.AppointmentSystem.Model
 
             database.SqlConnection.Close();
             return addresses;
+        }
+
+        public static int AddAddress(string streetAddress1, string streetAddress2, int cityId, string zipCode, string phone, string username)
+        {
+            var newAddress = new Address(streetAddress1, streetAddress2, cityId, zipCode, phone, currentDateTime, username, currentDateTime, username);
+            string queryString = $"INSERT INTO address " +
+                                        $"VALUES('{newAddress.ADDRESSID}', " +
+                                                $"'{newAddress.STREET1}', " +
+                                                $"'{newAddress.STREET2}', " +
+                                                $"'{newAddress.CITYID}', " +
+                                                $"'{newAddress.ZIPCODE}', " +
+                                                $"'{newAddress.PHONE}', " +
+                                                $"'{newAddress.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:MM:ss", DateTimeFormatInfo.InvariantInfo)}', " +
+                                                $"'{newAddress.CREATEDBY}', " +
+                                                $"'{newAddress.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo)}', " +
+                                                $"'{newAddress.LASTUPDATEDBY}')";
+
+            ExecuteQueryOnDatabase(queryString);
+            Utility.addresses.Add(newAddress.ADDRESSID, newAddress);
+            return newAddress.ADDRESSID;
+        }
+
+        public static void UpdateAddress(Address addressToUpdate, string streetAddress1, string streetAddress2, int cityId, string zipCode, string phone, string user)
+        {
+            string currentDate = currentDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
+            string queryString = $"UPDATE address " +
+                                 $"SET " +
+                                        $"address = '{streetAddress1}', " +
+                                        $"address2 = '{streetAddress2}', " +
+                                        $"cityId = {cityId}, " +
+                                        $"postalCode = '{zipCode}', " +
+                                        $"phone = '{phone}', " +
+                                        $"lastUpdate = '{currentDate}', " +
+                                        $"lastUpdateBy = '{user}' " +
+                                 $"WHERE addressId = {addressToUpdate.ADDRESSID};";
+
+            ExecuteQueryOnDatabase(queryString);
+            Utility.addresses[addressToUpdate.ADDRESSID] = new Address(addressToUpdate.ADDRESSID, streetAddress1, streetAddress2, cityId, zipCode, phone, 
+                addressToUpdate.CREATEDDATE, addressToUpdate.CREATEDBY, currentDateTime, user);
         }
 
         public static void DeleteAddress(int addressId)
