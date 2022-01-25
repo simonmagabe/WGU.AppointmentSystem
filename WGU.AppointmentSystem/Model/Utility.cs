@@ -14,11 +14,11 @@ namespace WGU.AppointmentSystem.Model
     public class Utility
     {
         public static Database database = new Database();
-        public static BindingList<Customer> customers = new BindingList<Customer>();
-        public static Dictionary<int, Address> addresses = new Dictionary<int, Address>();
-        public static Dictionary<int, City> cities = new Dictionary<int, City>();
-        public static Dictionary<int, Country> countries = new Dictionary<int, Country>();
-        public static BindingList<Appointment> appointments = new BindingList<Appointment>();
+        public static BindingList<Customer> CustomersList = new BindingList<Customer>();
+        public static Dictionary<int, Address> AddressesList = new Dictionary<int, Address>();
+        public static Dictionary<int, City> CitiesList = new Dictionary<int, City>();
+        public static Dictionary<int, Country> CountriesList = new Dictionary<int, Country>();
+        public static BindingList<Appointment> AppointmentsList = new BindingList<Appointment>();
 
         public static DateTime currentDateTime = DateTime.Now;
 
@@ -67,11 +67,11 @@ namespace WGU.AppointmentSystem.Model
                 DateTime lastUpdated = DateTime.Parse(database.SqlDataReader[6].ToString().Trim());
                 string lastUpdatedBy = database.SqlDataReader[7].ToString().Trim();
 
-                customers.Add(new Customer(customerId, customerName, addressId, active, createdDate, createdBy, lastUpdated, lastUpdatedBy));
+                CustomersList.Add(new Customer(customerId, customerName, addressId, active, createdDate, createdBy, lastUpdated, lastUpdatedBy));
             }
 
             database.SqlConnection.Close();
-            return customers;
+            return CustomersList;
         }
 
         public static int AddCustomer(string name, int addressId, string user)
@@ -90,7 +90,7 @@ namespace WGU.AppointmentSystem.Model
                                                 $"'{newCustomer.LASTUPDATEDBY}')";
 
             ExecuteQueryOnDatabase(queryString);
-            Utility.customers.Add(newCustomer);
+            CustomersList.Add(newCustomer);
             return newCustomer.CUSTOMERID;
         }
 
@@ -107,16 +107,16 @@ namespace WGU.AppointmentSystem.Model
             ExecuteQueryOnDatabase(queryString);
             Customer modifiedCustomer = new Customer(customerToUpdate.CUSTOMERID, customerName, customerToUpdate.ADDRESSID, customerToUpdate.ACTIVE, 
                 customerToUpdate.CREATEDDATE, customerToUpdate.CREATEDBY, currentDateTime, user);
-            int modifiedCustomerIndex = Utility.customers.IndexOf(customerToUpdate);
-            Utility.customers.RemoveAt(modifiedCustomerIndex);
-            Utility.customers.Insert(modifiedCustomerIndex, modifiedCustomer);
+            int modifiedCustomerIndex = CustomersList.IndexOf(customerToUpdate);
+            CustomersList.RemoveAt(modifiedCustomerIndex);
+            CustomersList.Insert(modifiedCustomerIndex, modifiedCustomer);
         }
 
         public static void DeleteCustomer(Customer customer)
         {
             string queryString = $"DELETE FROM customer WHERE customerId = {customer.CUSTOMERID}";
             ExecuteQueryOnDatabase(queryString);
-            Utility.customers.Remove(customer);
+            CustomersList.Remove(customer);
         }
 
         public static Dictionary<int, Address> GetAddresses()
@@ -136,11 +136,11 @@ namespace WGU.AppointmentSystem.Model
                 DateTime lastUpdated = DateTime.Parse(database.SqlDataReader[8].ToString().Trim());
                 string lastUpdatedBy = database.SqlDataReader[9].ToString().Trim();
 
-                addresses.Add(addressId, new Address(addressId, street1, street2, cityId, postalCode, phone, createdDate, createdBy, lastUpdated, lastUpdatedBy));
+                AddressesList.Add(addressId, new Address(addressId, street1, street2, cityId, postalCode, phone, createdDate, createdBy, lastUpdated, lastUpdatedBy));
             }
 
             database.SqlConnection.Close();
-            return addresses;
+            return AddressesList;
         }
 
         public static int AddAddress(string streetAddress1, string streetAddress2, int cityId, string zipCode, string phone, string username)
@@ -159,7 +159,7 @@ namespace WGU.AppointmentSystem.Model
                                                 $"'{newAddress.LASTUPDATEDBY}')";
 
             ExecuteQueryOnDatabase(queryString);
-            Utility.addresses.Add(newAddress.ADDRESSID, newAddress);
+            AddressesList.Add(newAddress.ADDRESSID, newAddress);
             return newAddress.ADDRESSID;
         }
 
@@ -178,7 +178,7 @@ namespace WGU.AppointmentSystem.Model
                                  $"WHERE addressId = {addressToUpdate.ADDRESSID};";
 
             ExecuteQueryOnDatabase(queryString);
-            Utility.addresses[addressToUpdate.ADDRESSID] = new Address(addressToUpdate.ADDRESSID, streetAddress1, streetAddress2, cityId, zipCode, phone, 
+            AddressesList[addressToUpdate.ADDRESSID] = new Address(addressToUpdate.ADDRESSID, streetAddress1, streetAddress2, cityId, zipCode, phone, 
                 addressToUpdate.CREATEDDATE, addressToUpdate.CREATEDBY, currentDateTime, user);
         }
 
@@ -186,7 +186,7 @@ namespace WGU.AppointmentSystem.Model
         {
             string queryString = $"DELETE FROM  address WHERE addressId = {addressId}";
             ExecuteQueryOnDatabase(queryString);
-            Utility.addresses.Remove(addressId);
+            AddressesList.Remove(addressId);
         }
 
         public static Dictionary<int, City> GetCities()
@@ -203,11 +203,11 @@ namespace WGU.AppointmentSystem.Model
                 DateTime lastUpdated = DateTime.Parse(database.SqlDataReader[5].ToString().Trim());
                 string lastUpdatedBy = database.SqlDataReader[6].ToString().Trim();
 
-                cities.Add(cityId, new City(cityId, cityName, countryId, createdDate, createdBy, lastUpdated, lastUpdatedBy));
+                CitiesList.Add(cityId, new City(cityId, cityName, countryId, createdDate, createdBy, lastUpdated, lastUpdatedBy));
             }
 
             database.SqlConnection.Close();
-            return cities;
+            return CitiesList;
         }
 
         public static Dictionary<int, Country> GetCountries()
@@ -223,11 +223,11 @@ namespace WGU.AppointmentSystem.Model
                 DateTime lastUpdated = DateTime.Parse(database.SqlDataReader[4].ToString().Trim());
                 string lastUpdatedBy = database.SqlDataReader[5].ToString().Trim();
 
-                countries.Add(countryId, new Country(countryId, countryName, createdDate, createdBy, lastUpdated, lastUpdatedBy));
+                CountriesList.Add(countryId, new Country(countryId, countryName, createdDate, createdBy, lastUpdated, lastUpdatedBy));
             }
 
             database.SqlConnection.Close();
-            return countries;
+            return CountriesList;
         }
 
         public static BindingList<Appointment> GetAppointments()
@@ -250,7 +250,7 @@ namespace WGU.AppointmentSystem.Model
                     DateTime lastUpdated = DateTime.Parse(database.SqlDataReader[13].ToString().Trim());
                     string lastUpdatedBy = database.SqlDataReader[14].ToString().Trim();
 
-                    appointments.Add(new Appointment(appointmentId, customerId, userId, type, startDate, endDate, createdDate, createdBy, lastUpdated, lastUpdatedBy));
+                    AppointmentsList.Add(new Appointment(appointmentId, customerId, userId, type, startDate, endDate, createdDate, createdBy, lastUpdated, lastUpdatedBy));
                 }
                 catch (Exception ex)
                 {
@@ -261,9 +261,15 @@ namespace WGU.AppointmentSystem.Model
             }
 
             database.SqlConnection.Close();
-            return appointments;
+            return AppointmentsList;
         }
 
+        public static void DeleteAppointment(Appointment appointment)
+        {
+            string queryString = $"DELETE FROM appointment WHERE appointmentId = {appointment.APPOINTMENTID}";
+            ExecuteQueryOnDatabase(queryString);
+            AppointmentsList.Remove(appointment);
+        }
 
 
 

@@ -30,6 +30,8 @@ namespace WGU.AppointmentSystem.ViewModel
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.ComboBoxAppointmentType = new System.Windows.Forms.ComboBox();
             this.ComboBoxCustomer = new System.Windows.Forms.ComboBox();
             this.txtBoxCustomerId = new System.Windows.Forms.TextBox();
@@ -42,8 +44,6 @@ namespace WGU.AppointmentSystem.ViewModel
             this.BtnCancel = new System.Windows.Forms.Button();
             this.BtnClear = new System.Windows.Forms.Button();
             this.lblNewEditAppointmentTitle = new System.Windows.Forms.Label();
-            this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,10 +69,33 @@ namespace WGU.AppointmentSystem.ViewModel
             this.panel1.Size = new System.Drawing.Size(545, 346);
             this.panel1.TabIndex = 0;
             // 
+            // dateTimePickerEndDate
+            // 
+            this.dateTimePickerEndDate.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(121, 252);
+            this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(372, 24);
+            this.dateTimePickerEndDate.TabIndex = 23;
+            // 
+            // dateTimePickerStartDate
+            // 
+            this.dateTimePickerStartDate.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(121, 200);
+            this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(372, 24);
+            this.dateTimePickerStartDate.TabIndex = 22;
+            // 
             // ComboBoxAppointmentType
             // 
+            this.ComboBoxAppointmentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxAppointmentType.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBoxAppointmentType.FormattingEnabled = true;
+            this.ComboBoxAppointmentType.Items.AddRange(new object[] {
+            "Consultation",
+            "Interview",
+            "Lunch",
+            "Presentation",
+            "Scrum"});
             this.ComboBoxAppointmentType.Location = new System.Drawing.Point(121, 144);
             this.ComboBoxAppointmentType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ComboBoxAppointmentType.Name = "ComboBoxAppointmentType";
@@ -106,7 +129,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.endLabel.Location = new System.Drawing.Point(60, 257);
             this.endLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.endLabel.Name = "endLabel";
-            this.endLabel.Size = new System.Drawing.Size(48, 21);
+            this.endLabel.Size = new System.Drawing.Size(38, 17);
             this.endLabel.TabIndex = 21;
             this.endLabel.Text = "End";
             // 
@@ -116,7 +139,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.startLabel.Location = new System.Drawing.Point(51, 200);
             this.startLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.startLabel.Name = "startLabel";
-            this.startLabel.Size = new System.Drawing.Size(61, 21);
+            this.startLabel.Size = new System.Drawing.Size(49, 17);
             this.startLabel.TabIndex = 20;
             this.startLabel.Text = "Start";
             // 
@@ -126,7 +149,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.typeLabel.Location = new System.Drawing.Point(51, 148);
             this.typeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.typeLabel.Name = "typeLabel";
-            this.typeLabel.Size = new System.Drawing.Size(59, 21);
+            this.typeLabel.Size = new System.Drawing.Size(47, 17);
             this.typeLabel.TabIndex = 19;
             this.typeLabel.Text = "Type";
             // 
@@ -136,7 +159,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.customerLabel.Location = new System.Drawing.Point(23, 95);
             this.customerLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.customerLabel.Name = "customerLabel";
-            this.customerLabel.Size = new System.Drawing.Size(108, 21);
+            this.customerLabel.Size = new System.Drawing.Size(86, 17);
             this.customerLabel.TabIndex = 18;
             this.customerLabel.Text = "Customer";
             // 
@@ -146,13 +169,13 @@ namespace WGU.AppointmentSystem.ViewModel
             this.idLabel.Location = new System.Drawing.Point(76, 40);
             this.idLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.idLabel.Name = "idLabel";
-            this.idLabel.Size = new System.Drawing.Size(31, 21);
+            this.idLabel.Size = new System.Drawing.Size(25, 17);
             this.idLabel.TabIndex = 17;
             this.idLabel.Text = "ID";
             // 
             // BtnSave
             // 
-            this.BtnSave.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSave.BackColor = System.Drawing.Color.Lavender;
             this.BtnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnSave.FlatAppearance.BorderSize = 0;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
@@ -167,7 +190,7 @@ namespace WGU.AppointmentSystem.ViewModel
             // 
             // BtnCancel
             // 
-            this.BtnCancel.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnCancel.BackColor = System.Drawing.Color.Lavender;
             this.BtnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnCancel.FlatAppearance.BorderSize = 0;
             this.BtnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
@@ -182,7 +205,7 @@ namespace WGU.AppointmentSystem.ViewModel
             // 
             // BtnClear
             // 
-            this.BtnClear.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnClear.BackColor = System.Drawing.Color.Lavender;
             this.BtnClear.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnClear.FlatAppearance.BorderSize = 0;
             this.BtnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
@@ -201,25 +224,9 @@ namespace WGU.AppointmentSystem.ViewModel
             this.lblNewEditAppointmentTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.lblNewEditAppointmentTitle.Location = new System.Drawing.Point(241, 30);
             this.lblNewEditAppointmentTitle.Name = "lblNewEditAppointmentTitle";
-            this.lblNewEditAppointmentTitle.Size = new System.Drawing.Size(288, 31);
+            this.lblNewEditAppointmentTitle.Size = new System.Drawing.Size(230, 25);
             this.lblNewEditAppointmentTitle.TabIndex = 4;
             this.lblNewEditAppointmentTitle.Text = "Create New Appointment";
-            // 
-            // dateTimePickerStartDate
-            // 
-            this.dateTimePickerStartDate.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePickerStartDate.Location = new System.Drawing.Point(121, 200);
-            this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(372, 24);
-            this.dateTimePickerStartDate.TabIndex = 22;
-            // 
-            // dateTimePickerEndDate
-            // 
-            this.dateTimePickerEndDate.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePickerEndDate.Location = new System.Drawing.Point(121, 252);
-            this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(372, 24);
-            this.dateTimePickerEndDate.TabIndex = 23;
             // 
             // FormAddEditAppointment
             // 
@@ -237,6 +244,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.Name = "FormAddEditAppointment";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormAddEditAppointment";
+            this.Load += new System.EventHandler(this.FormAddEditAppointment_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

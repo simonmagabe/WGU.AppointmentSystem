@@ -13,7 +13,7 @@ namespace WGU.AppointmentSystem
         public FormCustomerRecords()
         {
             InitializeComponent();
-            dataGridViewCustomers.DataSource = Utility.customers;
+            dataGridViewCustomers.DataSource = Utility.CustomersList;
             ToggleSaveAndClearBtnStatus(false);
         }
 
@@ -28,13 +28,13 @@ namespace WGU.AppointmentSystem
             BtnDeleteCustomer.Visible = true;
             btnCancel.Visible = false;
 
-            Dictionary<int, string> cityNamesKeyValues = Utility.cities.ToDictionary(city => city.Key, city => city.Value.CITYNAME);
+            Dictionary<int, string> cityNamesKeyValues = Utility.CitiesList.ToDictionary(city => city.Key, city => city.Value.CITYNAME);
             comboBoxCity.DataSource = new BindingSource(cityNamesKeyValues, null);
             comboBoxCity.DisplayMember = "Value";
             comboBoxCity.ValueMember = "Key";
             comboBoxCity.SelectedItem = null;
 
-            Dictionary<int, string> countryNameKeyValues = Utility.countries.ToDictionary(country => country.Key, country => country.Value.COUNTRYNAME);
+            Dictionary<int, string> countryNameKeyValues = Utility.CountriesList.ToDictionary(country => country.Key, country => country.Value.COUNTRYNAME);
             comboBoxCountry.DataSource = new BindingSource(countryNameKeyValues, null);
             comboBoxCountry.DisplayMember = "Value";
             comboBoxCountry.ValueMember = "Key";
@@ -160,8 +160,8 @@ namespace WGU.AppointmentSystem
                 else
                 {
                     customerId = int.Parse(txtCustomerId.Text);
-                    Customer customerToUpdate = Utility.customers.Where(customer => customer.CUSTOMERID == customerId).Single();
-                    Address customerAddress = Utility.addresses[customerToUpdate.ADDRESSID];
+                    Customer customerToUpdate = Utility.CustomersList.Where(customer => customer.CUSTOMERID == customerId).Single();
+                    Address customerAddress = Utility.AddressesList[customerToUpdate.ADDRESSID];
                     
                     Utility.UpdateCustomer(customerToUpdate, name, signedInUser);
                     
@@ -266,19 +266,19 @@ namespace WGU.AppointmentSystem
 
                 var selectedRow = dataGridViewCustomers.SelectedRows[0];
                 int selectedCustomerId = int.Parse(selectedRow.Cells[0].Value.ToString().Trim());
-                Customer selectedCustomer = Utility.customers.Where(customer => customer.CUSTOMERID == selectedCustomerId).Single();
+                Customer selectedCustomer = Utility.CustomersList.Where(customer => customer.CUSTOMERID == selectedCustomerId).Single();
                 int selectedCustomerAddressId = int.Parse(selectedCustomer.ADDRESSID.ToString().Trim());
-                int selectedCustomerCityId = Utility.addresses[selectedCustomerAddressId].CITYID;
-                int selectedCustomerCountryId = Utility.cities[selectedCustomerCityId].COUNTRYID;
+                int selectedCustomerCityId = Utility.AddressesList[selectedCustomerAddressId].CITYID;
+                int selectedCustomerCountryId = Utility.CitiesList[selectedCustomerCityId].COUNTRYID;
 
                 txtCustomerId.Text = selectedCustomer.CUSTOMERID.ToString().Trim();
                 txtCustomerName.Text = selectedCustomer.CUSTOMERNAME.ToString().Trim();
-                txtPhone.Text = Utility.addresses[selectedCustomerAddressId].PHONE;
-                txtStreet.Text = Utility.addresses[selectedCustomerAddressId].STREET1;
-                txtStreet2.Text = Utility.addresses[selectedCustomerAddressId].STREET2;
-                comboBoxCity.Text = Utility.cities[selectedCustomerCityId].CITYNAME;
-                txtZipCode.Text = Utility.addresses[selectedCustomerAddressId].ZIPCODE;
-                comboBoxCountry.Text = Utility.countries[selectedCustomerCountryId].COUNTRYNAME;
+                txtPhone.Text = Utility.AddressesList[selectedCustomerAddressId].PHONE;
+                txtStreet.Text = Utility.AddressesList[selectedCustomerAddressId].STREET1;
+                txtStreet2.Text = Utility.AddressesList[selectedCustomerAddressId].STREET2;
+                comboBoxCity.Text = Utility.CitiesList[selectedCustomerCityId].CITYNAME;
+                txtZipCode.Text = Utility.AddressesList[selectedCustomerAddressId].ZIPCODE;
+                comboBoxCountry.Text = Utility.CountriesList[selectedCustomerCountryId].COUNTRYNAME;
             }
             catch (Exception ex)
             {
@@ -314,7 +314,7 @@ namespace WGU.AppointmentSystem
                 dataGridViewCustomers.Enabled = false;
 
                 int countrySelectedKey = int.Parse(comboBoxCountry.SelectedValue.ToString().Trim());
-                var updatedCityName = Utility.cities.Where(city => city.Value.COUNTRYID == countrySelectedKey).
+                var updatedCityName = Utility.CitiesList.Where(city => city.Value.COUNTRYID == countrySelectedKey).
                     ToDictionary(city => city.Key, city => city.Value.CITYNAME);
                 comboBoxCity.DataSource = new BindingSource(updatedCityName, null);
                 comboBoxCity.DisplayMember = "Value";
@@ -342,7 +342,7 @@ namespace WGU.AppointmentSystem
                     DataGridViewRow selectedDataGridRow = dataGridViewCustomers.SelectedRows[0];
                     int selectedCustomerId = int.Parse(selectedDataGridRow.Cells[0].Value.ToString().Trim());
 
-                    foreach (var item in Utility.appointments)
+                    foreach (var item in Utility.AppointmentsList)
                     {
                         _ = item.CUSTOMERID == selectedCustomerId ? cutomerHasScheduledAppointments = true : cutomerHasScheduledAppointments = false;
                     }
@@ -354,7 +354,7 @@ namespace WGU.AppointmentSystem
                         _ = MessageBox.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
-                    Customer selectedCustomer = Utility.customers.Where(customer => customer.CUSTOMERID == selectedCustomerId).Single();
+                    Customer selectedCustomer = Utility.CustomersList.Where(customer => customer.CUSTOMERID == selectedCustomerId).Single();
                     Utility.DeleteCustomer(selectedCustomer);
                     ClearFields();
                 } else
