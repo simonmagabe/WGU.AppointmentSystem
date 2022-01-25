@@ -50,7 +50,7 @@ namespace WGU.AppointmentSystem.ViewModel
 
         private void FormHomePage_Shown(object sender, System.EventArgs e)
         {
-            var appointmentDueInFifteenMinutes = Utility.appointments.Where(appointment =>
+            var appointmentDueInFifteenMinutes = Utility.AppointmentsList.Where(appointment =>
             {
                 DateTime currentDateTime = DateTime.Now;
                 TimeSpan minutesToAppointmentTime = new TimeSpan(0, 15, 0);
@@ -66,7 +66,7 @@ namespace WGU.AppointmentSystem.ViewModel
             {
                 Appointment appointmentDue = appointmentDueInFifteenMinutes.First();
                 string dueAppointmentMsgBoxTitle = "Upcoming Appointment";
-                MessageBox.Show($"Upcoming Appointment: {Utility.customers.Where(customer => customer.CUSTOMERID == appointmentDue.CUSTOMERID).Single().CUSTOMERNAME} at " +
+                MessageBox.Show($"Upcoming Appointment: {Utility.CustomersList.Where(customer => customer.CUSTOMERID == appointmentDue.CUSTOMERID).Single().CUSTOMERNAME} at " +
                     $"{appointmentDue.STARTDATE.ToString("hh:mm tt")}.", dueAppointmentMsgBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

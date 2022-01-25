@@ -59,6 +59,10 @@ namespace WGU.AppointmentSystem
             // 
             // dataGridViewAppointments
             // 
+            this.dataGridViewAppointments.AllowUserToAddRows = false;
+            this.dataGridViewAppointments.AllowUserToDeleteRows = false;
+            this.dataGridViewAppointments.AllowUserToResizeColumns = false;
+            this.dataGridViewAppointments.AllowUserToResizeRows = false;
             this.dataGridViewAppointments.BackgroundColor = System.Drawing.Color.LightSteelBlue;
             this.dataGridViewAppointments.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -81,6 +85,7 @@ namespace WGU.AppointmentSystem
             this.dataGridViewAppointments.Location = new System.Drawing.Point(53, 460);
             this.dataGridViewAppointments.MultiSelect = false;
             this.dataGridViewAppointments.Name = "dataGridViewAppointments";
+            this.dataGridViewAppointments.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -89,7 +94,7 @@ namespace WGU.AppointmentSystem
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewAppointments.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridViewAppointments.RowHeadersWidth = 51;
+            this.dataGridViewAppointments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewAppointments.RowTemplate.Height = 24;
             this.dataGridViewAppointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAppointments.Size = new System.Drawing.Size(937, 226);
@@ -97,6 +102,7 @@ namespace WGU.AppointmentSystem
             // 
             // BtnEditAppointment
             // 
+            this.BtnEditAppointment.BackColor = System.Drawing.Color.PowderBlue;
             this.BtnEditAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnEditAppointment.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEditAppointment.Location = new System.Drawing.Point(448, 707);
@@ -104,10 +110,12 @@ namespace WGU.AppointmentSystem
             this.BtnEditAppointment.Size = new System.Drawing.Size(97, 45);
             this.BtnEditAppointment.TabIndex = 2;
             this.BtnEditAppointment.Text = "EDIT";
-            this.BtnEditAppointment.UseVisualStyleBackColor = true;
+            this.BtnEditAppointment.UseVisualStyleBackColor = false;
+            this.BtnEditAppointment.Click += new System.EventHandler(this.BtnEditAppointment_Click);
             // 
             // BtnNewAppointment
             // 
+            this.BtnNewAppointment.BackColor = System.Drawing.Color.PowderBlue;
             this.BtnNewAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnNewAppointment.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnNewAppointment.Location = new System.Drawing.Point(302, 707);
@@ -115,10 +123,12 @@ namespace WGU.AppointmentSystem
             this.BtnNewAppointment.Size = new System.Drawing.Size(121, 45);
             this.BtnNewAppointment.TabIndex = 1;
             this.BtnNewAppointment.Text = "NEW";
-            this.BtnNewAppointment.UseVisualStyleBackColor = true;
+            this.BtnNewAppointment.UseVisualStyleBackColor = false;
+            this.BtnNewAppointment.Click += new System.EventHandler(this.BtnNewAppointment_Click);
             // 
             // BtnDeleteAppointment
             // 
+            this.BtnDeleteAppointment.BackColor = System.Drawing.Color.PowderBlue;
             this.BtnDeleteAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnDeleteAppointment.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteAppointment.Location = new System.Drawing.Point(565, 707);
@@ -126,7 +136,8 @@ namespace WGU.AppointmentSystem
             this.BtnDeleteAppointment.Size = new System.Drawing.Size(109, 45);
             this.BtnDeleteAppointment.TabIndex = 3;
             this.BtnDeleteAppointment.Text = "DELETE";
-            this.BtnDeleteAppointment.UseVisualStyleBackColor = true;
+            this.BtnDeleteAppointment.UseVisualStyleBackColor = false;
+            this.BtnDeleteAppointment.Click += new System.EventHandler(this.BtnDeleteAppointment_Click);
             // 
             // lblAppointmentsDashboard
             // 
@@ -150,6 +161,7 @@ namespace WGU.AppointmentSystem
             // 
             // btnBackToHome
             // 
+            this.btnBackToHome.BackColor = System.Drawing.Color.Lavender;
             this.btnBackToHome.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBackToHome.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.btnBackToHome.Location = new System.Drawing.Point(770, 785);
@@ -157,11 +169,12 @@ namespace WGU.AppointmentSystem
             this.btnBackToHome.Size = new System.Drawing.Size(220, 51);
             this.btnBackToHome.TabIndex = 2;
             this.btnBackToHome.Text = "< BACK TO HOME";
-            this.btnBackToHome.UseVisualStyleBackColor = true;
+            this.btnBackToHome.UseVisualStyleBackColor = false;
             this.btnBackToHome.Click += new System.EventHandler(this.BtnBackToHome_Click);
             // 
             // btnExitApp
             // 
+            this.btnExitApp.BackColor = System.Drawing.Color.Lavender;
             this.btnExitApp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExitApp.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.btnExitApp.Location = new System.Drawing.Point(53, 785);
@@ -169,7 +182,7 @@ namespace WGU.AppointmentSystem
             this.btnExitApp.Size = new System.Drawing.Size(147, 51);
             this.btnExitApp.TabIndex = 1;
             this.btnExitApp.Text = "EXIT APP";
-            this.btnExitApp.UseVisualStyleBackColor = true;
+            this.btnExitApp.UseVisualStyleBackColor = false;
             this.btnExitApp.Click += new System.EventHandler(this.BtnExitApp_Click);
             // 
             // panel1

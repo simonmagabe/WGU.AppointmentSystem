@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using WGU.AppointmentSystem.Model;
 using WGU.AppointmentSystem.ViewModel;
@@ -95,6 +96,7 @@ namespace WGU.AppointmentSystem
                 if (RadioBtnDates.Checked)
                 {
                     PopulateAppoinmentsDataGrid();
+                    dataGridViewAppointments.ClearSelection();
                 }
                 else if (RadioBtnAppointmentType.Checked)
                 {
@@ -105,6 +107,7 @@ namespace WGU.AppointmentSystem
                         return;
                     }
                     PopulateAppoinmentsDataGrid();
+                    dataGridViewAppointments.ClearSelection();
                 }
                 else if (RadioBtnCustomerId.Checked)
                 {
@@ -116,6 +119,7 @@ namespace WGU.AppointmentSystem
                     }
                     
                     PopulateAppoinmentsDataGrid();
+                    dataGridViewAppointments.ClearSelection();
                 }
             }
             catch (Exception exc)
@@ -123,6 +127,74 @@ namespace WGU.AppointmentSystem
                 MessageBox.Show(exc.Message);
             }
         }
+
+
+        #region NEW; EDIT; DELETE BUTTONS CLICK EVENTS
+        private void BtnNewAppointment_Click(object sender, EventArgs e)
+        {
+            new FormAddEditAppointment().Show();
+            this.Hide();
+        }
+
+        private void BtnEditAppointment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var selectedRows = dataGridViewAppointments.SelectedRows;
+
+                if (selectedRows.Count < 1)
+                {
+                    AppointmentEditOrDeleteBtnWarning("Edit");
+                    return;
+                }
+
+                int selectedAppointmentId = int.Parse(selectedRows[0].Cells[0].Value.ToString().Trim());
+
+                new FormAddEditAppointment(selectedAppointmentId).Show();
+                this.Hide();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Appointments Dashboard Page Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnDeleteAppointment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var selectedAppointmentRows = dataGridViewAppointments.SelectedRows;
+
+                if (selectedAppointmentRows.Count <= 0)
+                {
+                    AppointmentEditOrDeleteBtnWarning("Delete");
+                    return;
+                }
+
+                string warningMessage = "You are about to delete the selected appointment. Are you sure?";
+                string messageBoxTitle = "Appointment Delete Warning";
+                DialogResult deleteConfirmation = MessageBox.Show(warningMessage, messageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
+
+                if (deleteConfirmation == DialogResult.Yes)
+                {
+                    int selectedAppointmentId = int.Parse(selectedAppointmentRows[0].Cells[0].Value.ToString().Trim());
+
+                    Appointment selectedAppoinment = Utility.AppointmentsList.Single(appointment => appointment.APPOINTMENTID == selectedAppointmentId);
+
+                    Utility.DeleteAppointment(selectedAppoinment);
+                }
+                else
+                {
+                    dataGridViewAppointments.ClearSelection();
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Appointments Dashboard Page Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion
+
         #endregion
 
         // Helper Methods
@@ -192,18 +264,18 @@ namespace WGU.AppointmentSystem
 
         private BindingList<Appointment> GetAppointmentsByDates(DateTime startDate, DateTime endDate)
         {
-            return new BindingList<Appointment>(Utility.appointments.Where(appointment => 
+            return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => 
             appointment.STARTDATE >= startDate && appointment.ENDDATE <= endDate).ToList());
         }
 
         private static BindingList<Appointment> GetAppointmentsByCustomerId(int customerId)
         {
-            return new BindingList<Appointment>(Utility.appointments.Where(appointment => appointment.CUSTOMERID == customerId).ToList());
+            return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => appointment.CUSTOMERID == customerId).ToList());
         }
 
         private static BindingList<Appointment> GetAppointmentsByAppointmentTypes(string type)
         {
-            return new BindingList<Appointment>(Utility.appointments.Where(appointment => appointment.TYPE == type).ToList());
+            return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => appointment.TYPE == type).ToList());
         }
 
         private void PopulateAppoinmentsDataGrid()
@@ -276,6 +348,13 @@ namespace WGU.AppointmentSystem
                 return;
             }
         }
-        #endregion
+
+        private void AppointmentEditOrDeleteBtnWarning(string action)
+        {
+            string message = $"An Appointment Record MUST be selected in order to {action}!";
+            string warningBoxTitle = "Appointment Edit Warning";
+            MessageBox.Show(message, warningBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+        #endregion  
     }
 }
