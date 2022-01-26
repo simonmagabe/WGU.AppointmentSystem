@@ -286,7 +286,7 @@ namespace WGU.AppointmentSystem
                 DateTime startDate = DateTimePickerStartDate.Value;
                 DateTime endDate = DateTimePickerEndDate.Value;
 
-                ValidateAppoinmentsSearchDates(startDate, endDate);
+                ValidateAppoinmentSearchDates(startDate, endDate);
 
                 BindingList<Appointment> appointmentsByDates = GetAppointmentsByDates(startDate, endDate);
 
@@ -329,7 +329,7 @@ namespace WGU.AppointmentSystem
 
                 if (customerAppointments.Count < 1)
                 {
-                    string message = $"No appoinments for CustomerID: {customerId} were found!";
+                    string message = $"No appointments for CustomerID: {customerId} were found!";
                     MessageBox.Show(message, searchMsgBoxErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     dataGridViewAppointments.DataSource = customerAppointments;
                     return;
@@ -339,7 +339,7 @@ namespace WGU.AppointmentSystem
             }
         }
 
-        private void ValidateAppoinmentsSearchDates(DateTime startDate, DateTime endDate)
+        public static void ValidateAppoinmentSearchDates(DateTime startDate, DateTime endDate)
         {
             if (endDate < startDate)
             {
