@@ -27,8 +27,31 @@ namespace WGU.AppointmentSystem.ViewModel
         {
             try
             {
-                int selectedCustomerId = int.Parse(ComboBoxCustomer.SelectedValue.ToString().Trim());
-                string selectedAppointmentType = ComboBoxAppointmentType.SelectedValue.ToString();
+                int selectedCustomerId;
+                string selectedAppointmentType;
+
+                if (ComboBoxCustomer.SelectedValue == null)
+                {
+                    string warningBoxMessage = "A Customer ID is REQUIRED to save.";
+                    MessageBox.Show(warningBoxMessage, "Add Appointment Page", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+                else
+                {
+                    selectedCustomerId = int.Parse(ComboBoxCustomer.SelectedValue.ToString().Trim());
+                }
+
+                if (ComboBoxAppointmentType.SelectedValue == null)
+                {
+                    string errorMessage = "An Appointment Type is REQUIRED! Please select a type to continue.";
+                    MessageBox.Show(errorMessage, "Add An Appointment", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+                else
+                {
+                    selectedAppointmentType = ComboBoxAppointmentType.SelectedValue.ToString();
+                }
+
                 bool appointmentIsOverlapping = false;
 
                 DateTime currentDateTime = DateTime.Now;
@@ -47,14 +70,14 @@ namespace WGU.AppointmentSystem.ViewModel
                         appointmentIsOverlapping = true : appointmentIsOverlapping = false;
                 }
 
-                if (selectedCustomerId < 1)
+                
+
+                if (selectedEndDateTime < selectedStartDateTime)
                 {
-                    string warningBoxMessage = "A Customer ID is REQUIRED to save.";
-                    MessageBox.Show(warningBoxMessage, "Add Appointment Page", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    string errorMessage = $"End Date [{selectedEndDateTime}] Selected MUST be greater than Start Date [{selectedStartDateTime}] Selected.";
+                    MessageBox.Show(errorMessage, "Appointment Search", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
-
-                FormAppointmentDashboard.ValidateAppoinmentSearchDates(selectedStartDateTime, selectedEndDateTime);
 
                 bool isStartLessThanOpeningHour = selectedStartDateTime.TimeOfDay < openingBusinessHour;
                 bool isStartGreaterThanClosingHour = selectedStartDateTime.TimeOfDay > closingBusinessHour;
@@ -75,14 +98,17 @@ namespace WGU.AppointmentSystem.ViewModel
                     MessageBox.Show(errorMessage, "Add Appointment Page", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
 
-                if (selectedCustomerId > -1)
+                if (SelectedAppointmentId >= 0)
                 {
                     Appointment selectedAppointment = Utility.AppointmentsList.Single(appointment => appointment.APPOINTMENTID == SelectedAppointmentId);
                     Utility.UpdateAppointment(selectedAppointment, selectedCustomerId, selectedAppointmentType, selectedStartDateTime, selectedEndDateTime);
-
-                    new FormAppointmentDashboard().Show();
-                    this.Close();
                 }
+                else
+                {
+                    Utility.AddAppointment(selectedCustomerId, selectedAppointmentType, selectedStartDateTime, selectedEndDateTime);
+                }
+                new FormAppointmentDashboard().Show();
+                this.Close();
             }
             catch (Exception exc)
             {
