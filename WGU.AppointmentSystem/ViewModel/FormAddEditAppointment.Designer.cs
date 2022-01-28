@@ -98,6 +98,7 @@ namespace WGU.AppointmentSystem.ViewModel
             // 
             // ComboBoxCustomer
             // 
+            this.ComboBoxCustomer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxCustomer.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBoxCustomer.FormattingEnabled = true;
             this.ComboBoxCustomer.Location = new System.Drawing.Point(121, 91);

@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WGU.AppointmentSystem.ViewModel;
 
 namespace WGU.AppointmentSystem.Model
@@ -78,16 +75,18 @@ namespace WGU.AppointmentSystem.Model
         {
             int active = 1;
             Customer newCustomer = new Customer(name, addressId, active, currentDateTime, user, currentDateTime, user);
+            string createdDate = newCustomer.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:MM:ss", DateTimeFormatInfo.InvariantInfo);
+            string lastUpdated = newCustomer.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
 
             string queryString = $"INSERT INTO customer " +
-                                        $"VALUES('{newCustomer.CUSTOMERID}', " +
-                                                $"'{newCustomer.CUSTOMERNAME}', " +
-                                                $"'{newCustomer.ADDRESSID}', " +
-                                                $"'{newCustomer.ACTIVE}', " +
-                                                $"'{newCustomer.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:MM:ss", DateTimeFormatInfo.InvariantInfo)}', " +
-                                                $"'{newCustomer.CREATEDBY}', " +
-                                                $"'{newCustomer.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo)}', " +
-                                                $"'{newCustomer.LASTUPDATEDBY}')";
+                                        $"VALUES('{ newCustomer.CUSTOMERID }', " +
+                                                $"'{ newCustomer.CUSTOMERNAME }', " +
+                                                $"'{ newCustomer.ADDRESSID }', " +
+                                                $"'{ newCustomer.ACTIVE }', " +
+                                                $"'{ createdDate }', " +
+                                                $"'{ newCustomer.CREATEDBY }', " +
+                                                $"'{ lastUpdated }', " +
+                                                $"'{ newCustomer.LASTUPDATEDBY }')";
 
             ExecuteNonQueryOnDatabase(queryString);
             CustomersList.Add(newCustomer);
@@ -99,10 +98,10 @@ namespace WGU.AppointmentSystem.Model
             string currentDate = currentDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
             string queryString = $"UPDATE customer " +
                                  $"SET " +
-                                        $"customerName = '{customerName}', " +
-                                        $"lastUpdate = '{currentDate}', " +
-                                        $"lastUpdateBy = '{user}' " +
-                                 $"WHERE customerId = {customerToUpdate.CUSTOMERID};";
+                                        $"customerName = ' {customerName }', " +
+                                        $"lastUpdate = '{ currentDate }', " +
+                                        $"lastUpdateBy = '{ user }' " +
+                                 $"WHERE customerId = { customerToUpdate.CUSTOMERID };";
 
             ExecuteNonQueryOnDatabase(queryString);
             Customer modifiedCustomer = new Customer(customerToUpdate.CUSTOMERID, customerName, customerToUpdate.ADDRESSID, customerToUpdate.ACTIVE, 
@@ -146,17 +145,20 @@ namespace WGU.AppointmentSystem.Model
         public static int AddAddress(string streetAddress1, string streetAddress2, int cityId, string zipCode, string phone, string username)
         {
             var newAddress = new Address(streetAddress1, streetAddress2, cityId, zipCode, phone, currentDateTime, username, currentDateTime, username);
+            string createdDate = newAddress.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:MM:ss", DateTimeFormatInfo.InvariantInfo);
+            string lastUpdated = newAddress.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
             string queryString = $"INSERT INTO address " +
-                                        $"VALUES('{newAddress.ADDRESSID}', " +
-                                                $"'{newAddress.STREET1}', " +
-                                                $"'{newAddress.STREET2}', " +
-                                                $"'{newAddress.CITYID}', " +
-                                                $"'{newAddress.ZIPCODE}', " +
-                                                $"'{newAddress.PHONE}', " +
-                                                $"'{newAddress.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:MM:ss", DateTimeFormatInfo.InvariantInfo)}', " +
-                                                $"'{newAddress.CREATEDBY}', " +
-                                                $"'{newAddress.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo)}', " +
-                                                $"'{newAddress.LASTUPDATEDBY}')";
+                                        $"VALUES('{ newAddress.ADDRESSID }', " +
+                                                $"'{ newAddress.STREET1 }', " +
+                                                $"'{ newAddress.STREET2 }', " +
+                                                $"'{ newAddress.CITYID }', " +
+                                                $"'{ newAddress.ZIPCODE }', " +
+                                                $"'{ newAddress.PHONE }', " +
+                                                $"'{ createdDate }', " +
+                                                $"'{ newAddress.CREATEDBY }', " +
+                                                $"'{ lastUpdated }', " +
+                                                $"'{ newAddress.LASTUPDATEDBY }'" +
+                                              $")";
 
             ExecuteNonQueryOnDatabase(queryString);
             AddressesList.Add(newAddress.ADDRESSID, newAddress);
@@ -168,14 +170,14 @@ namespace WGU.AppointmentSystem.Model
             string currentDate = currentDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
             string queryString = $"UPDATE address " +
                                  $"SET " +
-                                        $"address = '{streetAddress1}', " +
-                                        $"address2 = '{streetAddress2}', " +
-                                        $"cityId = {cityId}, " +
-                                        $"postalCode = '{zipCode}', " +
-                                        $"phone = '{phone}', " +
-                                        $"lastUpdate = '{currentDate}', " +
-                                        $"lastUpdateBy = '{user}' " +
-                                 $"WHERE addressId = {addressToUpdate.ADDRESSID};";
+                                        $"address = '{ streetAddress1 }', " +
+                                        $"address2 = '{ streetAddress2 }', " +
+                                        $"cityId = { cityId }, " +
+                                        $"postalCode = '{ zipCode }', " +
+                                        $"phone = '{ phone }', " +
+                                        $"lastUpdate = '{ currentDate }', " +
+                                        $"lastUpdateBy = '{ user }' " +
+                                 $"WHERE addressId = { addressToUpdate.ADDRESSID };";
 
             ExecuteNonQueryOnDatabase(queryString);
             AddressesList[addressToUpdate.ADDRESSID] = new Address(addressToUpdate.ADDRESSID, streetAddress1, streetAddress2, cityId, zipCode, phone, 

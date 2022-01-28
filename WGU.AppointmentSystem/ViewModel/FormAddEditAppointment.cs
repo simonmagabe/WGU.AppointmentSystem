@@ -146,7 +146,7 @@ namespace WGU.AppointmentSystem.ViewModel
             txtBoxCustomerId.Text = "";
             ComboBoxCustomer.SelectedItem = null;
             ComboBoxAppointmentType.SelectedItem = null;
-            SetAppointmentDefaultBusinessHours();
+            SetAppointmentDefaultDateTime();
         }
 
         #endregion
@@ -177,7 +177,7 @@ namespace WGU.AppointmentSystem.ViewModel
             }
             else
             {
-                SetAppointmentDefaultBusinessHours();
+                SetAppointmentDefaultDateTime();
             }
         }
 
@@ -188,16 +188,56 @@ namespace WGU.AppointmentSystem.ViewModel
             ComboBoxAppointmentType.SelectedItem = null;
         }
 
-        private void SetAppointmentDefaultBusinessHours()
+        private void SetAppointmentDefaultDateTime()
         {
             try
             {
                 DateTime currentTime = DateTime.Now;
                 DateTime openingBusinessHour = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, 8, 0, 0);
                 DateTime closingBusinessHour = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, 17, 0, 0);
+                dateTimePickerStartDate.Format = DateTimePickerFormat.Time;
+                dateTimePickerEndDate.Format = DateTimePickerFormat.Time;
 
-                dateTimePickerStartDate.Value = openingBusinessHour;
-                dateTimePickerEndDate.Value = closingBusinessHour;
+                if ((currentTime > openingBusinessHour) && (currentTime.Hour < closingBusinessHour.Hour))
+                {
+                    if (closingBusinessHour > currentTime)
+                    {
+                        if ((closingBusinessHour.Hour - currentTime.Hour) > 1)
+                        {
+                            dateTimePickerStartDate.Value = currentTime;
+                            dateTimePickerEndDate.Value = currentTime.AddMinutes(30);
+                        }
+                        else
+                        {
+                            if ((closingBusinessHour.AddMilliseconds(-1).Minute - currentTime.Minute) > 30)
+                            {
+                                dateTimePickerEndDate.Value = closingBusinessHour;
+                                dateTimePickerStartDate.Value = closingBusinessHour.AddMinutes(-30);
+                            }
+                            else
+                            {
+                                dateTimePickerStartDate.Value = openingBusinessHour.AddDays(1);
+                                dateTimePickerEndDate.Value = openingBusinessHour.AddDays(1).AddMinutes(30);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (currentTime.Hour >= closingBusinessHour.Hour)
+                    {
+                        dateTimePickerStartDate.Value = openingBusinessHour.AddDays(1);
+                        dateTimePickerEndDate.Value = openingBusinessHour.AddDays(1).AddMinutes(30);
+                    }
+
+                    if (currentTime.Hour < openingBusinessHour.Hour)
+                    {
+                        dateTimePickerStartDate.Value = openingBusinessHour;
+                        dateTimePickerEndDate.Value = openingBusinessHour.AddMinutes(30);
+                    }
+                }
+
+                
             }
             catch (Exception exc)
             {
