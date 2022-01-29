@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WGU.AppointmentSystem.ViewModel;
 
 namespace WGU.AppointmentSystem.Model
@@ -78,18 +75,20 @@ namespace WGU.AppointmentSystem.Model
         {
             int active = 1;
             Customer newCustomer = new Customer(name, addressId, active, currentDateTime, user, currentDateTime, user);
+            string createdDate = newCustomer.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:MM:ss", DateTimeFormatInfo.InvariantInfo);
+            string lastUpdated = newCustomer.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
 
             string queryString = $"INSERT INTO customer " +
-                                        $"VALUES('{newCustomer.CUSTOMERID}', " +
-                                                $"'{newCustomer.CUSTOMERNAME}', " +
-                                                $"'{newCustomer.ADDRESSID}', " +
-                                                $"'{newCustomer.ACTIVE}', " +
-                                                $"'{newCustomer.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:MM:ss", DateTimeFormatInfo.InvariantInfo)}', " +
-                                                $"'{newCustomer.CREATEDBY}', " +
-                                                $"'{newCustomer.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo)}', " +
-                                                $"'{newCustomer.LASTUPDATEDBY}')";
+                                        $"VALUES('{ newCustomer.CUSTOMERID }', " +
+                                                $"'{ newCustomer.CUSTOMERNAME }', " +
+                                                $"'{ newCustomer.ADDRESSID }', " +
+                                                $"'{ newCustomer.ACTIVE }', " +
+                                                $"'{ createdDate }', " +
+                                                $"'{ newCustomer.CREATEDBY }', " +
+                                                $"'{ lastUpdated }', " +
+                                                $"'{ newCustomer.LASTUPDATEDBY }')";
 
-            ExecuteQueryOnDatabase(queryString);
+            ExecuteNonQueryOnDatabase(queryString);
             CustomersList.Add(newCustomer);
             return newCustomer.CUSTOMERID;
         }
@@ -99,12 +98,12 @@ namespace WGU.AppointmentSystem.Model
             string currentDate = currentDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
             string queryString = $"UPDATE customer " +
                                  $"SET " +
-                                        $"customerName = '{customerName}', " +
-                                        $"lastUpdate = '{currentDate}', " +
-                                        $"lastUpdateBy = '{user}' " +
-                                 $"WHERE customerId = {customerToUpdate.CUSTOMERID};";
+                                        $"customerName = ' {customerName }', " +
+                                        $"lastUpdate = '{ currentDate }', " +
+                                        $"lastUpdateBy = '{ user }' " +
+                                 $"WHERE customerId = { customerToUpdate.CUSTOMERID };";
 
-            ExecuteQueryOnDatabase(queryString);
+            ExecuteNonQueryOnDatabase(queryString);
             Customer modifiedCustomer = new Customer(customerToUpdate.CUSTOMERID, customerName, customerToUpdate.ADDRESSID, customerToUpdate.ACTIVE, 
                 customerToUpdate.CREATEDDATE, customerToUpdate.CREATEDBY, currentDateTime, user);
             int modifiedCustomerIndex = CustomersList.IndexOf(customerToUpdate);
@@ -115,7 +114,7 @@ namespace WGU.AppointmentSystem.Model
         public static void DeleteCustomer(Customer customer)
         {
             string queryString = $"DELETE FROM customer WHERE customerId = {customer.CUSTOMERID}";
-            ExecuteQueryOnDatabase(queryString);
+            ExecuteNonQueryOnDatabase(queryString);
             CustomersList.Remove(customer);
         }
 
@@ -146,19 +145,22 @@ namespace WGU.AppointmentSystem.Model
         public static int AddAddress(string streetAddress1, string streetAddress2, int cityId, string zipCode, string phone, string username)
         {
             var newAddress = new Address(streetAddress1, streetAddress2, cityId, zipCode, phone, currentDateTime, username, currentDateTime, username);
+            string createdDate = newAddress.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:MM:ss", DateTimeFormatInfo.InvariantInfo);
+            string lastUpdated = newAddress.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
             string queryString = $"INSERT INTO address " +
-                                        $"VALUES('{newAddress.ADDRESSID}', " +
-                                                $"'{newAddress.STREET1}', " +
-                                                $"'{newAddress.STREET2}', " +
-                                                $"'{newAddress.CITYID}', " +
-                                                $"'{newAddress.ZIPCODE}', " +
-                                                $"'{newAddress.PHONE}', " +
-                                                $"'{newAddress.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:MM:ss", DateTimeFormatInfo.InvariantInfo)}', " +
-                                                $"'{newAddress.CREATEDBY}', " +
-                                                $"'{newAddress.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo)}', " +
-                                                $"'{newAddress.LASTUPDATEDBY}')";
+                                        $"VALUES('{ newAddress.ADDRESSID }', " +
+                                                $"'{ newAddress.STREET1 }', " +
+                                                $"'{ newAddress.STREET2 }', " +
+                                                $"'{ newAddress.CITYID }', " +
+                                                $"'{ newAddress.ZIPCODE }', " +
+                                                $"'{ newAddress.PHONE }', " +
+                                                $"'{ createdDate }', " +
+                                                $"'{ newAddress.CREATEDBY }', " +
+                                                $"'{ lastUpdated }', " +
+                                                $"'{ newAddress.LASTUPDATEDBY }'" +
+                                              $")";
 
-            ExecuteQueryOnDatabase(queryString);
+            ExecuteNonQueryOnDatabase(queryString);
             AddressesList.Add(newAddress.ADDRESSID, newAddress);
             return newAddress.ADDRESSID;
         }
@@ -168,16 +170,16 @@ namespace WGU.AppointmentSystem.Model
             string currentDate = currentDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
             string queryString = $"UPDATE address " +
                                  $"SET " +
-                                        $"address = '{streetAddress1}', " +
-                                        $"address2 = '{streetAddress2}', " +
-                                        $"cityId = {cityId}, " +
-                                        $"postalCode = '{zipCode}', " +
-                                        $"phone = '{phone}', " +
-                                        $"lastUpdate = '{currentDate}', " +
-                                        $"lastUpdateBy = '{user}' " +
-                                 $"WHERE addressId = {addressToUpdate.ADDRESSID};";
+                                        $"address = '{ streetAddress1 }', " +
+                                        $"address2 = '{ streetAddress2 }', " +
+                                        $"cityId = { cityId }, " +
+                                        $"postalCode = '{ zipCode }', " +
+                                        $"phone = '{ phone }', " +
+                                        $"lastUpdate = '{ currentDate }', " +
+                                        $"lastUpdateBy = '{ user }' " +
+                                 $"WHERE addressId = { addressToUpdate.ADDRESSID };";
 
-            ExecuteQueryOnDatabase(queryString);
+            ExecuteNonQueryOnDatabase(queryString);
             AddressesList[addressToUpdate.ADDRESSID] = new Address(addressToUpdate.ADDRESSID, streetAddress1, streetAddress2, cityId, zipCode, phone, 
                 addressToUpdate.CREATEDDATE, addressToUpdate.CREATEDBY, currentDateTime, user);
         }
@@ -185,7 +187,7 @@ namespace WGU.AppointmentSystem.Model
         public static void DeleteAddress(int addressId)
         {
             string queryString = $"DELETE FROM  address WHERE addressId = {addressId}";
-            ExecuteQueryOnDatabase(queryString);
+            ExecuteNonQueryOnDatabase(queryString);
             AddressesList.Remove(addressId);
         }
 
@@ -264,10 +266,69 @@ namespace WGU.AppointmentSystem.Model
             return AppointmentsList;
         }
 
+        internal static void AddAppointment(int customerId, string appointmentType, DateTime startDate, DateTime endDate)
+        {
+            User user = FormHomePage.LOGGGED_IN_USER;
+            Appointment newAppointment = new Appointment(customerId, user.USERID, appointmentType, startDate, endDate, 
+                currentDateTime, user.USERNAME, currentDateTime, user.USERNAME);
+
+            string startDateTime = newAppointment.STARTDATE.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
+            string endDateTime = newAppointment.ENDDATE.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
+            string createdDate = newAppointment.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
+            string lastUpdated = newAppointment.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
+
+            string queryString = $"INSERT INTO appointment " +
+                                 $"VALUES ({ newAppointment.APPOINTMENTID }, " +
+                                         $"{ newAppointment.CUSTOMERID }, " +
+                                         $"{ newAppointment.USERID }, " +
+                                         $" '{ null }', " +
+                                         $" '{ null }', " +
+                                         $" '{ null }', " +
+                                         $" '{ null }', " +
+                                         $"'{ newAppointment.TYPE }', " +
+                                         $" '{ null }', " +
+                                         $"'{ startDateTime }', " +
+                                         $"'{ endDateTime }', " +
+                                         $"'{ createdDate }', " +
+                                         $"'{ newAppointment.CREATEDBY }', " +
+                                         $"'{ lastUpdated }', " +
+                                         $"'{ newAppointment.LASTUPDATEDBY }'" +
+                                 $");";
+
+            ExecuteNonQueryOnDatabase(queryString);
+            Utility.AppointmentsList.Add(newAppointment);
+        }
+
+        internal static void UpdateAppointment(Appointment appointment, int customerId, string appointmentType, DateTime startDateTime, DateTime endDateTime)
+        {
+            string currentTime = currentDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
+            User user = FormHomePage.LOGGGED_IN_USER;
+            string start = startDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
+
+            string queryString = $"UPDATE appointment " +
+                                 $"SET " +
+                                        $"customerId = {customerId}, " +
+                                        $"userId = {user.USERID}, " +
+                                        $"type = '{appointmentType}', " +
+                                        $"start = '{start}', " +
+                                        $"lastUpdate = '{currentTime}', " +
+                                        $"lastUpdateBy = '{user.USERNAME}' " +
+                                 $"WHERE " +
+                                        $"appointmentId = {appointment.APPOINTMENTID};";
+
+            ExecuteNonQueryOnDatabase(queryString);
+
+            Appointment modifiedAppointment = new Appointment(appointment.APPOINTMENTID, customerId, user.USERID, appointmentType, 
+                startDateTime, endDateTime, appointment.CREATEDDATE, appointment.CREATEDBY, currentDateTime, user.USERNAME);
+            int indexOfModifiedAppointment = AppointmentsList.IndexOf(appointment);
+            AppointmentsList.RemoveAt(indexOfModifiedAppointment);
+            AppointmentsList.Insert(indexOfModifiedAppointment, modifiedAppointment);
+        }
+
         public static void DeleteAppointment(Appointment appointment)
         {
-            string queryString = $"DELETE FROM appointment WHERE appointmentId = {appointment.APPOINTMENTID}";
-            ExecuteQueryOnDatabase(queryString);
+            string queryString = $"DELETE FROM appointment WHERE appointmentId = {appointment.APPOINTMENTID};";
+            ExecuteNonQueryOnDatabase(queryString);
             AppointmentsList.Remove(appointment);
         }
 
@@ -282,7 +343,7 @@ namespace WGU.AppointmentSystem.Model
             database.SqlDataReader = mySqlCommand.ExecuteReader();
         }
 
-        private static void ExecuteQueryOnDatabase(string queryString)
+        private static void ExecuteNonQueryOnDatabase(string queryString)
         {
             database.SqlConnection.Open();
             MySqlCommand mySqlCommand = new MySqlCommand(queryString, database.SqlConnection);

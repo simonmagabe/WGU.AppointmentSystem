@@ -18,10 +18,8 @@ namespace WGU.AppointmentSystem
 
         private void FormAppointmentDashboard_Load(object sender, EventArgs e)
         {
-            ToggleRadioButtons(true);
-            SetDefaultAppointmentSearchDates();
-            PopulateAppoinmentsDataGrid();
             RadioBtnDates.Checked = true;
+            SetDefaultAppointmentSearchDates();
         }
 
         // Event Listeners
@@ -182,11 +180,10 @@ namespace WGU.AppointmentSystem
                     Appointment selectedAppoinment = Utility.AppointmentsList.Single(appointment => appointment.APPOINTMENTID == selectedAppointmentId);
 
                     Utility.DeleteAppointment(selectedAppoinment);
+                    PopulateAppoinmentsDataGrid();
                 }
-                else
-                {
-                    dataGridViewAppointments.ClearSelection();
-                }
+                
+                dataGridViewAppointments.ClearSelection();
             }
             catch (Exception exc)
             {
@@ -239,11 +236,10 @@ namespace WGU.AppointmentSystem
             return new DateTime(today.Year, today.Month, DaysInMonth);
         }
 
-        private void SetDefaultAppointmentSearchDates()
+        internal void SetDefaultAppointmentSearchDates()
         {
             DateTimePickerStartDate.Value = GetStartOfCurrentMonth();
             DateTimePickerEndDate.Value = GetEndOfCurrentMonth();
-            SetAppointmentsGridTitleLabelText();
         }
 
         private void SetAppointmentsGridTitleLabelText()
@@ -278,21 +274,26 @@ namespace WGU.AppointmentSystem
             return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => appointment.TYPE == type).ToList());
         }
 
-        private void PopulateAppoinmentsDataGrid()
+        internal void PopulateAppoinmentsDataGrid()
         {
             string searchMsgBoxErrorTitle = "Customer Search";
+            if (RadioBtnCustomerId.Checked == false && RadioBtnAppointmentType.Checked == false && RadioBtnDates.Checked == false)
+            {
+                RadioBtnDates.Checked = true;
+            }
+
             if (RadioBtnDates.Checked)
             {
                 DateTime startDate = DateTimePickerStartDate.Value;
                 DateTime endDate = DateTimePickerEndDate.Value;
 
-                ValidateAppoinmentsSearchDates(startDate, endDate);
+                ValidateAppoinmentSearchDates(startDate, endDate);
 
                 BindingList<Appointment> appointmentsByDates = GetAppointmentsByDates(startDate, endDate);
 
                 if (appointmentsByDates.Count == 0)
                 {
-                    string message = $"Ooh No! No appointments were founds for time period [{startDate} - {endDate}]";
+                    string message = $"No Appointments were found for time period [{startDate} - {endDate}]";
                     MessageBox.Show(message, "Appointments Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -308,7 +309,7 @@ namespace WGU.AppointmentSystem
 
                 if (appointmentsByType.Count == 0)
                 {
-                    MessageBox.Show($"No appoinments for Type: {appointmentType} Found!");
+                    MessageBox.Show($"No appoinments for Type: [{appointmentType}'] Found!");
                 }
                  dataGridViewAppointments.DataSource = appointmentsByType;
             }
@@ -329,21 +330,22 @@ namespace WGU.AppointmentSystem
 
                 if (customerAppointments.Count < 1)
                 {
-                    string message = $"No appoinments for CustomerID: {customerId} were found!";
+                    string message = $"No appointments for CustomerID: [{customerId}] were found!";
                     MessageBox.Show(message, searchMsgBoxErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     dataGridViewAppointments.DataSource = customerAppointments;
                     return;
                 }
 
                 dataGridViewAppointments.DataSource = customerAppointments;
+                dataGridViewAppointments.ClearSelection();
             }
         }
 
-        private void ValidateAppoinmentsSearchDates(DateTime startDate, DateTime endDate)
+        public static void ValidateAppoinmentSearchDates(DateTime startDate, DateTime endDate)
         {
             if (endDate < startDate)
             {
-                string errorMessage = $"End Date [{endDate}] Selected MUST be greater than Start Date [{startDate}] Selected.";
+                string errorMessage = $"End Date [{endDate}] Selected MUST be GREATER than Start Date [{startDate}] Selected.";
                 MessageBox.Show(errorMessage, "Appointment Search", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }

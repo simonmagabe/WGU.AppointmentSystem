@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using WGU.AppointmentSystem.Model;
+using WGU.AppointmentSystem.ViewModel;
 
 namespace WGU.AppointmentSystem.ViewModel
 {
@@ -38,8 +39,10 @@ namespace WGU.AppointmentSystem.ViewModel
 
         private void BtnAppointments_Click(object sender, System.EventArgs e)
         {
-            new FormAppointmentDashboard().Show();
+            FormAppointmentDashboard formAppointmentDashboard = new FormAppointmentDashboard();
+            formAppointmentDashboard.Show();
             this.Hide();
+            formAppointmentDashboard.PopulateAppoinmentsDataGrid();
         }
 
         private void BtnReports_Click(object sender, System.EventArgs e)

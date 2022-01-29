@@ -90,12 +90,6 @@ namespace WGU.AppointmentSystem.ViewModel
             this.ComboBoxAppointmentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxAppointmentType.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBoxAppointmentType.FormattingEnabled = true;
-            this.ComboBoxAppointmentType.Items.AddRange(new object[] {
-            "Consultation",
-            "Interview",
-            "Lunch",
-            "Presentation",
-            "Scrum"});
             this.ComboBoxAppointmentType.Location = new System.Drawing.Point(121, 144);
             this.ComboBoxAppointmentType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ComboBoxAppointmentType.Name = "ComboBoxAppointmentType";
@@ -104,6 +98,7 @@ namespace WGU.AppointmentSystem.ViewModel
             // 
             // ComboBoxCustomer
             // 
+            this.ComboBoxCustomer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxCustomer.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBoxCustomer.FormattingEnabled = true;
             this.ComboBoxCustomer.Location = new System.Drawing.Point(121, 91);
@@ -176,7 +171,6 @@ namespace WGU.AppointmentSystem.ViewModel
             // BtnSave
             // 
             this.BtnSave.BackColor = System.Drawing.Color.Lavender;
-            this.BtnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnSave.FlatAppearance.BorderSize = 0;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.BtnSave.Location = new System.Drawing.Point(138, 490);
@@ -191,7 +185,6 @@ namespace WGU.AppointmentSystem.ViewModel
             // BtnCancel
             // 
             this.BtnCancel.BackColor = System.Drawing.Color.Lavender;
-            this.BtnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnCancel.FlatAppearance.BorderSize = 0;
             this.BtnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.BtnCancel.Location = new System.Drawing.Point(298, 490);
@@ -206,7 +199,6 @@ namespace WGU.AppointmentSystem.ViewModel
             // BtnClear
             // 
             this.BtnClear.BackColor = System.Drawing.Color.Lavender;
-            this.BtnClear.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnClear.FlatAppearance.BorderSize = 0;
             this.BtnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.BtnClear.Location = new System.Drawing.Point(427, 490);

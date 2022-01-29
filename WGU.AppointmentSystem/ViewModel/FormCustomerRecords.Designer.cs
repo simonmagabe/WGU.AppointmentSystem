@@ -511,7 +511,6 @@ namespace WGU.AppointmentSystem
         private System.Windows.Forms.ComboBox comboBoxCountry;
         private System.Windows.Forms.ComboBox comboBoxCity;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button BtnAddNewCustomer;
     }
 }
