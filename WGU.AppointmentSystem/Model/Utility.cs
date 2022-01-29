@@ -273,6 +273,7 @@ namespace WGU.AppointmentSystem.Model
                 currentDateTime, user.USERNAME, currentDateTime, user.USERNAME);
 
             string startDateTime = newAppointment.STARTDATE.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
+            string endDateTime = newAppointment.ENDDATE.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
             string createdDate = newAppointment.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
             string lastUpdated = newAppointment.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
 
@@ -280,16 +281,18 @@ namespace WGU.AppointmentSystem.Model
                                  $"VALUES ({ newAppointment.APPOINTMENTID }, " +
                                          $"{ newAppointment.CUSTOMERID }, " +
                                          $"{ newAppointment.USERID }, " +
-                                         $"{ null }, " +
-                                         $"{ null }, " +
-                                         $"{ null }, " +
-                                         $"{ null }, " +
-                                         $"{ newAppointment.TYPE }, " +
-                                         $"{ null }, " +
-                                         $"{ startDateTime }, " +
-                                         $"{ createdDate }, " +
-                                         $"{ lastUpdated }, " +
-                                         $"{ newAppointment.LASTUPDATEDBY }" +
+                                         $" '{ null }', " +
+                                         $" '{ null }', " +
+                                         $" '{ null }', " +
+                                         $" '{ null }', " +
+                                         $"'{ newAppointment.TYPE }', " +
+                                         $" '{ null }', " +
+                                         $"'{ startDateTime }', " +
+                                         $"'{ endDateTime }', " +
+                                         $"'{ createdDate }', " +
+                                         $"'{ newAppointment.CREATEDBY }', " +
+                                         $"'{ lastUpdated }', " +
+                                         $"'{ newAppointment.LASTUPDATEDBY }'" +
                                  $");";
 
             ExecuteNonQueryOnDatabase(queryString);
@@ -324,7 +327,7 @@ namespace WGU.AppointmentSystem.Model
 
         public static void DeleteAppointment(Appointment appointment)
         {
-            string queryString = $"DELETE FROM appointment WHERE appointmentId = {appointment.APPOINTMENTID}";
+            string queryString = $"DELETE FROM appointment WHERE appointmentId = {appointment.APPOINTMENTID};";
             ExecuteNonQueryOnDatabase(queryString);
             AppointmentsList.Remove(appointment);
         }

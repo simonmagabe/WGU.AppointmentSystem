@@ -9,7 +9,8 @@ namespace WGU.AppointmentSystem.ViewModel
     public partial class FormAddEditAppointment : Form
     {
         private int SelectedAppointmentId = -1;
-        
+        FormAppointmentDashboard formAppointment = new FormAppointmentDashboard();
+
 
         public FormAddEditAppointment()
         {
@@ -32,7 +33,7 @@ namespace WGU.AppointmentSystem.ViewModel
 
                 if (ComboBoxCustomer.SelectedValue == null)
                 {
-                    string warningBoxMessage = "A Customer ID is REQUIRED to save.";
+                    string warningBoxMessage = "A Customer ID is REQUIRED! Please select a type to continue.";
                     MessageBox.Show(warningBoxMessage, "Add Appointment Page", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
@@ -56,7 +57,7 @@ namespace WGU.AppointmentSystem.ViewModel
 
                 DateTime currentDateTime = DateTime.Now;
                 TimeSpan openingBusinessHour = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day, 8, 0, 0).TimeOfDay;
-                TimeSpan closingBusinessHour = new DateTime(currentDateTime.Hour, currentDateTime.Month, currentDateTime.Day, 19, 0, 0).TimeOfDay;
+                TimeSpan closingBusinessHour = new DateTime(currentDateTime.Hour, currentDateTime.Month, currentDateTime.Day, 17, 0, 0).TimeOfDay;
 
                 DateTime selectedStartDateTime = dateTimePickerStartDate.Value;
                 DateTime selectedEndDateTime = dateTimePickerEndDate.Value;
@@ -94,8 +95,9 @@ namespace WGU.AppointmentSystem.ViewModel
 
                 if (appointmentIsOverlapping)
                 {
-                    string errorMessage = "An Appointment CANNOT overlap and Existing Appointment";
+                    string errorMessage = "An Appointment CANNOT overlap an Existing Appointment";
                     MessageBox.Show(errorMessage, "Add Appointment Page", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
                 }
 
                 if (SelectedAppointmentId >= 0)
@@ -107,8 +109,10 @@ namespace WGU.AppointmentSystem.ViewModel
                 {
                     Utility.AddAppointment(selectedCustomerId, selectedAppointmentType, selectedStartDateTime, selectedEndDateTime);
                 }
-                new FormAppointmentDashboard().Show();
+
+                formAppointment.Show();
                 this.Close();
+                formAppointment.PopulateAppoinmentsDataGrid();
             }
             catch (Exception exc)
             {
@@ -126,8 +130,8 @@ namespace WGU.AppointmentSystem.ViewModel
 
                 if (iCancel == DialogResult.Yes)
                 {
-                    new FormAppointmentDashboard().Show();
-                    this.Hide();
+                    formAppointment.Show();
+                    this.Close();
                 }
             }
             catch (Exception ex)
@@ -155,6 +159,8 @@ namespace WGU.AppointmentSystem.ViewModel
         private void FormAddEditAppointment_Load(object sender, EventArgs e)
         {
             DateTime currentTime = DateTime.Now;
+            dateTimePickerStartDate.Format = DateTimePickerFormat.Time;
+            dateTimePickerEndDate.Format = DateTimePickerFormat.Time;
 
             UpdateAddEditAppointmentFormTitle();
 

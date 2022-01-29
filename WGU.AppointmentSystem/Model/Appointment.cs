@@ -36,6 +36,8 @@ namespace WGU.AppointmentSystem.Model
 
         public Appointment(int customerId, int userId, string type, DateTime start, DateTime end, DateTime createddate, string createdby, DateTime lastUpdated, string lastUpdatedBy)
         {
+            count++;
+            APPOINTMENTID = count;
             CUSTOMERID = customerId;
             USERID = userId;
             TYPE = type;
