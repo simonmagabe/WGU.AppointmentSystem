@@ -20,6 +20,7 @@ namespace WGU.AppointmentSystem
         {
             RadioBtnDates.Checked = true;
             SetDefaultAppointmentSearchDates();
+            dataGridViewAppointments.ClearSelection();
         }
 
         // Event Listeners
@@ -258,10 +259,10 @@ namespace WGU.AppointmentSystem
             }
         }
 
-        private BindingList<Appointment> GetAppointmentsByDates(DateTime startDate, DateTime endDate)
+        private BindingList<Appointment> GetAppointmentsByDates(DateTime startDate, DateTime endDate, int userId)
         {
             return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => 
-            appointment.STARTDATE >= startDate && appointment.ENDDATE <= endDate).ToList());
+            appointment.STARTDATE >= startDate && appointment.ENDDATE <= endDate && appointment.USERID == userId).ToList());
         }
 
         private static BindingList<Appointment> GetAppointmentsByCustomerId(int customerId)
@@ -289,7 +290,8 @@ namespace WGU.AppointmentSystem
 
                 ValidateAppoinmentSearchDates(startDate, endDate);
 
-                BindingList<Appointment> appointmentsByDates = GetAppointmentsByDates(startDate, endDate);
+                int userId = FormHomePage.LOGGGED_IN_USER.USERID;
+                BindingList<Appointment> appointmentsByDates = GetAppointmentsByDates(startDate, endDate, userId);
 
                 if (appointmentsByDates.Count == 0)
                 {

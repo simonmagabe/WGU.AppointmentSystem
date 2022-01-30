@@ -234,7 +234,7 @@ namespace WGU.AppointmentSystem.Model
 
         public static BindingList<Appointment> GetAppointments()
         {
-            string allAppointmentsQuery = $"SELECT * FROM appointment WHERE userId={FormHomePage.LOGGGED_IN_USER.USERID}";
+            string allAppointmentsQuery = $"SELECT * FROM appointment;";
             QueryDataFromDatabase(allAppointmentsQuery);
 
             while (database.SqlDataReader.Read())
