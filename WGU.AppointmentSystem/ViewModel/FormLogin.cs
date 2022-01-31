@@ -5,6 +5,7 @@ using WGU.AppointmentSystem.Model;
 using WGU.AppointmentSystem.ViewModel;
 using System.Globalization;
 using System.Linq;
+using WGU.AppointmentSystem.Logs;
 
 namespace WGU.AppointmentSystem
 {
@@ -97,7 +98,7 @@ namespace WGU.AppointmentSystem
                     if (loggedInUser[0].PASSWORD.Equals(password))
                     {
                         // Log the activity here
-
+                        LoginActivity.LoginActivityLog(loggedInUser[0]);
                         new FormHomePage(loggedInUser[0]).Show();
                         this.Hide();
                     }
