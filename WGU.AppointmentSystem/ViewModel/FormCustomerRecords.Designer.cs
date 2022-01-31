@@ -190,7 +190,7 @@ namespace WGU.AppointmentSystem
             this.lblUserInfoTitle.ForeColor = System.Drawing.Color.GhostWhite;
             this.lblUserInfoTitle.Location = new System.Drawing.Point(209, 9);
             this.lblUserInfoTitle.Name = "lblUserInfoTitle";
-            this.lblUserInfoTitle.Size = new System.Drawing.Size(195, 35);
+            this.lblUserInfoTitle.Size = new System.Drawing.Size(156, 28);
             this.lblUserInfoTitle.TabIndex = 5;
             this.lblUserInfoTitle.Text = "Customer Form";
             // 
@@ -411,6 +411,7 @@ namespace WGU.AppointmentSystem
             this.dataGridViewCustomers.MultiSelect = false;
             this.dataGridViewCustomers.Name = "dataGridViewCustomers";
             this.dataGridViewCustomers.ReadOnly = true;
+            this.dataGridViewCustomers.RowHeadersVisible = false;
             this.dataGridViewCustomers.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewCustomers.RowTemplate.Height = 24;
             this.dataGridViewCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -468,6 +469,7 @@ namespace WGU.AppointmentSystem
             this.Name = "FormCustomerRecords";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmRegistration";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormCustomerRecords_FormClosed);
             this.Load += new System.EventHandler(this.FormCustomerRecords_Load);
             this.splitContainerUserRecords.Panel1.ResumeLayout(false);
             this.splitContainerUserRecords.Panel1.PerformLayout();

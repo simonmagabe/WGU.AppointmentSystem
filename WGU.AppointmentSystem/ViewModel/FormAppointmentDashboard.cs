@@ -10,10 +10,12 @@ namespace WGU.AppointmentSystem
 {
     public partial class FormAppointmentDashboard : Form
     {
-        public FormAppointmentDashboard()
+        private Form HomePage;
+        public FormAppointmentDashboard(Form homePage)
         {
             InitializeComponent();
             lblLoggedUser.Text = $"{lblLoggedUser.Text} {FormHomePage.LOGGGED_IN_USER.USERNAME}";
+            HomePage = homePage;
         }
 
         private void FormAppointmentDashboard_Load(object sender, EventArgs e)
@@ -27,21 +29,8 @@ namespace WGU.AppointmentSystem
         #region Event Listeners
         private void BtnBackToHome_Click(object sender, EventArgs e)
         {
-            DialogResult iExit;
-
-            try
-            {
-                iExit = MessageBox.Show("Do you want to go back to Home Page?", "MySql Connector", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (iExit == DialogResult.Yes)
-                {
-                    this.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            this.Close();
+            HomePage.Show();
         }
 
         private void BtnExitApp_Click(object sender, EventArgs e)
@@ -131,7 +120,7 @@ namespace WGU.AppointmentSystem
         #region NEW; EDIT; DELETE BUTTONS CLICK EVENTS
         private void BtnNewAppointment_Click(object sender, EventArgs e)
         {
-            new FormAddEditAppointment().Show();
+            new FormAddEditAppointment(this).Show();
             this.Hide();
         }
 
@@ -149,7 +138,7 @@ namespace WGU.AppointmentSystem
 
                 int selectedAppointmentId = int.Parse(selectedRows[0].Cells[0].Value.ToString().Trim());
 
-                new FormAddEditAppointment(selectedAppointmentId).Show();
+                new FormAddEditAppointment(this, selectedAppointmentId).Show();
                 this.Hide();
             }
             catch (Exception exc)
@@ -339,8 +328,9 @@ namespace WGU.AppointmentSystem
                 }
 
                 dataGridViewAppointments.DataSource = customerAppointments;
-                dataGridViewAppointments.ClearSelection();
             }
+
+            dataGridViewAppointments.ClearSelection();
         }
 
         public static void ValidateAppoinmentSearchDates(DateTime startDate, DateTime endDate)

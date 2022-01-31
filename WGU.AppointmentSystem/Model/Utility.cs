@@ -79,10 +79,10 @@ namespace WGU.AppointmentSystem.Model
             string lastUpdated = newCustomer.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
 
             string queryString = $"INSERT INTO customer " +
-                                        $"VALUES('{ newCustomer.CUSTOMERID }', " +
+                                        $"VALUES({ newCustomer.CUSTOMERID }, " +
                                                 $"'{ newCustomer.CUSTOMERNAME }', " +
-                                                $"'{ newCustomer.ADDRESSID }', " +
-                                                $"'{ newCustomer.ACTIVE }', " +
+                                                $"{ newCustomer.ADDRESSID }, " +
+                                                $"{ newCustomer.ACTIVE }, " +
                                                 $"'{ createdDate }', " +
                                                 $"'{ newCustomer.CREATEDBY }', " +
                                                 $"'{ lastUpdated }', " +
@@ -98,7 +98,7 @@ namespace WGU.AppointmentSystem.Model
             string currentDate = currentDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
             string queryString = $"UPDATE customer " +
                                  $"SET " +
-                                        $"customerName = ' {customerName }', " +
+                                        $"customerName = '{ customerName }', " +
                                         $"lastUpdate = '{ currentDate }', " +
                                         $"lastUpdateBy = '{ user }' " +
                                  $"WHERE customerId = { customerToUpdate.CUSTOMERID };";
@@ -148,10 +148,10 @@ namespace WGU.AppointmentSystem.Model
             string createdDate = newAddress.CREATEDDATE.ToUniversalTime().ToString("yy-MM-dd HH:MM:ss", DateTimeFormatInfo.InvariantInfo);
             string lastUpdated = newAddress.LASTUPDATED.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
             string queryString = $"INSERT INTO address " +
-                                        $"VALUES('{ newAddress.ADDRESSID }', " +
+                                        $"VALUES({ newAddress.ADDRESSID }, " +
                                                 $"'{ newAddress.STREET1 }', " +
                                                 $"'{ newAddress.STREET2 }', " +
-                                                $"'{ newAddress.CITYID }', " +
+                                                $"{ newAddress.CITYID }, " +
                                                 $"'{ newAddress.ZIPCODE }', " +
                                                 $"'{ newAddress.PHONE }', " +
                                                 $"'{ createdDate }', " +
@@ -336,14 +336,14 @@ namespace WGU.AppointmentSystem.Model
 
 
         // Helper methods
-        private static void QueryDataFromDatabase(string queryString)
+        internal static void QueryDataFromDatabase(string queryString)
         {
             database.SqlConnection.Open();
             MySqlCommand mySqlCommand = new MySqlCommand(queryString, database.SqlConnection);
             database.SqlDataReader = mySqlCommand.ExecuteReader();
         }
 
-        private static void ExecuteNonQueryOnDatabase(string queryString)
+        internal static void ExecuteNonQueryOnDatabase(string queryString)
         {
             database.SqlConnection.Open();
             MySqlCommand mySqlCommand = new MySqlCommand(queryString, database.SqlConnection);

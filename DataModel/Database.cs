@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Windows.Forms;
 
 namespace DataModel
 {
@@ -11,30 +12,63 @@ namespace DataModel
         // add Database conncetions here
         //
         public MySqlConnection SqlConnection = new MySqlConnection(sqlConnectionString);
-        
-        public static MySqlCommand SqlCommand;
-        public DataTable SqlDataTable = new DataTable();
-        public string SqlQuery;
-        public MySqlDataAdapter SqlDataAdapter = new MySqlDataAdapter();
         public MySqlDataReader SqlDataReader;
-        public static readonly DataSet dataSet = new DataSet();
+
         public static readonly string server = "localhost";
         public static readonly string username = "root";
         public static readonly string password = "root";
         public static readonly string database = "client_schedule";
         public static readonly string sqlConnectionString = "server=" + server + ";" + "user id=" + username + ";" + "password=" + password + ";" + "database=" + database;
 
-        public void LoadData(string sqlQeuryCommandText)
+        public void LoadAllCustomersAppointmentsReport(string sqlQueryString, DataGridView dataGridView)
         {
-            SqlConnection.ConnectionString = "server=" + server + ";" + "user id=" + username + ";" + "password=" + password + ";" + "database=" + database;
+            MySqlConnection sqlConnection = new MySqlConnection();
+            MySqlCommand sqlCommand = new MySqlCommand();
+            DataTable sqlDataTable = new DataTable();
 
-            SqlConnection.Open();
-            SqlCommand.Connection = SqlConnection;
-            SqlCommand.CommandText = sqlQeuryCommandText;
-            SqlDataReader = SqlCommand.ExecuteReader();
-            SqlDataTable.Load(SqlDataReader);
+            sqlConnection.ConnectionString = sqlConnectionString;
+            sqlConnection.Open();
+            sqlCommand.Connection = sqlConnection;
+            sqlCommand.CommandText = sqlQueryString;
+            SqlDataReader = sqlCommand.ExecuteReader();
+            sqlDataTable.Load(SqlDataReader);
             SqlDataReader.Close();
-            SqlConnection.Close();
+            sqlConnection.Close();
+            dataGridView.DataSource = sqlDataTable;
+        }
+
+        public void LoadConsultantReport(string sqlQueryString, DataGridView dataGridView)
+        {
+            MySqlConnection sqlConnection = new MySqlConnection();
+            MySqlCommand sqlCommand = new MySqlCommand();
+            DataTable sqlDataTable = new DataTable();
+
+            sqlConnection.ConnectionString = sqlConnectionString;
+            sqlConnection.Open();
+            sqlCommand.Connection = sqlConnection;
+            sqlCommand.CommandText = sqlQueryString;
+            SqlDataReader = sqlCommand.ExecuteReader();
+            sqlDataTable.Load(SqlDataReader);
+            SqlDataReader.Close();
+            sqlConnection.Close();
+            dataGridView.DataSource = sqlDataTable;
+        }
+
+        public void LoadAppointmentsByMonthReport(string sqlQueryString, DataGridView dataGridView)
+        {
+            MySqlConnection sqlConnection = new MySqlConnection();
+            MySqlCommand sqlCommand = new MySqlCommand();
+            DataTable sqlDataTable = new DataTable();
+
+            sqlConnection.ConnectionString = sqlConnectionString;
+            sqlConnection.Open();
+            sqlCommand.Connection = sqlConnection;
+            sqlCommand.CommandText = sqlQueryString;
+            SqlDataReader = sqlCommand.ExecuteReader();
+            sqlDataTable.Load(SqlDataReader);
+            SqlDataReader.Close();
+            sqlConnection.Close();
+            dataGridView.DataSource = sqlDataTable;
         }
     }
 }
