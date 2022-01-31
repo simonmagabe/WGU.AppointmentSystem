@@ -10,11 +10,14 @@ namespace WGU.AppointmentSystem
 {
     public partial class FormCustomerRecords : Form
     {
-        public FormCustomerRecords()
+        private Form HomePage;
+
+        public FormCustomerRecords(Form homepage)
         {
             InitializeComponent();
             dataGridViewCustomers.DataSource = Utility.CustomersList;
             ToggleSaveAndClearBtnStatus(false);
+            HomePage = homepage;
         }
 
         #region OnLoad Method
@@ -39,6 +42,8 @@ namespace WGU.AppointmentSystem
             comboBoxCountry.DisplayMember = "Value";
             comboBoxCountry.ValueMember = "Key";
             comboBoxCountry.SelectedItem = null;
+
+            dataGridViewCustomers.ClearSelection();
         }
         #endregion
 
@@ -46,8 +51,8 @@ namespace WGU.AppointmentSystem
         #region Helper Methods
         private void ToggleSaveAndClearBtnStatus(bool status)
         {
-            btnSave.Enabled = status;
-            btnClear.Enabled = status;
+            btnSave.Enabled = btnSave.Visible = status;
+            btnClear.Enabled = btnClear.Visible = status;
         }
 
         private void ToggleCustomerInputsAbility(bool isEnabled)
@@ -156,6 +161,20 @@ namespace WGU.AppointmentSystem
                     int addressId = Utility.AddAddress(streetAddress1, streetAddress2, cityId, zipCode, phone, signedInUser);
                     customerId = Utility.AddCustomer(name, addressId, signedInUser);
                     txtCustomerId.Text = customerId.ToString().Trim();
+
+                    ToggleCustomerInputsAbility(false);
+                    ToggleSaveAndClearBtnStatus(false);
+                    btnCancel.Visible = btnCancel.Enabled = false;
+
+                    ClearFields();
+
+                    BtnAddNewCustomer.Visible = BtnAddNewCustomer.Enabled = true;
+                    BtnUpdateCustomer.Text = "UPDATE CUSTOMER";
+                    BtnUpdateCustomer.Visible = BtnUpdateCustomer.Enabled = true;
+                    BtnDeleteCustomer.Visible = BtnDeleteCustomer.Enabled = true;
+
+                    dataGridViewCustomers.ClearSelection();
+                    dataGridViewCustomers.Enabled = true;
                 }
                 else
                 {
@@ -166,21 +185,17 @@ namespace WGU.AppointmentSystem
                     Utility.UpdateCustomer(customerToUpdate, name, signedInUser);
                     
                     Utility.UpdateAddress(customerAddress, streetAddress1, streetAddress2, cityId, zipCode, phone, signedInUser);
+
+                    ToggleCustomerInputsAbility(false);
+                    btnCancel.Text = "DONE";
+                    ToggleSaveAndClearBtnStatus(false);
+                    BtnAddNewCustomer.Visible = BtnAddNewCustomer.Enabled = false;
+                    BtnUpdateCustomer.Text = "CONTINUE UPDATING";
+                    BtnUpdateCustomer.Visible = BtnUpdateCustomer.Enabled = true;
+                    BtnDeleteCustomer.Visible = BtnDeleteCustomer.Enabled = false;
+
+                    dataGridViewCustomers.Rows.Cast<DataGridViewRow>().Where(dataRow => int.Parse(dataRow.Cells[0].Value.ToString().Trim()) == customerId).Single().Selected = true;
                 }
-
-                ToggleCustomerInputsAbility(false);
-                btnCancel.Text = "DONE";
-                btnCancel.Visible = btnCancel.Enabled = true;
-                btnSave.Visible = true;
-                btnClear.Visible = true;
-                btnSave.Enabled = false;
-                btnClear.Enabled = false;
-                BtnAddNewCustomer.Visible = BtnAddNewCustomer.Enabled = false;
-                BtnUpdateCustomer.Text = "CONTINUE UPDATING";
-                BtnUpdateCustomer.Visible = BtnUpdateCustomer.Enabled = true;
-                BtnDeleteCustomer.Visible = BtnDeleteCustomer.Enabled = false;
-
-                dataGridViewCustomers.Rows.Cast<DataGridViewRow>().Where(dataRow => int.Parse(dataRow.Cells[0].Value.ToString().Trim()) == customerId).Single().Selected = true;
             }
             catch (ApplicationException appExc)
             {
@@ -215,28 +230,11 @@ namespace WGU.AppointmentSystem
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void BtnBackToHome_Click(object sender, EventArgs e)
         {
-            DialogResult iExit;
-
-            try
-            {
-                iExit = MessageBox.Show("Do you want to go back to Login Page?", "MySql Connector", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (iExit == DialogResult.Yes)
-                {
-                    new FormHomePage(FormHomePage.LOGGGED_IN_USER).Show();
-                    ClearFields();
-                    this.Hide();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            this.Close();
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -244,12 +242,12 @@ namespace WGU.AppointmentSystem
             ToggleCustomerInputsAbility(false);
             ToggleSaveAndClearBtnStatus(false);
             ClearFields();
-            btnSave.Visible = true;
             btnCancel.Visible = false;
             BtnAddNewCustomer.Visible = BtnAddNewCustomer.Enabled = true;
-            BtnUpdateCustomer.Text = "UPDATE CUSTOMER";
             BtnUpdateCustomer.Visible = BtnUpdateCustomer.Enabled = true;
             BtnDeleteCustomer.Visible = BtnDeleteCustomer.Enabled = true;
+            BtnUpdateCustomer.Text = "UPDATE CUSTOMER";
+            
             dataGridViewCustomers.ClearSelection();
             dataGridViewCustomers.Enabled = true;
         }
@@ -258,11 +256,10 @@ namespace WGU.AppointmentSystem
         {
             try
             {
-                BtnAddNewCustomer.Visible = false;
+                BtnAddNewCustomer.Visible = BtnAddNewCustomer.Enabled = false;
                 btnSave.Visible = false;
                 btnClear.Visible = false;
                 ToggleCustomerInputsAbility(false);
-                ActiveControl = txtCustomerName;
 
                 var selectedRow = dataGridViewCustomers.SelectedRows[0];
                 int selectedCustomerId = int.Parse(selectedRow.Cells[0].Value.ToString().Trim());
@@ -292,6 +289,7 @@ namespace WGU.AppointmentSystem
             ToggleSaveAndClearBtnStatus(true);
             ActiveControl = txtCustomerName;
             dataGridViewCustomers.Enabled = false;
+            BtnAddNewCustomer.Enabled = false;
             BtnUpdateCustomer.Visible = false;
             BtnDeleteCustomer.Visible = false;
             btnCancel.Visible = true;
@@ -305,12 +303,10 @@ namespace WGU.AppointmentSystem
 
                 ToggleCustomerInputsAbility(true);
                 ToggleSaveAndClearBtnStatus(true);
-                btnSave.Visible = true;
                 btnCancel.Text = "CANCEL";
-                btnClear.Visible = true;
-                btnCancel.Visible = true;
-                BtnDeleteCustomer.Visible = false;
-                BtnUpdateCustomer.Visible = false;
+                btnCancel.Visible = btnCancel.Enabled = true;
+                BtnDeleteCustomer.Visible = BtnDeleteCustomer.Enabled = false;
+                BtnUpdateCustomer.Visible = BtnUpdateCustomer.Enabled = false;
                 dataGridViewCustomers.Enabled = false;
 
                 int countrySelectedKey = int.Parse(comboBoxCountry.SelectedValue.ToString().Trim());
@@ -352,12 +348,15 @@ namespace WGU.AppointmentSystem
                         string errorMessage = "A customer with scheduled appointment(s) cannot be deleted!";
                         string title = "Confirm Deletion";
                         _ = MessageBox.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
 
                     Customer selectedCustomer = Utility.CustomersList.Where(customer => customer.CUSTOMERID == selectedCustomerId).Single();
                     Utility.DeleteCustomer(selectedCustomer);
+                    Utility.DeleteAddress(selectedCustomer.ADDRESSID);
                     ClearFields();
-                } else
+                } 
+                else
                 {
                     dataGridViewCustomers.ClearSelection();
                     ClearFields();
@@ -373,5 +372,10 @@ namespace WGU.AppointmentSystem
             }
         }
         #endregion
+
+        private void FormCustomerRecords_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            HomePage.Show();
+        }
     }
 }

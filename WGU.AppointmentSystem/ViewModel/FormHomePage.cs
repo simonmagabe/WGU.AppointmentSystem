@@ -27,19 +27,19 @@ namespace WGU.AppointmentSystem.ViewModel
 
         private void BtnCustomers_Click(object sender, System.EventArgs e)
         {
-            new FormCustomerRecords().Show();
+            new FormCustomerRecords(this).Show();
             this.Hide();
         }
 
         private void BtnExit_Click(object sender, System.EventArgs e)
         {
             new FormLogin().Show();
-            this.Hide();
+            this.Close();
         }
 
         private void BtnAppointments_Click(object sender, System.EventArgs e)
         {
-            FormAppointmentDashboard formAppointmentDashboard = new FormAppointmentDashboard();
+            FormAppointmentDashboard formAppointmentDashboard = new FormAppointmentDashboard(this);
             formAppointmentDashboard.Show();
             this.Hide();
             formAppointmentDashboard.PopulateAppoinmentsDataGrid();
@@ -47,7 +47,7 @@ namespace WGU.AppointmentSystem.ViewModel
 
         private void BtnReports_Click(object sender, System.EventArgs e)
         {
-            new FormReportsDashboard().Show();
+            new FormReportsDashboard(this).Show();
             this.Hide();
         }
 

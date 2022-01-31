@@ -1,34 +1,24 @@
-﻿using System;
+﻿using DataModel;
+using System;
 using System.Windows.Forms;
+using WGU.AppointmentSystem.Model;
 
 namespace WGU.AppointmentSystem.ViewModel
 {
     public partial class FormReportsDashboard : Form
     {
-        public FormReportsDashboard()
+        private Form HomePage;
+        public FormReportsDashboard(Form homePage)
         {
             InitializeComponent();
+            HomePage = homePage;
         }
 
         //Event Handler Methods
         private void BtnBackToHome_Click(object sender, EventArgs e)
         {
-            DialogResult iExit;
-
-            try
-            {
-                iExit = MessageBox.Show("Do you want to go back to Home Page?", "MySql Connector", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (iExit == DialogResult.Yes)
-                {
-                    new FormHomePage(FormHomePage.LOGGGED_IN_USER).Show();
-                    this.Hide();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            this.Close();
+            HomePage.Show();
         }
 
         private void BtnNumberOfAppointmentByMonth_Click(object sender, EventArgs e)
@@ -50,6 +40,20 @@ namespace WGU.AppointmentSystem.ViewModel
             EnableReportButton(BtnAllAppointments);
             DisableReportButton(BtnAppointmentsForEachConsultant);
             DisableReportButton(BtnNumberOfAppointmentByMonth);
+
+            string queryString = "SELECT count(cu.customerId) as 'No. Appointments', cu.customerName, addr.address, ci.city, addr.postalCode, addr.phone, co.country " +
+                                 "FROM client_schedule.address as addr " +
+                                 "join client_schedule.customer cu " +
+                                 "using(addressId) " +
+                                 "join client_schedule.appointment appt " +
+                                 "using(customerId) " +
+                                 "join client_schedule.city as ci " +
+                                 "using(cityId) " +
+                                 "join client_schedule.country co " +
+                                 "using(countryId) " +
+                                 "group by cu.customerName;";
+            Database database = new Database();
+            database.LoadData(queryString, dataGridViewReports);
         }
 
 

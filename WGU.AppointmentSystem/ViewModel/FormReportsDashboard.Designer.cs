@@ -30,19 +30,19 @@ namespace WGU.AppointmentSystem.ViewModel
         private void InitializeComponent()
         {
             this.splitContainerReportDash = new System.Windows.Forms.SplitContainer();
-            this.BtnNumberOfAppointmentByMonth = new System.Windows.Forms.Button();
-            this.BtnAppointmentsForEachConsultant = new System.Windows.Forms.Button();
             this.BtnAllAppointments = new System.Windows.Forms.Button();
+            this.BtnAppointmentsForEachConsultant = new System.Windows.Forms.Button();
+            this.BtnNumberOfAppointmentByMonth = new System.Windows.Forms.Button();
+            this.dataGridViewReports = new System.Windows.Forms.DataGridView();
             this.lblReportsTitle = new System.Windows.Forms.Label();
             this.lblReportsSubTitle = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.BtnBackToHome = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerReportDash)).BeginInit();
             this.splitContainerReportDash.Panel1.SuspendLayout();
             this.splitContainerReportDash.Panel2.SuspendLayout();
             this.splitContainerReportDash.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReports)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainerReportDash
@@ -60,24 +60,23 @@ namespace WGU.AppointmentSystem.ViewModel
             // 
             // splitContainerReportDash.Panel2
             // 
-            this.splitContainerReportDash.Panel2.Controls.Add(this.dataGridView1);
+            this.splitContainerReportDash.Panel2.Controls.Add(this.dataGridViewReports);
             this.splitContainerReportDash.Size = new System.Drawing.Size(1172, 420);
             this.splitContainerReportDash.SplitterDistance = 390;
             this.splitContainerReportDash.TabIndex = 0;
             // 
-            // BtnNumberOfAppointmentByMonth
+            // BtnAllAppointments
             // 
-            this.BtnNumberOfAppointmentByMonth.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SkyBlue;
-            this.BtnNumberOfAppointmentByMonth.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
-            this.BtnNumberOfAppointmentByMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnNumberOfAppointmentByMonth.Font = new System.Drawing.Font("Myanmar Text", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnNumberOfAppointmentByMonth.Location = new System.Drawing.Point(-1, -1);
-            this.BtnNumberOfAppointmentByMonth.Name = "BtnNumberOfAppointmentByMonth";
-            this.BtnNumberOfAppointmentByMonth.Size = new System.Drawing.Size(393, 56);
-            this.BtnNumberOfAppointmentByMonth.TabIndex = 0;
-            this.BtnNumberOfAppointmentByMonth.Text = "Number of Appointments by Month";
-            this.BtnNumberOfAppointmentByMonth.UseVisualStyleBackColor = true;
-            this.BtnNumberOfAppointmentByMonth.Click += new System.EventHandler(this.BtnNumberOfAppointmentByMonth_Click);
+            this.BtnAllAppointments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SkyBlue;
+            this.BtnAllAppointments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.BtnAllAppointments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAllAppointments.Location = new System.Drawing.Point(-1, 101);
+            this.BtnAllAppointments.Name = "BtnAllAppointments";
+            this.BtnAllAppointments.Size = new System.Drawing.Size(393, 56);
+            this.BtnAllAppointments.TabIndex = 2;
+            this.BtnAllAppointments.Text = "All Scheduled Appointments";
+            this.BtnAllAppointments.UseVisualStyleBackColor = true;
+            this.BtnAllAppointments.Click += new System.EventHandler(this.BtnAllAppointments_Click);
             // 
             // BtnAppointmentsForEachConsultant
             // 
@@ -93,18 +92,33 @@ namespace WGU.AppointmentSystem.ViewModel
             this.BtnAppointmentsForEachConsultant.UseVisualStyleBackColor = true;
             this.BtnAppointmentsForEachConsultant.Click += new System.EventHandler(this.BtnAppointmentsForEachConsultant_Click);
             // 
-            // BtnAllAppointments
+            // BtnNumberOfAppointmentByMonth
             // 
-            this.BtnAllAppointments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SkyBlue;
-            this.BtnAllAppointments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
-            this.BtnAllAppointments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAllAppointments.Location = new System.Drawing.Point(-1, 101);
-            this.BtnAllAppointments.Name = "BtnAllAppointments";
-            this.BtnAllAppointments.Size = new System.Drawing.Size(393, 56);
-            this.BtnAllAppointments.TabIndex = 2;
-            this.BtnAllAppointments.Text = "All Scheduled Appointments";
-            this.BtnAllAppointments.UseVisualStyleBackColor = true;
-            this.BtnAllAppointments.Click += new System.EventHandler(this.BtnAllAppointments_Click);
+            this.BtnNumberOfAppointmentByMonth.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SkyBlue;
+            this.BtnNumberOfAppointmentByMonth.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
+            this.BtnNumberOfAppointmentByMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnNumberOfAppointmentByMonth.Font = new System.Drawing.Font("Myanmar Text", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnNumberOfAppointmentByMonth.Location = new System.Drawing.Point(-1, -1);
+            this.BtnNumberOfAppointmentByMonth.Name = "BtnNumberOfAppointmentByMonth";
+            this.BtnNumberOfAppointmentByMonth.Size = new System.Drawing.Size(393, 56);
+            this.BtnNumberOfAppointmentByMonth.TabIndex = 0;
+            this.BtnNumberOfAppointmentByMonth.Text = "Number of Appointments by Month";
+            this.BtnNumberOfAppointmentByMonth.UseVisualStyleBackColor = true;
+            this.BtnNumberOfAppointmentByMonth.Click += new System.EventHandler(this.BtnNumberOfAppointmentByMonth_Click);
+            // 
+            // dataGridViewReports
+            // 
+            this.dataGridViewReports.AllowUserToAddRows = false;
+            this.dataGridViewReports.AllowUserToDeleteRows = false;
+            this.dataGridViewReports.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.dataGridViewReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewReports.Location = new System.Drawing.Point(20, 18);
+            this.dataGridViewReports.Name = "dataGridViewReports";
+            this.dataGridViewReports.ReadOnly = true;
+            this.dataGridViewReports.RowHeadersWidth = 51;
+            this.dataGridViewReports.RowTemplate.Height = 24;
+            this.dataGridViewReports.Size = new System.Drawing.Size(736, 382);
+            this.dataGridViewReports.TabIndex = 0;
             // 
             // lblReportsTitle
             // 
@@ -112,7 +126,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.lblReportsTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
             this.lblReportsTitle.Location = new System.Drawing.Point(12, 9);
             this.lblReportsTitle.Name = "lblReportsTitle";
-            this.lblReportsTitle.Size = new System.Drawing.Size(184, 25);
+            this.lblReportsTitle.Size = new System.Drawing.Size(147, 20);
             this.lblReportsTitle.TabIndex = 1;
             this.lblReportsTitle.Text = "Generate a Report";
             // 
@@ -132,23 +146,9 @@ namespace WGU.AppointmentSystem.ViewModel
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
             this.label1.Location = new System.Drawing.Point(12, 73);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 25);
+            this.label1.Size = new System.Drawing.Size(102, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "Item counter";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(20, 18);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(736, 382);
-            this.dataGridView1.TabIndex = 0;
             // 
             // BtnBackToHome
             // 
@@ -185,7 +185,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.splitContainerReportDash.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerReportDash)).EndInit();
             this.splitContainerReportDash.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReports)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,7 +197,7 @@ namespace WGU.AppointmentSystem.ViewModel
         private System.Windows.Forms.Button BtnAllAppointments;
         private System.Windows.Forms.Button BtnAppointmentsForEachConsultant;
         private System.Windows.Forms.Button BtnNumberOfAppointmentByMonth;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewReports;
         private System.Windows.Forms.Label lblReportsTitle;
         private System.Windows.Forms.Label lblReportsSubTitle;
         private System.Windows.Forms.Label label1;

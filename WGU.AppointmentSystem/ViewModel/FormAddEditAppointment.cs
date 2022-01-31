@@ -9,15 +9,15 @@ namespace WGU.AppointmentSystem.ViewModel
     public partial class FormAddEditAppointment : Form
     {
         private int SelectedAppointmentId = -1;
-        FormAppointmentDashboard formAppointment = new FormAppointmentDashboard();
+        private FormAppointmentDashboard AppointmentDashboard;
 
-
-        public FormAddEditAppointment()
+        public FormAddEditAppointment(FormAppointmentDashboard appointmentDashboard)
         {
             InitializeComponent();
+            AppointmentDashboard = appointmentDashboard;
         }
 
-        public FormAddEditAppointment(int appoinmentId)
+        public FormAddEditAppointment(FormAppointmentDashboard appointmentDashboard, int appoinmentId)
         {
             InitializeComponent();
             SelectedAppointmentId = appoinmentId;
@@ -110,9 +110,9 @@ namespace WGU.AppointmentSystem.ViewModel
                     Utility.AddAppointment(selectedCustomerId, selectedAppointmentType, selectedStartDateTime, selectedEndDateTime);
                 }
 
-                formAppointment.Show();
+                AppointmentDashboard.Show();
                 this.Close();
-                formAppointment.PopulateAppoinmentsDataGrid();
+                AppointmentDashboard.PopulateAppoinmentsDataGrid();
             }
             catch (Exception exc)
             {
@@ -130,7 +130,7 @@ namespace WGU.AppointmentSystem.ViewModel
 
                 if (iCancel == DialogResult.Yes)
                 {
-                    formAppointment.Show();
+                    AppointmentDashboard.Show();
                     this.Close();
                 }
             }
