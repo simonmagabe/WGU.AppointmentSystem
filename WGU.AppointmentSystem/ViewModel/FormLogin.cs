@@ -70,6 +70,8 @@ namespace WGU.AppointmentSystem
                 if (username.Equals("") || password.Equals(""))
                 {
                     string errorMessage;
+
+                    // This ternary (?:) operator is a a substitute for if...else statement
                     errorMessage = CurrentCulture == "sw-KE" ? "Jina la mtumiaji na Nenosiri zinahitajika kuingia, Jaribu tena!" : "Username and Password are required to login, Try again!";
                     MessageBox.Show(errorMessage, "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -95,7 +97,7 @@ namespace WGU.AppointmentSystem
                     if (loggedInUser[0].PASSWORD.Equals(password))
                     {
                         // Log the activity here
-                        LoginActivity.LoginActivityLog(loggedInUser[0]);
+                        UserActivity.UserLoginActivity(loggedInUser[0]);
 
                         new FormHomePage(loggedInUser[0]).Show();
                         this.Hide();

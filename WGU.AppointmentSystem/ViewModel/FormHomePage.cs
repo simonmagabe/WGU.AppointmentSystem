@@ -60,6 +60,7 @@ namespace WGU.AppointmentSystem.ViewModel
 
         private void FormHomePage_Shown(object sender, System.EventArgs e)
         {
+            // This lambda expression makes code concise, more readable, less code to do simple things
             var appointmentDueInFifteenMinutes = Utility.AppointmentsList.Where(appointment =>
             {
                 DateTime currentDateTime = DateTime.Now;
@@ -76,8 +77,11 @@ namespace WGU.AppointmentSystem.ViewModel
             {
                 Appointment appointmentDue = appointmentDueInFifteenMinutes.First();
                 string dueAppointmentMsgBoxTitle = "Upcoming Appointment Notification";
-                MessageBox.Show($"Upcoming Appointment: {Utility.CustomersList.Where(customer => customer.CUSTOMERID == appointmentDue.CUSTOMERID).Single().CUSTOMERNAME} at " +
-                    $"{appointmentDue.STARTDATE.ToString("hh:mm tt")}.", dueAppointmentMsgBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // This lambda expression makes code concise, more readable, less code to do simple things
+                MessageBox.Show($"Upcoming Appointment: {Utility.CustomersList.Single(customer => customer.CUSTOMERID == appointmentDue.CUSTOMERID).CUSTOMERNAME} at " +
+                    $"{appointmentDue.STARTDATE:hh:mm tt}.", dueAppointmentMsgBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
         }
     }

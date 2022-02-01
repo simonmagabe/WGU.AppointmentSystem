@@ -89,7 +89,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logs\LoginActivity.cs" />
+    <Compile Include="Logs\UserActivity.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\City.cs" />
@@ -176,7 +176,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DataModel\DataModel.csproj">
       <Project>{bcf1454a-e859-4a58-86c0-235e8a3e38ec}</Project>

@@ -38,7 +38,7 @@ namespace WGU.AppointmentSystem
 
             try
             {
-                iExit = MessageBox.Show("Do you want to exit this Page?", "MySql Connector", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                iExit = MessageBox.Show("Do you want to exit this Page?", "Appointments Page", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (iExit == DialogResult.Yes)
                 {
@@ -262,17 +262,20 @@ namespace WGU.AppointmentSystem
 
         private BindingList<Appointment> GetAppointmentsByDates(DateTime startDate, DateTime endDate, int userId)
         {
+            // This lambda expression makes code concise, more readable, less code to do simple things
             return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => 
             appointment.STARTDATE >= startDate && appointment.ENDDATE <= endDate && appointment.USERID == userId).ToList());
         }
 
         private static BindingList<Appointment> GetAppointmentsByCustomerId(int customerId, int userId)
         {
+            // This lambda expression makes code concise, more readable, less code to do simple things
             return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => appointment.CUSTOMERID == customerId && appointment.USERID == userId).ToList());
         }
 
         private static BindingList<Appointment> GetAppointmentsByAppointmentTypes(string type, int userId)
         {
+            // This lambda expression makes code concise, more readable, less code to do simple things
             return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => appointment.TYPE == type && appointment.USERID == userId).ToList());
         }
 

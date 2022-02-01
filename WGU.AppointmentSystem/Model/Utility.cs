@@ -332,9 +332,6 @@ namespace WGU.AppointmentSystem.Model
             AppointmentsList.Remove(appointment);
         }
 
-
-
-
         // Helper methods
         internal static void QueryDataFromDatabase(string queryString)
         {

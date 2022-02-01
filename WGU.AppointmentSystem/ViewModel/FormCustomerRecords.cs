@@ -120,7 +120,7 @@ namespace WGU.AppointmentSystem
                 {
                     if (item is ComboBox box && comboBox.Name == box.Name && box.SelectedItem == null)
                     {
-                        MessageBox.Show(errorMessage, "MySQL Connector", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(errorMessage, "Customer Page", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
                     }
                 }
@@ -128,7 +128,7 @@ namespace WGU.AppointmentSystem
             catch (Exception exc)
             {
                 Console.WriteLine(exc.Message);
-                MessageBox.Show(exc.Message, "MySQL Connector", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(exc.Message, "Customer Page", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         #endregion
@@ -310,8 +310,11 @@ namespace WGU.AppointmentSystem
                 dataGridViewCustomers.Enabled = false;
 
                 int countrySelectedKey = int.Parse(comboBoxCountry.SelectedValue.ToString().Trim());
+
+                // This lambda expression makes code concise, more readable, less code to do simple things
                 var updatedCityName = Utility.CitiesList.Where(city => city.Value.COUNTRYID == countrySelectedKey).
                     ToDictionary(city => city.Key, city => city.Value.CITYNAME);
+
                 comboBoxCity.DataSource = new BindingSource(updatedCityName, null);
                 comboBoxCity.DisplayMember = "Value";
                 comboBoxCity.ValueMember = "Key";
@@ -344,6 +347,7 @@ namespace WGU.AppointmentSystem
 
                     foreach (var item in Utility.AppointmentsList)
                     {
+                        // This ternary (?:) operator is a a substitute for if...else statement
                         _ = item.CUSTOMERID == selectedCustomerId ? cutomerHasScheduledAppointments = true : cutomerHasScheduledAppointments = false;
                     }
 
@@ -355,7 +359,9 @@ namespace WGU.AppointmentSystem
                         return;
                     }
 
+                    // This lambda expression makes code concise, more readable, less code to do simple things
                     Customer selectedCustomer = Utility.CustomersList.Where(customer => customer.CUSTOMERID == selectedCustomerId).Single();
+
                     Utility.DeleteCustomer(selectedCustomer);
                     Utility.DeleteAddress(selectedCustomer.ADDRESSID);
                     ClearFields();
@@ -375,7 +381,6 @@ namespace WGU.AppointmentSystem
                 MessageBox.Show(exc.Message);
             }
         }
-        #endregion
 
         private void FormCustomerRecords_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -389,5 +394,6 @@ namespace WGU.AppointmentSystem
                 e.Handled = true;
             }
         }
+        #endregion
     }
 }
