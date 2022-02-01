@@ -2,7 +2,6 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using WGU.AppointmentSystem.Model;
 
 namespace WGU.AppointmentSystem.ViewModel
 {
@@ -123,16 +122,16 @@ namespace WGU.AppointmentSystem.ViewModel
         {
             string queryString = $"SELECT count(cu.customerId) as 'No. Appointments', cu.customerName, addr.address, ci.city, addr.phone, co.country " +
                                  $"FROM client_schedule.address as addr " +
-                                        $"join client_schedule.customer cu " +
-                                        $"using(addressId) " +
-                                        $"join client_schedule.appointment appt " +
-                                        $"using(customerId) " +
-                                        $"join client_schedule.city as ci " +
-                                        $"using(cityId) " +
-                                        $"join client_schedule.country co " +
-                                        $"using(countryId) " +
-                                 $"group by cu.customerName " +
-                                 $"order by 'No. Appointments' desc;";
+                                        $"JOIN client_schedule.customer cu " +
+                                        $"USING(addressId) " +
+                                        $"JOIN client_schedule.appointment appt " +
+                                        $"USING(customerId) " +
+                                        $"JOIN client_schedule.city as ci " +
+                                        $"USING(cityId) " +
+                                        $"JOIN client_schedule.country co " +
+                                        $"USING(countryId) " +
+                                 $"GROUP BY cu.customerName " +
+                                 $"ORDER BY 'No. Appointments' desc;";
 
             return queryString;
         }

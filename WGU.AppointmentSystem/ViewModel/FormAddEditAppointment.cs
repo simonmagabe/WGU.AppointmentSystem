@@ -130,6 +130,7 @@ namespace WGU.AppointmentSystem.ViewModel
 
         private BindingList<Appointment> GetAppointmentsByUserId(int userId)
         {
+            // This lambda expression makes code concise, more readable, less code to do simple things
             return new BindingList<Appointment>(Utility.AppointmentsList.Where(appt => appt.USERID == userId).ToList());
         }
 
@@ -165,6 +166,7 @@ namespace WGU.AppointmentSystem.ViewModel
 
             UpdateAddEditAppointmentFormTitle();
 
+            // This lambda expression makes code concise, more readable, less code to do simple things
             Dictionary<int, string> customerDictionary = Utility.CustomersList.ToDictionary(customer => customer.CUSTOMERID, customer => customer.CUSTOMERNAME);
             ComboBoxCustomer.DataSource = new BindingSource(customerDictionary, null);
             ComboBoxCustomer.DisplayMember = "Value";
@@ -175,6 +177,7 @@ namespace WGU.AppointmentSystem.ViewModel
 
             if (SelectedAppointmentId >= 0)
             {
+                // This lambda expression makes code concise, more readable, less code to do simple things
                 Appointment selectedAppointment = Utility.AppointmentsList.Single(appointment => appointment.APPOINTMENTID == SelectedAppointmentId);
                 txtBoxCustomerId.Text = selectedAppointment.APPOINTMENTID.ToString();
                 ComboBoxCustomer.Text = customerDictionary[selectedAppointment.CUSTOMERID];
@@ -254,6 +257,8 @@ namespace WGU.AppointmentSystem.ViewModel
         {
             string addAppointmentTitle = "Create New Appointment";
             string editAppointmentTitle = "Edit Appointment";
+
+            // This ternary (?:) operator is a a substitute for if...else statement
             _ = SelectedAppointmentId >= 0 ? lblNewEditAppointmentTitle.Text = editAppointmentTitle : lblNewEditAppointmentTitle.Text = addAppointmentTitle;
         }
         #endregion
