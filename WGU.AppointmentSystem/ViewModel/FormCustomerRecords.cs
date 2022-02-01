@@ -316,6 +316,10 @@ namespace WGU.AppointmentSystem
                 comboBoxCity.DisplayMember = "Value";
                 comboBoxCity.ValueMember = "Key";
             }
+            catch (ApplicationException exc)
+            {
+                MessageBox.Show(exc.Message, "Customer Record Page", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
@@ -376,6 +380,14 @@ namespace WGU.AppointmentSystem
         private void FormCustomerRecords_FormClosed(object sender, FormClosedEventArgs e)
         {
             HomePage.Show();
+        }
+
+        private void TxtPhone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '+') && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using WGU.AppointmentSystem.Model;
 using WGU.AppointmentSystem.ViewModel;
@@ -16,11 +15,11 @@ namespace WGU.AppointmentSystem
             InitializeComponent();
             lblLoggedUser.Text = $"{lblLoggedUser.Text} {FormHomePage.LOGGGED_IN_USER.USERNAME}";
             HomePage = homePage;
+            RadioBtnDates.Checked = true;
         }
 
         private void FormAppointmentDashboard_Load(object sender, EventArgs e)
         {
-            RadioBtnDates.Checked = true;
             SetDefaultAppointmentSearchDates();
             dataGridViewAppointments.ClearSelection();
         }
@@ -55,16 +54,22 @@ namespace WGU.AppointmentSystem
         private void RadioBtnCustomerId_CheckedChanged(object sender, EventArgs e)
         {
             ToggleRadioButtons(true);
+            SetDefaultAppointmentSearchDates();
+            comboBoxApptType.SelectedItem = null;
         }
 
         private void RadioBtnAppointmentType_CheckedChanged(object sender, EventArgs e)
         {
             ToggleRadioButtons(true);
+            txtboxCustomerId.Text = "";
+            SetDefaultAppointmentSearchDates();
         }
 
         private void RadioBtnDates_CheckedChanged(object sender, EventArgs e)
         {
             ToggleRadioButtons(true);
+            txtboxCustomerId.Text = "";
+            comboBoxApptType.SelectedItem = null;
         }
 
         private void DateTimePickerStartDate_ValueChanged(object sender, EventArgs e)
@@ -116,6 +121,13 @@ namespace WGU.AppointmentSystem
             }
         }
 
+        private void TxtboxCustomerId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
 
         #region NEW; EDIT; DELETE BUTTONS CLICK EVENTS
         private void BtnNewAppointment_Click(object sender, EventArgs e)
@@ -254,32 +266,30 @@ namespace WGU.AppointmentSystem
             appointment.STARTDATE >= startDate && appointment.ENDDATE <= endDate && appointment.USERID == userId).ToList());
         }
 
-        private static BindingList<Appointment> GetAppointmentsByCustomerId(int customerId)
+        private static BindingList<Appointment> GetAppointmentsByCustomerId(int customerId, int userId)
         {
-            return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => appointment.CUSTOMERID == customerId).ToList());
+            return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => appointment.CUSTOMERID == customerId && appointment.USERID == userId).ToList());
         }
 
-        private static BindingList<Appointment> GetAppointmentsByAppointmentTypes(string type)
+        private static BindingList<Appointment> GetAppointmentsByAppointmentTypes(string type, int userId)
         {
-            return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => appointment.TYPE == type).ToList());
+            return new BindingList<Appointment>(Utility.AppointmentsList.Where(appointment => appointment.TYPE == type && appointment.USERID == userId).ToList());
         }
 
         internal void PopulateAppoinmentsDataGrid()
         {
+            int userId = FormHomePage.LOGGGED_IN_USER.USERID;
             string searchMsgBoxErrorTitle = "Customer Search";
-            if (RadioBtnCustomerId.Checked == false && RadioBtnAppointmentType.Checked == false && RadioBtnDates.Checked == false)
-            {
-                RadioBtnDates.Checked = true;
-            }
 
             if (RadioBtnDates.Checked)
             {
+                SetDefaultAppointmentSearchDates();
+
                 DateTime startDate = DateTimePickerStartDate.Value;
                 DateTime endDate = DateTimePickerEndDate.Value;
 
                 ValidateAppoinmentSearchDates(startDate, endDate);
 
-                int userId = FormHomePage.LOGGGED_IN_USER.USERID;
                 BindingList<Appointment> appointmentsByDates = GetAppointmentsByDates(startDate, endDate, userId);
 
                 if (appointmentsByDates.Count == 0)
@@ -296,7 +306,7 @@ namespace WGU.AppointmentSystem
                 lblAppointmentTableTitle.Text = "List of Appointments By Appointment Type: ";
                 lblAppointmentTableTitle.Text = $"{lblAppointmentTableTitle.Text} {appointmentType}";
 
-                BindingList<Appointment> appointmentsByType = GetAppointmentsByAppointmentTypes(appointmentType);
+                BindingList<Appointment> appointmentsByType = GetAppointmentsByAppointmentTypes(appointmentType, userId);
 
                 if (appointmentsByType.Count == 0)
                 {
@@ -317,7 +327,7 @@ namespace WGU.AppointmentSystem
                     return;
                 }
 
-                BindingList<Appointment> customerAppointments = GetAppointmentsByCustomerId(customerId);
+                BindingList<Appointment> customerAppointments = GetAppointmentsByCustomerId(customerId, userId);
 
                 if (customerAppointments.Count < 1)
                 {
@@ -349,6 +359,6 @@ namespace WGU.AppointmentSystem
             string warningBoxTitle = "Appointment Edit Warning";
             MessageBox.Show(message, warningBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
-        #endregion  
+        #endregion
     }
 }

@@ -8,8 +8,8 @@ namespace WGU.AppointmentSystem.ViewModel
 {
     public partial class FormReportsDashboard : Form
     {
-        private Form HomePage;
-        Database database = new Database();
+        private readonly Form HomePage;
+        readonly Database database = new Database();
 
         bool isNumsOfApptsByMonth = true;
         bool isApptsScheduledForEachConsultant = false;
@@ -23,11 +23,13 @@ namespace WGU.AppointmentSystem.ViewModel
 
         private void FormReportsDashboard_Load(object sender, EventArgs e)
         {
-            DisplayApproprieteReport();
             HighlightButton(BtnNumberOfAppointmentByMonth);
             database.LoadConsultantReport(AppointmentsForEachConsultantQueryString(), dataGridViewConsultantsReport);
             database.LoadAllCustomersAppointmentsReport(AllAppointmentsQueryString(), dataGridViewAllScheduledApptsReport);
             database.LoadAppointmentsByMonthReport(AppointmentsByMonthQueryString(), dataGridViewApptsByMonth);
+
+            DisplayApproprieteReport();
+            dataGridViewApptsByMonth.ClearSelection();
         }
 
         //Event Handler Methods

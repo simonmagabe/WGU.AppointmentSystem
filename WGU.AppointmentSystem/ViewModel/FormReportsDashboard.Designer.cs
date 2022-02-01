@@ -76,7 +76,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.BtnAllAppointments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SkyBlue;
             this.BtnAllAppointments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.BtnAllAppointments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAllAppointments.Location = new System.Drawing.Point(3, 162);
+            this.BtnAllAppointments.Location = new System.Drawing.Point(2, 108);
             this.BtnAllAppointments.Name = "BtnAllAppointments";
             this.BtnAllAppointments.Size = new System.Drawing.Size(432, 56);
             this.BtnAllAppointments.TabIndex = 2;
@@ -91,7 +91,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.BtnAppointmentsForEachConsultant.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.BtnAppointmentsForEachConsultant.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAppointmentsForEachConsultant.Font = new System.Drawing.Font("Myanmar Text", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAppointmentsForEachConsultant.Location = new System.Drawing.Point(3, 91);
+            this.BtnAppointmentsForEachConsultant.Location = new System.Drawing.Point(2, 55);
             this.BtnAppointmentsForEachConsultant.Name = "BtnAppointmentsForEachConsultant";
             this.BtnAppointmentsForEachConsultant.Size = new System.Drawing.Size(432, 56);
             this.BtnAppointmentsForEachConsultant.TabIndex = 1;
@@ -106,7 +106,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.BtnNumberOfAppointmentByMonth.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan;
             this.BtnNumberOfAppointmentByMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnNumberOfAppointmentByMonth.Font = new System.Drawing.Font("Myanmar Text", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnNumberOfAppointmentByMonth.Location = new System.Drawing.Point(3, 12);
+            this.BtnNumberOfAppointmentByMonth.Location = new System.Drawing.Point(2, 3);
             this.BtnNumberOfAppointmentByMonth.Name = "BtnNumberOfAppointmentByMonth";
             this.BtnNumberOfAppointmentByMonth.Size = new System.Drawing.Size(432, 56);
             this.BtnNumberOfAppointmentByMonth.TabIndex = 0;
@@ -131,7 +131,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.dataGridViewApptsByMonth.RowHeadersWidth = 51;
             this.dataGridViewApptsByMonth.RowTemplate.Height = 24;
             this.dataGridViewApptsByMonth.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewApptsByMonth.Size = new System.Drawing.Size(515, 265);
+            this.dataGridViewApptsByMonth.Size = new System.Drawing.Size(511, 265);
             this.dataGridViewApptsByMonth.TabIndex = 2;
             // 
             // dataGridViewConsultantsReport
@@ -144,14 +144,14 @@ namespace WGU.AppointmentSystem.ViewModel
             this.dataGridViewConsultantsReport.BackgroundColor = System.Drawing.Color.PowderBlue;
             this.dataGridViewConsultantsReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewConsultantsReport.GridColor = System.Drawing.Color.LemonChiffon;
-            this.dataGridViewConsultantsReport.Location = new System.Drawing.Point(20, 36);
+            this.dataGridViewConsultantsReport.Location = new System.Drawing.Point(54, 35);
             this.dataGridViewConsultantsReport.Name = "dataGridViewConsultantsReport";
             this.dataGridViewConsultantsReport.ReadOnly = true;
             this.dataGridViewConsultantsReport.RowHeadersVisible = false;
             this.dataGridViewConsultantsReport.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewConsultantsReport.RowTemplate.Height = 24;
             this.dataGridViewConsultantsReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewConsultantsReport.Size = new System.Drawing.Size(752, 348);
+            this.dataGridViewConsultantsReport.Size = new System.Drawing.Size(793, 348);
             this.dataGridViewConsultantsReport.TabIndex = 1;
             // 
             // dataGridViewAllScheduledApptsReport
@@ -170,7 +170,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.dataGridViewAllScheduledApptsReport.RowHeadersWidth = 51;
             this.dataGridViewAllScheduledApptsReport.RowTemplate.Height = 24;
             this.dataGridViewAllScheduledApptsReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAllScheduledApptsReport.Size = new System.Drawing.Size(757, 382);
+            this.dataGridViewAllScheduledApptsReport.Size = new System.Drawing.Size(777, 382);
             this.dataGridViewAllScheduledApptsReport.TabIndex = 0;
             // 
             // lblReportsTitle

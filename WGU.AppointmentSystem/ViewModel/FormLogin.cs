@@ -28,7 +28,6 @@ namespace WGU.AppointmentSystem
             lblErrorMessage.Text = "";
             ActiveControl = txtUsername;
 
-
             if (CurrentCulture == "sw-KE")
             {
                 UpdateLoginInfoToSwahili();
@@ -51,13 +50,8 @@ namespace WGU.AppointmentSystem
         {
             try
             {
-                foreach (Control item in FormLogin.ActiveForm.Controls)
-                {
-                    if (item is TextBox box)
-                    {
-                        box.Clear();
-                    }
-                }
+                txtUsername.Text = "";
+                txtPassword.Text = "";
             }
             catch (Exception ex)
             {
@@ -78,6 +72,7 @@ namespace WGU.AppointmentSystem
                     string errorMessage;
                     errorMessage = CurrentCulture == "sw-KE" ? "Jina la mtumiaji na Nenosiri zinahitajika kuingia, Jaribu tena!" : "Username and Password are required to login, Try again!";
                     MessageBox.Show(errorMessage, "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
                 List<User> loggedInUser = users.Where(user => user.USERNAME.Equals(username)).ToList();
@@ -88,10 +83,12 @@ namespace WGU.AppointmentSystem
                     {
                         MessageBox.Show("Jina la mtumiaji halipo!", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         ClearFields();
+                        return;
                     }
 
                     MessageBox.Show("Username does not exist!", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ClearFields();
+                    return;
                 }
                 else
                 {
@@ -99,6 +96,7 @@ namespace WGU.AppointmentSystem
                     {
                         // Log the activity here
                         LoginActivity.LoginActivityLog(loggedInUser[0]);
+
                         new FormHomePage(loggedInUser[0]).Show();
                         this.Hide();
                     }
@@ -106,20 +104,22 @@ namespace WGU.AppointmentSystem
                     {
                         if (CurrentCulture == "sw-KE")
                         {
-                            MessageBox.Show("Nenosiri siyo sahihi!", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Nenosiri siyo sahihi!", "Login Page", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             txtPassword.Text = "";
+                            return;
                         }
+
+                        MessageBox.Show("Incorrect Password!", "Login Page", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtPassword.Text = "";
+                        return;
                     }
                 }
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error message: {ex.Message} \nError stacktrace: {ex.StackTrace} \nInner Exception: {ex.InnerException} \nError source: {ex.Source}");
                 lblErrorMessage.Text = ex.Message;
             }
-
-
         }
 
         private void BtnClearForm_Click(object sender, EventArgs e)

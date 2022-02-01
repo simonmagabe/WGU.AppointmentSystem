@@ -42,7 +42,6 @@ namespace WGU.AppointmentSystem.ViewModel
             this.idLabel = new System.Windows.Forms.Label();
             this.BtnSave = new System.Windows.Forms.Button();
             this.BtnCancel = new System.Windows.Forms.Button();
-            this.BtnClear = new System.Windows.Forms.Button();
             this.lblNewEditAppointmentTitle = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -171,6 +170,7 @@ namespace WGU.AppointmentSystem.ViewModel
             // BtnSave
             // 
             this.BtnSave.BackColor = System.Drawing.Color.Lavender;
+            this.BtnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnSave.FlatAppearance.BorderSize = 0;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.BtnSave.Location = new System.Drawing.Point(138, 490);
@@ -185,9 +185,10 @@ namespace WGU.AppointmentSystem.ViewModel
             // BtnCancel
             // 
             this.BtnCancel.BackColor = System.Drawing.Color.Lavender;
+            this.BtnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnCancel.FlatAppearance.BorderSize = 0;
             this.BtnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.BtnCancel.Location = new System.Drawing.Point(298, 490);
+            this.BtnCancel.Location = new System.Drawing.Point(449, 490);
             this.BtnCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(112, 44);
@@ -195,20 +196,6 @@ namespace WGU.AppointmentSystem.ViewModel
             this.BtnCancel.Text = "CANCEL";
             this.BtnCancel.UseVisualStyleBackColor = false;
             this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
-            // 
-            // BtnClear
-            // 
-            this.BtnClear.BackColor = System.Drawing.Color.Lavender;
-            this.BtnClear.FlatAppearance.BorderSize = 0;
-            this.BtnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.BtnClear.Location = new System.Drawing.Point(427, 490);
-            this.BtnClear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.BtnClear.Name = "BtnClear";
-            this.BtnClear.Size = new System.Drawing.Size(119, 44);
-            this.BtnClear.TabIndex = 3;
-            this.BtnClear.Text = "CLEAR";
-            this.BtnClear.UseVisualStyleBackColor = false;
-            this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // lblNewEditAppointmentTitle
             // 
@@ -227,7 +214,6 @@ namespace WGU.AppointmentSystem.ViewModel
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(732, 624);
             this.Controls.Add(this.lblNewEditAppointmentTitle);
-            this.Controls.Add(this.BtnClear);
             this.Controls.Add(this.BtnCancel);
             this.Controls.Add(this.BtnSave);
             this.Controls.Add(this.panel1);
@@ -257,7 +243,6 @@ namespace WGU.AppointmentSystem.ViewModel
         private System.Windows.Forms.Label idLabel;
         private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.Button BtnCancel;
-        private System.Windows.Forms.Button BtnClear;
         private System.Windows.Forms.Label lblNewEditAppointmentTitle;
         private System.Windows.Forms.DateTimePicker dateTimePickerEndDate;
         private System.Windows.Forms.DateTimePicker dateTimePickerStartDate;
