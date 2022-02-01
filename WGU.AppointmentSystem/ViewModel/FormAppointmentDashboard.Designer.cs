@@ -278,6 +278,7 @@ namespace WGU.AppointmentSystem
             this.txtboxCustomerId.Name = "txtboxCustomerId";
             this.txtboxCustomerId.Size = new System.Drawing.Size(163, 26);
             this.txtboxCustomerId.TabIndex = 1;
+            this.txtboxCustomerId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtboxCustomerId_KeyPress);
             // 
             // RadioBtnDates
             // 

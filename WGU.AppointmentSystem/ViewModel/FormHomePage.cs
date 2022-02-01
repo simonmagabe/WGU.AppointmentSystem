@@ -34,6 +34,13 @@ namespace WGU.AppointmentSystem.ViewModel
         private void BtnExit_Click(object sender, System.EventArgs e)
         {
             new FormLogin().Show();
+
+            Utility.CustomersList.Clear();
+            Utility.AddressesList.Clear();
+            Utility.AppointmentsList.Clear();
+            Utility.CitiesList.Clear();
+            Utility.CountriesList.Clear();
+
             this.Close();
         }
 
@@ -68,7 +75,7 @@ namespace WGU.AppointmentSystem.ViewModel
             if (appointmentDueInFifteenMinutes.Count() > 0)
             {
                 Appointment appointmentDue = appointmentDueInFifteenMinutes.First();
-                string dueAppointmentMsgBoxTitle = "Upcoming Appointment";
+                string dueAppointmentMsgBoxTitle = "Upcoming Appointment Notification";
                 MessageBox.Show($"Upcoming Appointment: {Utility.CustomersList.Where(customer => customer.CUSTOMERID == appointmentDue.CUSTOMERID).Single().CUSTOMERNAME} at " +
                     $"{appointmentDue.STARTDATE.ToString("hh:mm tt")}.", dueAppointmentMsgBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using WGU.AppointmentSystem.Model;
@@ -21,6 +22,7 @@ namespace WGU.AppointmentSystem.ViewModel
         {
             InitializeComponent();
             SelectedAppointmentId = appoinmentId;
+            AppointmentDashboard = appointmentDashboard;
         }
 
         #region Event Listeners
@@ -62,16 +64,22 @@ namespace WGU.AppointmentSystem.ViewModel
                 DateTime selectedStartDateTime = dateTimePickerStartDate.Value;
                 DateTime selectedEndDateTime = dateTimePickerEndDate.Value;
 
-                foreach (Appointment appointment in Utility.AppointmentsList)
+                int userId = FormHomePage.LOGGGED_IN_USER.USERID;
+
+                BindingList<Appointment> appointmentByUserId = GetAppointmentsByUserId(userId);
+
+                foreach (Appointment appointment in appointmentByUserId)
                 {
-                    _ = (selectedStartDateTime >= appointment.STARTDATE && selectedStartDateTime < appointment.ENDDATE) ? 
-                        appointmentIsOverlapping = true : appointmentIsOverlapping = false;
+                    if (selectedStartDateTime >= appointment.STARTDATE && selectedStartDateTime < appointment.ENDDATE)
+                    {
+                        appointmentIsOverlapping = true;
+                    }
 
-                    _ = (selectedEndDateTime > appointment.STARTDATE && selectedEndDateTime <= appointment.ENDDATE) ?
-                        appointmentIsOverlapping = true : appointmentIsOverlapping = false;
+                    if (selectedEndDateTime > appointment.STARTDATE && selectedEndDateTime <= appointment.ENDDATE)
+                    {
+                        appointmentIsOverlapping = true;
+                    }
                 }
-
-                
 
                 if (selectedEndDateTime < selectedStartDateTime)
                 {
@@ -120,13 +128,19 @@ namespace WGU.AppointmentSystem.ViewModel
             }
         }
 
+        private BindingList<Appointment> GetAppointmentsByUserId(int userId)
+        {
+            return new BindingList<Appointment>(Utility.AppointmentsList.Where(appt => appt.USERID == userId).ToList());
+        }
+
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             DialogResult iCancel;
 
             try
             {
-                iCancel = MessageBox.Show("Are you sure you want to cancel?", "MySql Connector", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                string boxTitle = "Add/Edit Appointment";
+                iCancel = MessageBox.Show("Are you sure you want to cancel?", boxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (iCancel == DialogResult.Yes)
                 {
@@ -138,19 +152,6 @@ namespace WGU.AppointmentSystem.ViewModel
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void BtnClear_Click(object sender, EventArgs e)
-        {
-            ClearAppointmentForm();
-        }
-
-        private void ClearAppointmentForm()
-        {
-            txtBoxCustomerId.Text = "";
-            ComboBoxCustomer.SelectedItem = null;
-            ComboBoxAppointmentType.SelectedItem = null;
-            SetAppointmentDefaultDateTime();
         }
 
         #endregion
@@ -242,8 +243,6 @@ namespace WGU.AppointmentSystem.ViewModel
                         dateTimePickerEndDate.Value = openingBusinessHour.AddMinutes(30);
                     }
                 }
-
-                
             }
             catch (Exception exc)
             {

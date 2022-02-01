@@ -108,6 +108,7 @@ namespace WGU.AppointmentSystem
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(338, 38);
             this.txtPhone.TabIndex = 2;
+            this.txtPhone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPhone_KeyPress);
             // 
             // btnSave
             // 
