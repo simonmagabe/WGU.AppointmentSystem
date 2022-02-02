@@ -304,17 +304,19 @@ namespace WGU.AppointmentSystem.Model
             string currentTime = currentDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
             User user = FormHomePage.LOGGGED_IN_USER;
             string start = startDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
+            string end = endDateTime.ToUniversalTime().ToString("yy-MM-dd HH:mm:ss", DateTimeFormatInfo.InvariantInfo);
 
             string queryString = $"UPDATE appointment " +
                                  $"SET " +
-                                        $"customerId = {customerId}, " +
-                                        $"userId = {user.USERID}, " +
-                                        $"type = '{appointmentType}', " +
-                                        $"start = '{start}', " +
-                                        $"lastUpdate = '{currentTime}', " +
-                                        $"lastUpdateBy = '{user.USERNAME}' " +
+                                        $"customerId = { customerId }, " +
+                                        $"userId = { user.USERID }, " +
+                                        $"type = '{ appointmentType }', " +
+                                        $"start = '{ start }', " +
+                                        $"end = '{ end }', " +
+                                        $"lastUpdate = '{ currentTime }', " +
+                                        $"lastUpdateBy = '{ user.USERNAME }' " +
                                  $"WHERE " +
-                                        $"appointmentId = {appointment.APPOINTMENTID};";
+                                        $"appointmentId = { appointment.APPOINTMENTID };";
 
             ExecuteNonQueryOnDatabase(queryString);
 

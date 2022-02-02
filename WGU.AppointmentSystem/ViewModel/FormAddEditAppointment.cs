@@ -66,9 +66,9 @@ namespace WGU.AppointmentSystem.ViewModel
 
                 int userId = FormHomePage.LOGGGED_IN_USER.USERID;
 
-                BindingList<Appointment> appointmentByUserId = GetAppointmentsByUserId(userId);
+                BindingList<Appointment> appointmentsByUserId = GetAppointmentsByUserId(SelectedAppointmentId, userId);
 
-                foreach (Appointment appointment in appointmentByUserId)
+                foreach (Appointment appointment in appointmentsByUserId)
                 {
                     if (selectedStartDateTime >= appointment.STARTDATE && selectedStartDateTime < appointment.ENDDATE)
                     {
@@ -128,10 +128,10 @@ namespace WGU.AppointmentSystem.ViewModel
             }
         }
 
-        private BindingList<Appointment> GetAppointmentsByUserId(int userId)
+        private BindingList<Appointment> GetAppointmentsByUserId(int currentApptId, int userId)
         {
             // This lambda expression makes code concise, more readable, less code to do simple things
-            return new BindingList<Appointment>(Utility.AppointmentsList.Where(appt => appt.USERID == userId).ToList());
+            return new BindingList<Appointment>(Utility.AppointmentsList.Where(appt => appt.USERID == userId && appt.APPOINTMENTID != currentApptId).ToList());
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)

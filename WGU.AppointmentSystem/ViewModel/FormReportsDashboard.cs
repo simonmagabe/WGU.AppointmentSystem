@@ -157,10 +157,11 @@ namespace WGU.AppointmentSystem.ViewModel
             string queryString = $"SELECT MONTHNAME(end) AS Month, " +
                                         $"YEAR(end) AS Year, " +
                                         $"type AS 'Appt. Type', " +
-                                        $"COUNT(customerId) 'Total Appointments' " +
+                                        $"COUNT(type) 'Total Appointments' " +
                                  $"FROM client_schedule.appointment " +
                                  $"WHERE end >= '{ fromDate }' AND end <= '{ toDate }' " +
-                                 $"GROUP BY MONTH(end);";
+                                 $"GROUP BY MONTH(end), type " +
+                                 $"ORDER BY 1 ASC, 4 DESC;";
             return queryString;
         }
     }

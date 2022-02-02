@@ -89,7 +89,6 @@ namespace WGU.AppointmentSystem
                 if (RadioBtnDates.Checked)
                 {
                     PopulateAppoinmentsDataGrid();
-                    dataGridViewAppointments.ClearSelection();
                 }
                 else if (RadioBtnAppointmentType.Checked)
                 {
@@ -226,22 +225,20 @@ namespace WGU.AppointmentSystem
             }
         }
 
-        private DateTime GetStartOfCurrentMonth()
+        private DateTime GetStartOfCurrentMonth(DateTime currentDateTime)
         {
-            return DateTime.Today.AddDays(1 - DateTime.Today.Day);
+            return new DateTime(currentDateTime.Year, currentDateTime.Month, 1);
         }
 
-        private DateTime GetEndOfCurrentMonth()
+        private DateTime GetEndOfCurrentMonth(DateTime currentDateTime)
         {
-            DateTime today = DateTime.Now;
-            int DaysInMonth = DateTime.DaysInMonth(today.Year, today.Month);
-            return new DateTime(today.Year, today.Month, DaysInMonth);
+            return GetStartOfCurrentMonth(currentDateTime).AddMonths(1).AddMilliseconds(-1);
         }
 
         internal void SetDefaultAppointmentSearchDates()
         {
-            DateTimePickerStartDate.Value = GetStartOfCurrentMonth();
-            DateTimePickerEndDate.Value = GetEndOfCurrentMonth();
+            DateTimePickerStartDate.Value = GetStartOfCurrentMonth(DateTime.Now);
+            DateTimePickerEndDate.Value = GetEndOfCurrentMonth(DateTime.Now);
         }
 
         private void SetAppointmentsGridTitleLabelText()
@@ -286,12 +283,15 @@ namespace WGU.AppointmentSystem
 
             if (RadioBtnDates.Checked)
             {
-                SetDefaultAppointmentSearchDates();
-
                 DateTime startDate = DateTimePickerStartDate.Value;
                 DateTime endDate = DateTimePickerEndDate.Value;
 
-                ValidateAppoinmentSearchDates(startDate, endDate);
+                if (endDate < startDate)
+                {
+                    string errorMessage = $"End Date [{endDate}] Selected MUST be GREATER than Start Date [{startDate}] Selected.";
+                    MessageBox.Show(errorMessage, "Appointment Search", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
 
                 BindingList<Appointment> appointmentsByDates = GetAppointmentsByDates(startDate, endDate, userId);
 
@@ -299,7 +299,6 @@ namespace WGU.AppointmentSystem
                 {
                     string message = $"No Appointments were found for time period [{startDate} - {endDate}]";
                     MessageBox.Show(message, "Appointments Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
                 }
                 dataGridViewAppointments.DataSource = appointmentsByDates;
             }
