@@ -37,7 +37,6 @@ namespace WGU.AppointmentSystem
             this.splitContainerUserRecords = new System.Windows.Forms.SplitContainer();
             this.comboBoxCountry = new System.Windows.Forms.ComboBox();
             this.comboBoxCity = new System.Windows.Forms.ComboBox();
-            this.lblUserInfoTitle = new System.Windows.Forms.Label();
             this.lblCustomerId = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -56,7 +55,6 @@ namespace WGU.AppointmentSystem
             this.BtnUpdateCustomer = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridViewCustomers = new System.Windows.Forms.DataGridView();
-            this.btnExit = new System.Windows.Forms.Button();
             this.btnBackToHome = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerUserRecords)).BeginInit();
             this.splitContainerUserRecords.Panel1.SuspendLayout();
@@ -71,7 +69,7 @@ namespace WGU.AppointmentSystem
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.label1.Location = new System.Drawing.Point(259, 22);
+            this.label1.Location = new System.Drawing.Point(260, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(306, 33);
             this.label1.TabIndex = 0;
@@ -81,7 +79,7 @@ namespace WGU.AppointmentSystem
             // 
             this.lblCustomerName.AutoSize = true;
             this.lblCustomerName.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lblCustomerName.Location = new System.Drawing.Point(43, 107);
+            this.lblCustomerName.Location = new System.Drawing.Point(44, 63);
             this.lblCustomerName.Name = "lblCustomerName";
             this.lblCustomerName.Size = new System.Drawing.Size(139, 23);
             this.lblCustomerName.TabIndex = 1;
@@ -92,7 +90,7 @@ namespace WGU.AppointmentSystem
             this.txtCustomerName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtCustomerName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCustomerName.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCustomerName.Location = new System.Drawing.Point(197, 102);
+            this.txtCustomerName.Location = new System.Drawing.Point(198, 58);
             this.txtCustomerName.Multiline = true;
             this.txtCustomerName.Name = "txtCustomerName";
             this.txtCustomerName.Size = new System.Drawing.Size(338, 36);
@@ -103,7 +101,7 @@ namespace WGU.AppointmentSystem
             this.txtPhone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtPhone.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPhone.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPhone.Location = new System.Drawing.Point(197, 144);
+            this.txtPhone.Location = new System.Drawing.Point(198, 100);
             this.txtPhone.Multiline = true;
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(338, 38);
@@ -118,7 +116,7 @@ namespace WGU.AppointmentSystem
             this.btnSave.FlatAppearance.BorderSize = 2;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnSave.Location = new System.Drawing.Point(286, 430);
+            this.btnSave.Location = new System.Drawing.Point(290, 365);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(118, 44);
             this.btnSave.TabIndex = 4;
@@ -137,7 +135,6 @@ namespace WGU.AppointmentSystem
             this.splitContainerUserRecords.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.splitContainerUserRecords.Panel1.Controls.Add(this.comboBoxCountry);
             this.splitContainerUserRecords.Panel1.Controls.Add(this.comboBoxCity);
-            this.splitContainerUserRecords.Panel1.Controls.Add(this.lblUserInfoTitle);
             this.splitContainerUserRecords.Panel1.Controls.Add(this.lblCustomerId);
             this.splitContainerUserRecords.Panel1.Controls.Add(this.btnClear);
             this.splitContainerUserRecords.Panel1.Controls.Add(this.btnCancel);
@@ -161,8 +158,9 @@ namespace WGU.AppointmentSystem
             this.splitContainerUserRecords.Panel2.BackColor = System.Drawing.Color.Lavender;
             this.splitContainerUserRecords.Panel2.Controls.Add(this.BtnDeleteCustomer);
             this.splitContainerUserRecords.Panel2.Controls.Add(this.BtnAddNewCustomer);
+            this.splitContainerUserRecords.Panel2.Controls.Add(this.btnBackToHome);
             this.splitContainerUserRecords.Panel2.Controls.Add(this.BtnUpdateCustomer);
-            this.splitContainerUserRecords.Size = new System.Drawing.Size(827, 496);
+            this.splitContainerUserRecords.Size = new System.Drawing.Size(827, 422);
             this.splitContainerUserRecords.SplitterDistance = 583;
             this.splitContainerUserRecords.TabIndex = 6;
             // 
@@ -170,7 +168,7 @@ namespace WGU.AppointmentSystem
             // 
             this.comboBoxCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCountry.FormattingEnabled = true;
-            this.comboBoxCountry.Location = new System.Drawing.Point(197, 359);
+            this.comboBoxCountry.Location = new System.Drawing.Point(198, 315);
             this.comboBoxCountry.Name = "comboBoxCountry";
             this.comboBoxCountry.Size = new System.Drawing.Size(338, 31);
             this.comboBoxCountry.TabIndex = 7;
@@ -179,27 +177,16 @@ namespace WGU.AppointmentSystem
             // 
             this.comboBoxCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCity.FormattingEnabled = true;
-            this.comboBoxCity.Location = new System.Drawing.Point(197, 276);
+            this.comboBoxCity.Location = new System.Drawing.Point(198, 232);
             this.comboBoxCity.Name = "comboBoxCity";
             this.comboBoxCity.Size = new System.Drawing.Size(338, 31);
             this.comboBoxCity.TabIndex = 6;
-            // 
-            // lblUserInfoTitle
-            // 
-            this.lblUserInfoTitle.AutoSize = true;
-            this.lblUserInfoTitle.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserInfoTitle.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lblUserInfoTitle.Location = new System.Drawing.Point(209, 9);
-            this.lblUserInfoTitle.Name = "lblUserInfoTitle";
-            this.lblUserInfoTitle.Size = new System.Drawing.Size(156, 28);
-            this.lblUserInfoTitle.TabIndex = 5;
-            this.lblUserInfoTitle.Text = "Customer Form";
             // 
             // lblCustomerId
             // 
             this.lblCustomerId.AutoSize = true;
             this.lblCustomerId.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lblCustomerId.Location = new System.Drawing.Point(72, 65);
+            this.lblCustomerId.Location = new System.Drawing.Point(73, 21);
             this.lblCustomerId.Name = "lblCustomerId";
             this.lblCustomerId.Size = new System.Drawing.Size(110, 23);
             this.lblCustomerId.TabIndex = 1;
@@ -213,7 +200,7 @@ namespace WGU.AppointmentSystem
             this.btnClear.FlatAppearance.BorderSize = 2;
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnClear.Location = new System.Drawing.Point(428, 430);
+            this.btnClear.Location = new System.Drawing.Point(432, 365);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(107, 44);
             this.btnClear.TabIndex = 4;
@@ -229,7 +216,7 @@ namespace WGU.AppointmentSystem
             this.btnCancel.FlatAppearance.BorderSize = 2;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnCancel.Location = new System.Drawing.Point(144, 430);
+            this.btnCancel.Location = new System.Drawing.Point(148, 365);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(118, 44);
             this.btnCancel.TabIndex = 4;
@@ -241,7 +228,7 @@ namespace WGU.AppointmentSystem
             // 
             this.lblCountry.AutoSize = true;
             this.lblCountry.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lblCountry.Location = new System.Drawing.Point(107, 367);
+            this.lblCountry.Location = new System.Drawing.Point(108, 323);
             this.lblCountry.Name = "lblCountry";
             this.lblCountry.Size = new System.Drawing.Size(75, 23);
             this.lblCountry.TabIndex = 1;
@@ -251,7 +238,7 @@ namespace WGU.AppointmentSystem
             // 
             this.lblZip.AutoSize = true;
             this.lblZip.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lblZip.Location = new System.Drawing.Point(146, 324);
+            this.lblZip.Location = new System.Drawing.Point(147, 280);
             this.lblZip.Name = "lblZip";
             this.lblZip.Size = new System.Drawing.Size(36, 23);
             this.lblZip.TabIndex = 1;
@@ -261,7 +248,7 @@ namespace WGU.AppointmentSystem
             // 
             this.lblCity.AutoSize = true;
             this.lblCity.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lblCity.Location = new System.Drawing.Point(140, 280);
+            this.lblCity.Location = new System.Drawing.Point(141, 236);
             this.lblCity.Name = "lblCity";
             this.lblCity.Size = new System.Drawing.Size(42, 23);
             this.lblCity.TabIndex = 1;
@@ -271,7 +258,7 @@ namespace WGU.AppointmentSystem
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.GhostWhite;
-            this.label2.Location = new System.Drawing.Point(124, 193);
+            this.label2.Location = new System.Drawing.Point(125, 149);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 23);
             this.label2.TabIndex = 1;
@@ -281,7 +268,7 @@ namespace WGU.AppointmentSystem
             // 
             this.lblStreet2.AutoSize = true;
             this.lblStreet2.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lblStreet2.Location = new System.Drawing.Point(109, 237);
+            this.lblStreet2.Location = new System.Drawing.Point(110, 193);
             this.lblStreet2.Name = "lblStreet2";
             this.lblStreet2.Size = new System.Drawing.Size(73, 23);
             this.lblStreet2.TabIndex = 1;
@@ -293,7 +280,7 @@ namespace WGU.AppointmentSystem
             this.txtCustomerId.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCustomerId.Enabled = false;
             this.txtCustomerId.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCustomerId.Location = new System.Drawing.Point(197, 60);
+            this.txtCustomerId.Location = new System.Drawing.Point(198, 16);
             this.txtCustomerId.Multiline = true;
             this.txtCustomerId.Name = "txtCustomerId";
             this.txtCustomerId.ReadOnly = true;
@@ -304,7 +291,7 @@ namespace WGU.AppointmentSystem
             // 
             this.lblPhone.AutoSize = true;
             this.lblPhone.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lblPhone.Location = new System.Drawing.Point(123, 149);
+            this.lblPhone.Location = new System.Drawing.Point(124, 105);
             this.lblPhone.Name = "lblPhone";
             this.lblPhone.Size = new System.Drawing.Size(59, 23);
             this.lblPhone.TabIndex = 1;
@@ -315,7 +302,7 @@ namespace WGU.AppointmentSystem
             this.txtZipCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtZipCode.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtZipCode.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtZipCode.Location = new System.Drawing.Point(197, 313);
+            this.txtZipCode.Location = new System.Drawing.Point(198, 269);
             this.txtZipCode.Multiline = true;
             this.txtZipCode.Name = "txtZipCode";
             this.txtZipCode.Size = new System.Drawing.Size(338, 38);
@@ -326,7 +313,7 @@ namespace WGU.AppointmentSystem
             this.txtStreet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtStreet.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtStreet.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStreet.Location = new System.Drawing.Point(197, 188);
+            this.txtStreet.Location = new System.Drawing.Point(198, 144);
             this.txtStreet.Multiline = true;
             this.txtStreet.Name = "txtStreet";
             this.txtStreet.Size = new System.Drawing.Size(338, 38);
@@ -337,7 +324,7 @@ namespace WGU.AppointmentSystem
             this.txtStreet2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtStreet2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtStreet2.Font = new System.Drawing.Font("MS UI Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStreet2.Location = new System.Drawing.Point(197, 232);
+            this.txtStreet2.Location = new System.Drawing.Point(198, 188);
             this.txtStreet2.Multiline = true;
             this.txtStreet2.Name = "txtStreet2";
             this.txtStreet2.Size = new System.Drawing.Size(338, 38);
@@ -396,9 +383,9 @@ namespace WGU.AppointmentSystem
             this.panel1.BackColor = System.Drawing.Color.LightCyan;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.dataGridViewCustomers);
-            this.panel1.Location = new System.Drawing.Point(12, 571);
+            this.panel1.Location = new System.Drawing.Point(14, 486);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(825, 253);
+            this.panel1.Size = new System.Drawing.Size(825, 186);
             this.panel1.TabIndex = 7;
             // 
             // dataGridViewCustomers
@@ -408,7 +395,7 @@ namespace WGU.AppointmentSystem
             this.dataGridViewCustomers.AllowUserToResizeColumns = false;
             this.dataGridViewCustomers.AllowUserToResizeRows = false;
             this.dataGridViewCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCustomers.Location = new System.Drawing.Point(22, 25);
+            this.dataGridViewCustomers.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewCustomers.MultiSelect = false;
             this.dataGridViewCustomers.Name = "dataGridViewCustomers";
             this.dataGridViewCustomers.ReadOnly = true;
@@ -416,25 +403,9 @@ namespace WGU.AppointmentSystem
             this.dataGridViewCustomers.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewCustomers.RowTemplate.Height = 24;
             this.dataGridViewCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCustomers.Size = new System.Drawing.Size(783, 204);
+            this.dataGridViewCustomers.Size = new System.Drawing.Size(817, 173);
             this.dataGridViewCustomers.TabIndex = 0;
             this.dataGridViewCustomers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewCustomers_CellClick);
-            // 
-            // btnExit
-            // 
-            this.btnExit.BackColor = System.Drawing.Color.Transparent;
-            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnExit.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnExit.FlatAppearance.BorderSize = 2;
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnExit.Location = new System.Drawing.Point(162, 840);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(194, 44);
-            this.btnExit.TabIndex = 4;
-            this.btnExit.Text = "EXIT APPLICATION";
-            this.btnExit.UseVisualStyleBackColor = false;
-            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // btnBackToHome
             // 
@@ -444,9 +415,9 @@ namespace WGU.AppointmentSystem
             this.btnBackToHome.FlatAppearance.BorderSize = 2;
             this.btnBackToHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBackToHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnBackToHome.Location = new System.Drawing.Point(490, 840);
+            this.btnBackToHome.Location = new System.Drawing.Point(24, 365);
             this.btnBackToHome.Name = "btnBackToHome";
-            this.btnBackToHome.Size = new System.Drawing.Size(168, 44);
+            this.btnBackToHome.Size = new System.Drawing.Size(195, 44);
             this.btnBackToHome.TabIndex = 4;
             this.btnBackToHome.Text = "< BACK TO HOME";
             this.btnBackToHome.UseVisualStyleBackColor = false;
@@ -457,11 +428,9 @@ namespace WGU.AppointmentSystem
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
-            this.ClientSize = new System.Drawing.Size(849, 896);
+            this.ClientSize = new System.Drawing.Size(849, 688);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitContainerUserRecords);
-            this.Controls.Add(this.btnBackToHome);
-            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Nirmala UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(165)))), ((int)(((byte)(169)))));
@@ -501,10 +470,8 @@ namespace WGU.AppointmentSystem
         private System.Windows.Forms.TextBox txtStreet2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Label lblUserInfoTitle;
         private System.Windows.Forms.Button BtnDeleteCustomer;
         private System.Windows.Forms.Button BtnUpdateCustomer;
-        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnBackToHome;
         private System.Windows.Forms.DataGridView dataGridViewCustomers;
         private System.Windows.Forms.Label lblCustomerId;

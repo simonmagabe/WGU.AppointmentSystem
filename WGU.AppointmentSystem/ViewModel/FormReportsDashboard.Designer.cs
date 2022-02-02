@@ -202,7 +202,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.BtnBackToHome.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SkyBlue;
             this.BtnBackToHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnBackToHome.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnBackToHome.Location = new System.Drawing.Point(692, 570);
+            this.BtnBackToHome.Location = new System.Drawing.Point(571, 530);
             this.BtnBackToHome.Name = "BtnBackToHome";
             this.BtnBackToHome.Size = new System.Drawing.Size(217, 50);
             this.BtnBackToHome.TabIndex = 3;
@@ -215,7 +215,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(1366, 652);
+            this.ClientSize = new System.Drawing.Size(1366, 586);
             this.Controls.Add(this.BtnBackToHome);
             this.Controls.Add(this.lblReportsSubTitle);
             this.Controls.Add(this.lblReportsTitle);

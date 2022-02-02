@@ -212,7 +212,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
-            this.ClientSize = new System.Drawing.Size(732, 624);
+            this.ClientSize = new System.Drawing.Size(732, 573);
             this.Controls.Add(this.lblNewEditAppointmentTitle);
             this.Controls.Add(this.BtnCancel);
             this.Controls.Add(this.BtnSave);
