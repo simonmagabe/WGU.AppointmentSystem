@@ -99,6 +99,9 @@ namespace WGU.AppointmentSystem
                         // Log the activity here
                         UserActivity.UserLoginActivity(loggedInUser[0]);
 
+                        string loginMessage = $"Login Successful! Welcome Back {loggedInUser[0].USERNAME.ToUpper()}";
+                        MessageBox.Show(loginMessage, "Login Page", MessageBoxButtons.OK);
+
                         new FormHomePage(loggedInUser[0]).Show();
                         this.Hide();
                     }
