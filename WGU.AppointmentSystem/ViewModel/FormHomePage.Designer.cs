@@ -189,7 +189,7 @@ namespace WGU.AppointmentSystem.ViewModel
             // 
             this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExit.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(283, 722);
+            this.btnExit.Location = new System.Drawing.Point(283, 674);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(159, 56);
             this.btnExit.TabIndex = 1;
@@ -202,7 +202,7 @@ namespace WGU.AppointmentSystem.ViewModel
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
-            this.ClientSize = new System.Drawing.Size(727, 837);
+            this.ClientSize = new System.Drawing.Size(727, 745);
             this.Controls.Add(this.panelFeatures);
             this.Controls.Add(this.lblHome);
             this.Controls.Add(this.btnExit);

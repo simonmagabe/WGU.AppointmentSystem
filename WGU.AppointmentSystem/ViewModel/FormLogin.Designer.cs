@@ -177,7 +177,7 @@ namespace WGU.AppointmentSystem
             this.btnExitApp.FlatAppearance.BorderSize = 2;
             this.btnExitApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExitApp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnExitApp.Location = new System.Drawing.Point(250, 621);
+            this.btnExitApp.Location = new System.Drawing.Point(250, 573);
             this.btnExitApp.Name = "btnExitApp";
             this.btnExitApp.Size = new System.Drawing.Size(270, 44);
             this.btnExitApp.TabIndex = 26;
@@ -191,7 +191,7 @@ namespace WGU.AppointmentSystem
             this.lblErrorMessage.ForeColor = System.Drawing.Color.Red;
             this.lblErrorMessage.Location = new System.Drawing.Point(156, 547);
             this.lblErrorMessage.Name = "lblErrorMessage";
-            this.lblErrorMessage.Size = new System.Drawing.Size(629, 29);
+            this.lblErrorMessage.Size = new System.Drawing.Size(503, 23);
             this.lblErrorMessage.TabIndex = 28;
             this.lblErrorMessage.Text = "This is error message will be displayed if an exception occurs!";
             // 
@@ -200,7 +200,7 @@ namespace WGU.AppointmentSystem
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
-            this.ClientSize = new System.Drawing.Size(786, 768);
+            this.ClientSize = new System.Drawing.Size(786, 660);
             this.Controls.Add(this.lblErrorMessage);
             this.Controls.Add(this.btnExitApp);
             this.Controls.Add(this.btnClearForm);

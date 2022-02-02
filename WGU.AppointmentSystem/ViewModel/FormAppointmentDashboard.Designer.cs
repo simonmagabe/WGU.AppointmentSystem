@@ -98,7 +98,7 @@ namespace WGU.AppointmentSystem
             this.dataGridViewAppointments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewAppointments.RowTemplate.Height = 24;
             this.dataGridViewAppointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAppointments.Size = new System.Drawing.Size(937, 226);
+            this.dataGridViewAppointments.Size = new System.Drawing.Size(937, 196);
             this.dataGridViewAppointments.TabIndex = 0;
             // 
             // BtnEditAppointment
@@ -106,7 +106,7 @@ namespace WGU.AppointmentSystem
             this.BtnEditAppointment.BackColor = System.Drawing.Color.PowderBlue;
             this.BtnEditAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnEditAppointment.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEditAppointment.Location = new System.Drawing.Point(448, 707);
+            this.BtnEditAppointment.Location = new System.Drawing.Point(449, 662);
             this.BtnEditAppointment.Name = "BtnEditAppointment";
             this.BtnEditAppointment.Size = new System.Drawing.Size(97, 45);
             this.BtnEditAppointment.TabIndex = 2;
@@ -119,7 +119,7 @@ namespace WGU.AppointmentSystem
             this.BtnNewAppointment.BackColor = System.Drawing.Color.PowderBlue;
             this.BtnNewAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnNewAppointment.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnNewAppointment.Location = new System.Drawing.Point(302, 707);
+            this.BtnNewAppointment.Location = new System.Drawing.Point(303, 662);
             this.BtnNewAppointment.Name = "BtnNewAppointment";
             this.BtnNewAppointment.Size = new System.Drawing.Size(121, 45);
             this.BtnNewAppointment.TabIndex = 1;
@@ -132,7 +132,7 @@ namespace WGU.AppointmentSystem
             this.BtnDeleteAppointment.BackColor = System.Drawing.Color.PowderBlue;
             this.BtnDeleteAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnDeleteAppointment.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteAppointment.Location = new System.Drawing.Point(565, 707);
+            this.BtnDeleteAppointment.Location = new System.Drawing.Point(566, 662);
             this.BtnDeleteAppointment.Name = "BtnDeleteAppointment";
             this.BtnDeleteAppointment.Size = new System.Drawing.Size(109, 45);
             this.BtnDeleteAppointment.TabIndex = 3;
@@ -165,7 +165,7 @@ namespace WGU.AppointmentSystem
             this.btnBackToHome.BackColor = System.Drawing.Color.Lavender;
             this.btnBackToHome.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBackToHome.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.btnBackToHome.Location = new System.Drawing.Point(770, 785);
+            this.btnBackToHome.Location = new System.Drawing.Point(771, 693);
             this.btnBackToHome.Name = "btnBackToHome";
             this.btnBackToHome.Size = new System.Drawing.Size(220, 51);
             this.btnBackToHome.TabIndex = 2;
@@ -178,7 +178,7 @@ namespace WGU.AppointmentSystem
             this.btnExitApp.BackColor = System.Drawing.Color.Lavender;
             this.btnExitApp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExitApp.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.btnExitApp.Location = new System.Drawing.Point(53, 785);
+            this.btnExitApp.Location = new System.Drawing.Point(54, 693);
             this.btnExitApp.Name = "btnExitApp";
             this.btnExitApp.Size = new System.Drawing.Size(147, 51);
             this.btnExitApp.TabIndex = 1;
@@ -341,7 +341,7 @@ namespace WGU.AppointmentSystem
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
-            this.ClientSize = new System.Drawing.Size(1034, 851);
+            this.ClientSize = new System.Drawing.Size(1034, 769);
             this.Controls.Add(this.lblAppointmentTableTitle);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnExitApp);
