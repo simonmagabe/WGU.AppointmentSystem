@@ -15,8 +15,8 @@ namespace DataModel
         public MySqlDataReader SqlDataReader;
 
         public static readonly string server = "localhost";
-        public static readonly string username = "sqlUser";
-        public static readonly string password = "Passw0rd!";
+        public static readonly string username = "root";
+        public static readonly string password = "root";
         public static readonly string database = "client_schedule";
         public static readonly string sqlConnectionString = "server=" + server + ";" + "user id=" + username + ";" + "password=" + password + ";" + "database=" + database;
 

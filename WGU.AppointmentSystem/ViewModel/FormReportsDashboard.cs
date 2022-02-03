@@ -161,7 +161,7 @@ namespace WGU.AppointmentSystem.ViewModel
                                  $"FROM client_schedule.appointment " +
                                  $"WHERE end >= '{ fromDate }' AND end <= '{ toDate }' " +
                                  $"GROUP BY MONTH(end), type " +
-                                 $"ORDER BY 1 ASC, 4 DESC;";
+                                 $"ORDER BY 2 ASC, 1 ASC, 4 DESC;";
             return queryString;
         }
     }
