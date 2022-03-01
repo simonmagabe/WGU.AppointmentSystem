@@ -10,6 +10,8 @@ namespace WGU.AppointmentSystem
     public partial class FormAppointmentDashboard : Form
     {
         private Form HomePage;
+        public Utility Utility = new Utility();
+
         public FormAppointmentDashboard(Form homePage)
         {
             InitializeComponent();

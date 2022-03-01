@@ -11,6 +11,7 @@ namespace WGU.AppointmentSystem
     public partial class FormCustomerRecords : Form
     {
         private Form HomePage;
+        public Utility Utility = new Utility();
 
         public FormCustomerRecords(Form homepage)
         {
@@ -91,7 +92,7 @@ namespace WGU.AppointmentSystem
             }
         }
 
-        private void NoRowSelectectedWarning(string action)
+        public void NoRowSelectectedWarning(string action)
         {
             int rowCount = dataGridViewCustomers.SelectedRows.Count;
             string warningMessage = $"Please, select a record below to {action}!";
@@ -155,11 +156,16 @@ namespace WGU.AppointmentSystem
                 int cityId = int.Parse(comboBoxCity.SelectedValue.ToString());
                 int customerId;
                 string signedInUser = FormHomePage.LOGGGED_IN_USER.USERNAME;
+                DateTime currentDateTime = DateTime.Now;
+                int active = 1;
+
 
                 if (txtCustomerId.Text == "")
                 {
                     int addressId = Utility.AddAddress(streetAddress1, streetAddress2, cityId, zipCode, phone, signedInUser);
-                    customerId = Utility.AddCustomer(name, addressId, signedInUser);
+                    Customer newCustomer = new Customer(name, addressId, active, currentDateTime, signedInUser, currentDateTime, signedInUser);
+                    customerId = Utility.AddCustomer(newCustomer);
+                    
                     txtCustomerId.Text = customerId.ToString().Trim();
 
                     ToggleCustomerInputsAbility(false);

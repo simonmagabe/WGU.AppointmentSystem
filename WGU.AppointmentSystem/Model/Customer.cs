@@ -4,14 +4,14 @@ namespace WGU.AppointmentSystem.Model
 {
     public class Customer
     {
-        public int CUSTOMERID { get; set; }
-        public string CUSTOMERNAME { get; set; }
-        public int ADDRESSID { get; set; }
-        public byte ACTIVE { get; set; }
-        public DateTime CREATEDDATE { get; set; }
-        public string CREATEDBY { get; set; }
-        public DateTime LASTUPDATED { get; set; }
-        public string LASTUPDATEDBY { get; set; }
+        public virtual int CUSTOMERID { get; set; }
+        public virtual string CUSTOMERNAME { get; set; }
+        public virtual int ADDRESSID { get; set; }
+        public virtual byte ACTIVE { get; set; }
+        public virtual DateTime CREATEDDATE { get; set; }
+        public virtual string CREATEDBY { get; set; }
+        public virtual DateTime LASTUPDATED { get; set; }
+        public virtual string LASTUPDATEDBY { get; set; }
         private static int count = 0;
 
         public Customer(int customerId, string customerName, int addressId, int active, DateTime createDate, string createdBy, DateTime lastUpdated, string lastUpdateBy)
@@ -38,6 +38,11 @@ namespace WGU.AppointmentSystem.Model
             CREATEDBY = createdBy;
             LASTUPDATED = lastUpdated;
             LASTUPDATEDBY = lastUpdatedBy;
+        }
+
+        public Customer()
+        {
+
         }
     }
 }

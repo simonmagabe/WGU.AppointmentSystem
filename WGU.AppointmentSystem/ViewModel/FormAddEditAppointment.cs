@@ -11,6 +11,7 @@ namespace WGU.AppointmentSystem.ViewModel
     {
         private int SelectedAppointmentId = -1;
         private FormAppointmentDashboard AppointmentDashboard;
+        public Utility Utility = new Utility();
 
         public FormAddEditAppointment(FormAppointmentDashboard appointmentDashboard)
         {
